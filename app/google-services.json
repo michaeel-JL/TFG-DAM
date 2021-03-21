@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "137980181842",
-    "project_id": "medic-dc1b5",
-    "storage_bucket": "medic-dc1b5.appspot.com"
+    "project_number": "323270051256",
+    "project_id": "proyecto-dam-f26c5",
+    "storage_bucket": "proyecto-dam-f26c5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:137980181842:android:92877f46ef64151ddf0e8b",
+        "mobilesdk_app_id": "1:323270051256:android:fb27a9db25786a92b37b4d",
         "android_client_info": {
-          "package_name": "com.example.medic"
+          "package_name": "com.example.proyectodam"
         }
       },
       "oauth_client": [
         {
-          "client_id": "137980181842-pcuhotfi5pg5f2h114p52lcqmsh1imlj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.medic",
-            "certificate_hash": "15fc35bdb7176a0964a08f4aeee3b7fd91a8e166"
-          }
-        },
-        {
-          "client_id": "137980181842-bfnjoq6kirfrro1pjmhpvj20t0enemvm.apps.googleusercontent.com",
+          "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAWE_tdtk454N6UudNEnWDpokyRU1fphg8"
+          "current_key": "AIzaSyBYOmZa8udXZU8-ejp6gzM8zhvD4Utrc8U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "137980181842-bfnjoq6kirfrro1pjmhpvj20t0enemvm.apps.googleusercontent.com",
+              "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

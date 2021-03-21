@@ -28,9 +28,4 @@
         app:itemTextColor="@color/white"
         app:menu="@menu/menu"/>
 
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

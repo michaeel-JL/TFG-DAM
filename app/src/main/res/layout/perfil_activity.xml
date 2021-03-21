@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.PerfilFragment">
+    tools:context=".Activities.PacienteActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -24,22 +24,27 @@
                 android:background="@drawable/gradient"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imagenPerfil"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="45dp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"/>
+
 
                 <TextView
+                    android:id="@+id/textUsuario"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="15dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Wiliam Snoe"
-                    android:textColor="#fff"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
+                    />
+
+
+
             </LinearLayout>
 
         </RelativeLayout>
@@ -60,12 +65,13 @@
                     android:layout_height="36dp"
                     android:src="@drawable/ic_edad"/>
                 <TextView
+                    android:id="@+id/textEdad"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
-                    android:text="Wiliam@gmail.com"/>
+                   />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="25dp"
@@ -78,13 +84,13 @@
                     android:layout_height="36dp"
                     android:src="@drawable/ic_email"/>
                 <TextView
+                    android:id="@+id/textEmail"
                     android:textStyle="bold"
-
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
-                    android:text="+266 225 225"/>
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginTop="25dp"
