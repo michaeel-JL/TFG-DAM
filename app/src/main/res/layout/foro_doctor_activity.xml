@@ -12,7 +12,7 @@
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recyclerForo"
+        android:id="@+id/recyclerForo2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Splash.Activities.MainActivity">
@@ -36,6 +36,6 @@
         app:itemIconTint="@color/white"
 
         app:itemTextColor="@color/white"
-        app:menu="@menu/menu"/>
+        app:menu="@menu/menu_doctor"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

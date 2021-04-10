@@ -11,13 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectodam.Models.Chats;
+import com.example.proyectodam.Models.Usuarios;
 import com.example.proyectodam.R;
 import com.example.proyectodam.Models.Chats;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ForoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ForoAdapter extends  RecyclerView.Adapter<ForoAdapter.ViewHolder> {
 
     private Context context;
     private List<Chats> chats;
@@ -26,15 +27,7 @@ public class ForoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private OnButtonClickListener btnClickListener;
 
 
-    public ForoAdapter() {
-    }
-
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
-
-    public ForoAdapter(List<Chats> chats, int layout, OnItemClickListener itemListener, OnButtonClickListener btnListener) {
+    public ForoAdapter(List<Chats> chats, int layout, ForoAdapter.OnItemClickListener itemListener, ForoAdapter.OnButtonClickListener btnListener) {
         this.chats = chats;
         this.layout = layout;
         this.itemClickListener = itemListener;
@@ -43,33 +36,41 @@ public class ForoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ForoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         context = parent.getContext();
-        RecyclerView.ViewHolder vh = new ViewHolder(v);
+        ForoAdapter.ViewHolder vh = new ForoAdapter.ViewHolder(v);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(ForoAdapter.ViewHolder holder, int position) {
+        holder.bind(chats.get(position), itemClickListener, btnClickListener);
+    }
 
+    @Override
+    public int getItemCount() {
+        return chats.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView name;
+        public TextView titulo;
+        public TextView description;
         public ImageView image;
 
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.textViewTitle);
+            titulo = (TextView) itemView.findViewById(R.id.textViewTitle);
+            description=(TextView) itemView.findViewById(R.id.textViewDescription);
             image = (ImageView) itemView.findViewById(R.id.imageChat);
         }
 
         public void bind(final Chats chats, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
-            name.setText(chats.getTitulo());
+            titulo.setText(chats.getTitulo());
+            description.setText(chats.getDescription());
             Picasso.get().load(chats.getImage()).fit().into(image);
 
 

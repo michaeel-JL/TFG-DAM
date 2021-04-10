@@ -1,5 +1,6 @@
 package com.example.proyectodam.Activities;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,14 +34,13 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SignUpActivity extends AppCompatActivity {
-    private EditText editEmail, editNombreUsuario, editEdad, editContraseña, editRepetirContraseña;
-    private ToggleButton togglerol;
+public class SignUpAdmin extends AppCompatActivity {
+    private EditText editEmail, editNombreUsuario, editEdad, editContraseña, editRepetirContraseña, passAdmin;
     private CircleImageView imageProfile;
-    private Button botonRegistrar, botonLogin;
+    private Button botonRegistrar;
     private TextView botonAñadirFoto;
-    private String email, nombreUsuario, edad, contraseña, repetirContraseña, stringFoto;
-    private String rol="paciente";
+    private String email, nombreUsuario, edad, contraseña, repetirContraseña, stringFoto, passwordAdmin;
+    private String rol="admin";
     private String recordar = "false";
     //PARA LA FOTO DE PERFIL
     private static final int GALLERY_INTENT = 1;
@@ -53,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up_activity);
+        setContentView(R.layout.sign_up_admin);
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -62,14 +62,15 @@ public class SignUpActivity extends AppCompatActivity {
         editEdad = (EditText) findViewById(R.id.sign_Edad);
         editContraseña = (EditText) findViewById(R.id.sign_input_password);
         editRepetirContraseña = (EditText) findViewById(R.id.sign_input_password_repetir);
-        togglerol=(ToggleButton)findViewById(R.id.toggleButtonRol);
         imageProfile = (CircleImageView) findViewById(R.id.sign_profile_image);
         botonAñadirFoto = (TextView) findViewById(R.id.sign_image_profile_btn);
+        passAdmin=findViewById(R.id.password_admin);
+
         botonAñadirFoto.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
                 CropImage.activity(uri).setAspectRatio(1, 1)
-                        .start(com.example.proyectodam.Activities.SignUpActivity.this);
+                        .start(com.example.proyectodam.Activities.SignUpAdmin.this);
             }
         });
 
@@ -79,35 +80,22 @@ public class SignUpActivity extends AppCompatActivity {
         botonRegistrar.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                registrarUsuario();
+                String pass="1234";
+                String passAdmins= String.valueOf(passAdmin.getText());
+                if(passAdmins.equals(pass)){
+                    registrarUsuario();
+                }else{
+                    Toast.makeText(getApplication(), "Contraseña de admin incorrecta", Toast.LENGTH_SHORT).show();
 
-            }
-        });
-
-        botonLogin = (Button) findViewById(R.id.sign_btn_login);
-        botonLogin.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                startActivity(new Intent(com.example.proyectodam.Activities.SignUpActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
-
-        togglerol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is paciente
-                    Toast.makeText(getApplication(), "Medico", Toast.LENGTH_SHORT).show();
-                    rol="medico";
-
-                } else {
-                    // The toggle is medico
-
-                    Toast.makeText(getApplication(), "Paciente", Toast.LENGTH_SHORT).show();
-                    rol="paciente";
                 }
+
+
             }
         });
+
+
+
+
 
 
     }
@@ -194,7 +182,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
                                 Toast.makeText(getApplication(), "Usuario registrado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(com.example.proyectodam.Activities.SignUpActivity.this, LoginActivity.class));
+                                startActivity(new Intent(com.example.proyectodam.Activities.SignUpAdmin.this, LoginActivity.class));
                                 finish();
                             } else {
                                 Toast.makeText(getApplication(), "ERROR EN EL REGISTRO 1", Toast.LENGTH_SHORT).show();

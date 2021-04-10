@@ -11,19 +11,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoDAM">
         <activity android:name=".Activities.SplashActivity"
-            >
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>        <activity android:name=".Activities.LoginActivity"/>
+        </activity>
+        <activity android:name=".Activities.LoginActivity"/>
 
         <activity android:name=".Activities.SignUpActivity"/>
         <activity android:name=".Activities.ConsultaActivity"/>
         <activity android:name=".Activities.ForoActivity"/>
         <activity android:name=".Activities.RecuperarActivity"/>
         <activity android:name=".Activities.PacienteActivity"/>
+        <activity android:name=".Activities.DoctorActivity"/>
+        <activity android:name=".Activities.ChatPacientes"/>
+        <activity android:name=".Activities.BoardActivity"/>
+        <activity android:name=".Activities.NoteActivity"/>
+        <activity android:name=".Activities.SignUpAdmin"/>
+        <activity android:name=".Activities.AdminActivity"/>
+        <activity android:name=".Activities.MostrarUsuariosActivity"/>
+        <activity android:name=".Activities.ForoDoctorActivity"/>
+
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

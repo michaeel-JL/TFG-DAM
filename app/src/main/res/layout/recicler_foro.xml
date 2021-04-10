@@ -32,7 +32,6 @@
             android:focusable="false"
             android:foreground="?android:attr/selectableItemBackground"
             card_view:cardBackgroundColor="#E2E2E2"
-            card_view:cardCornerRadius="8dp"
             tools:ignore="CityActivity">
 
             <LinearLayout
@@ -53,7 +52,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="28dp"
                     android:layout_weight="0.60"
-                    android:gravity="center_vertical"
+
                     android:orientation="vertical">
 
                     <TextView
@@ -64,8 +63,26 @@
                         android:hint="Nombre del chat"
                         android:textColor="@color/black"
                         android:textSize="18dp"
+                        android:layout_gravity="center"
+                        android:textStyle="bold|italic" />
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:layout_gravity="center"
                         android:textStyle="bold|italic" />
 
+                    <TextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif-black"
+                        android:hint="Descripción"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        />
 
 
                 </LinearLayout>

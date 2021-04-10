@@ -24,6 +24,7 @@ import com.example.proyectodam.R;
 import com.example.proyectodam.Util.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,7 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivity extends AppCompatActivity {
     RelativeLayout gallery1, gallery2;
     Button btnlogin, btnsignup, btnreset;
-    Switch rememberMe;
     EditText mMail, mPassword;
     TextView Mail, Password, textoSplashScreen;
     private FirebaseAuth mAuth;
@@ -44,7 +44,11 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog barraCarga;
     private String rol;
     private DatabaseReference mDataBase;
-        @Override
+
+    //boton flotante
+    private FloatingActionButton fab;
+
+    @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.login_activity);
@@ -57,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
             btnlogin = findViewById(R.id.btnlogin);
             btnsignup = findViewById(R.id.btnsignup);
             btnreset = findViewById(R.id.btnreset);
-            rememberMe = findViewById(R.id.remember_me_switch);
             mMail = findViewById(R.id.mail);
             mPassword = findViewById(R.id.password);
             barraCarga = new ProgressDialog(this);
@@ -96,6 +99,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
+            //boton flotante
+        fab = (FloatingActionButton) findViewById(R.id.fabAdmin);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), com.example.proyectodam.Activities.SignUpAdmin.class);
+                startActivity(intent);
+
+            }
+        });
+
 
         }
             private boolean login(String email, String password) {
@@ -132,12 +146,49 @@ public class LoginActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         barraCarga.dismiss();
                                         Toast.makeText(com.example.proyectodam.Activities.LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                                        saveOnPreferences(mMail.getText().toString().trim(), mPassword.getText().toString().trim());
+                                        //saveOnPreferences(mMail.getText().toString().trim(), mPassword.getText().toString().trim());
 
 
-                                        Intent intent = new Intent(getApplication(), com.example.proyectodam.Activities.PacienteActivity.class);
-                                        startActivity(intent);
+                                        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                        String uid = user.getUid();
+
+                                        DatabaseReference ref;
+                                        ref = FirebaseDatabase.getInstance().getReference();
+
+
+                                        // Agregamos un listener a la referencia
+                                        ref.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                if(dataSnapshot.exists()){
+                                                    //rol
+                                                    rol= dataSnapshot.child("rol").getValue(String.class);
+
+                                                    if(rol.equals("medico")){
+                                                        Intent intent = new Intent(getApplication(), com.example.proyectodam.Activities.DoctorActivity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                    if(rol.equals("paciente")){
+                                                        Intent intent = new Intent(getApplication(), com.example.proyectodam.Activities.PacienteActivity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                    if(rol.equals("admin")){
+                                                        Intent intent = new Intent(getApplication(), com.example.proyectodam.Activities.AdminActivity.class);
+                                                        startActivity(intent);
+                                                    }
+
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                System.out.println("Fallo la lectura: " + databaseError.getCode());
+                                            }
+                                        });
                                         finish();
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         barraCarga.dismiss();
@@ -156,23 +207,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                     mMail.setText(email);
                     mPassword.setText(password);
-                    rememberMe.setChecked(true);
                 }
             }
 
 
 
-            //método que guarda el email y contraseña introducidos
-            private void saveOnPreferences(String email, String password) {
-                if (rememberMe.isChecked()) {
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("email", email);
-                    editor.putString("pass", password);
-                    editor.apply();
-                } else {
-                    Util.removedSharedPreferences(prefs);
-                }
-            }
+
 
 
 

@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     tools:context=".Activities.LoginActivity">
+
+
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
@@ -95,16 +98,19 @@
                         android:paddingRight="15dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/e_bg"/>
-                    <Switch
-                        android:id="@+id/remember_me_switch"
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabAdmin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remember me"
-                        android:textAllCaps="false"
-                        android:fontFamily="sans-serif-light"
-                        android:textSize="15sp"
-                        android:layout_marginTop="20dp"
-                        android:textColor="@color/gris"/>
+                        android:layout_gravity="end|bottom"
+                        app:borderWidth="0dp"
+                        android:backgroundTint="@color/gris2"
+                        app:elevation="6dp"
+                        android:layout_margin="16dp"
+                        android:layout_marginBottom="40dp"
+                        android:src="@drawable/ic_admin" />
+
                 </LinearLayout>
 
             </LinearLayout>

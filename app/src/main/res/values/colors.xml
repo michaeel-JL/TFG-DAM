@@ -12,4 +12,6 @@
     <color name="transparent">#00000000</color>
     <color name="endblue">#46E4F8</color>
     <color name="startblue">#46A6F3</color>
+    <color name="card">#FFEC44</color>
+
 </resources>

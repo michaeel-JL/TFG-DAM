@@ -2,16 +2,16 @@ package com.example.proyectodam.Models;
 
 public class Chats {
 
-    private String id, titulo, image;
+    private String id, titulo, description, image;
 
     public Chats() {
     }
 
-    public Chats(String id, String titulo, String image) {
+    public Chats(String id, String titulo, String description, String image) {
         this.id = id;
         this.titulo = titulo;
+        this.description = description;
         this.image = image;
-
     }
 
     public String getId() {
@@ -28,6 +28,14 @@ public class Chats {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImage() {

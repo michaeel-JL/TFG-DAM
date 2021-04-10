@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectodam.Adapter.ForoAdapter;
 import com.example.proyectodam.Models.Chats;
 import com.example.proyectodam.R;
-import com.example.proyectodam.Models.Chats;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,8 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForoActivity extends AppCompatActivity {
-
+public class ForoDoctorActivity extends AppCompatActivity {
 
     private FloatingActionButton fab; //Boton flotante
     private List<Chats> chats;
@@ -46,7 +43,7 @@ public class ForoActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.foro_activity);
+        setContentView(R.layout.foro_doctor_activity);
 
 
         //Obtenemos el usuario cuya sesión está abierta
@@ -75,7 +72,7 @@ public class ForoActivity extends AppCompatActivity {
 
 
         //Redimensionamos el recycler
-        recyclerView= (RecyclerView) findViewById(R.id.recyclerForo);
+        recyclerView= (RecyclerView) findViewById(R.id.recyclerForo2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -96,15 +93,19 @@ public class ForoActivity extends AppCompatActivity {
 
                         switch (item.getItemId()) {
                             case R.id.perfilItem:
-                                startActivity(new Intent(getApplicationContext(), com.example.proyectodam.Activities.PacienteActivity.class));
-                                overridePendingTransition(0, 0);
+                                startActivity(new Intent(getApplicationContext(), DoctorActivity.class));
+                                overridePendingTransition(0,0);
                                 return true;
-                            case R.id.consultaItem:
-                                startActivity(new Intent(getApplicationContext(), ConsultaActivity.class));
-                                overridePendingTransition(0, 0);
+                            case R.id.chatPacientesItem:
+                                startActivity(new Intent(getApplicationContext(), ChatPacientes.class));
+                                overridePendingTransition(0,0);
                                 return true;
                             case R.id.foroItem:
 
+                                return true;
+                            case R.id.notasItem:
+                                startActivity(new Intent(getApplicationContext(), BoardActivity.class));
+                                overridePendingTransition(0,0);
                                 return true;
                         }
 
@@ -181,3 +182,5 @@ public class ForoActivity extends AppCompatActivity {
         });
     }
 }
+
+
