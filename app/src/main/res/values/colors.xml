@@ -13,5 +13,7 @@
     <color name="endblue">#46E4F8</color>
     <color name="startblue">#46A6F3</color>
     <color name="card">#FFEC44</color>
+    <color name="colordivisor">#ECECEC</color>
+
 
 </resources>

@@ -5,10 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Consulta" />
+        android:layout_height="3dp"
+        android:background="@color/colordivisor"
+        app:layout_constraintBottom_toBottomOf="@id/tabLayout">
+
+    </View>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        app:tabPaddingTop="15dp"
+        app:tabPaddingBottom="8dp"
+        android:background="@android:color/transparent"
+        app:tabIndicatorHeight="3dp"
+        app:tabMode="fixed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+    </androidx.viewpager2.widget.ViewPager2>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"
