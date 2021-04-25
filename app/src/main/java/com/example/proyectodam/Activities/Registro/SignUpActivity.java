@@ -1,4 +1,4 @@
-package com.example.proyectodam.Activities;
+package com.example.proyectodam.Activities.Registro;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -69,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(android.view.View v) {
                 CropImage.activity(uri).setAspectRatio(1, 1)
-                        .start(com.example.proyectodam.Activities.SignUpActivity.this);
+                        .start(SignUpActivity.this);
             }
         });
 
@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         botonLogin.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
-                startActivity(new Intent(com.example.proyectodam.Activities.SignUpActivity.this, LoginActivity.class));
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                 finish();
             }
         });
@@ -160,7 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
                         });
                     } else {
                         //EN CASO DE NO SELECCIONAR NINGUNA FOTO SE GARGA ESTA POR DEFECTO
-                        stringFoto = "https://firebasestorage.googleapis.com/v0/b/aplicacinftc.appspot.com/o/por%20defecto.jpg? alt=media&token=e88772f9-b7c2-422c-967f-2d0016747b53";
+                        stringFoto = "https://firebasestorage.googleapis.com/v0/b/aplicacinftc.appspot.com/o/por%20defecto.jpg?alt=media&token=e88772f9-b7c2-422c-967f-2d0016747b53";
                         completarRegistro();
                     }
                     //TERMINAR DE SUBIR IMAGEN                    //MAS VALIDACIONES
@@ -194,7 +194,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
                                 Toast.makeText(getApplication(), "Usuario registrado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(com.example.proyectodam.Activities.SignUpActivity.this, LoginActivity.class));
+                                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                 finish();
                             } else {
                                 Toast.makeText(getApplication(), "ERROR EN EL REGISTRO 1", Toast.LENGTH_SHORT).show();

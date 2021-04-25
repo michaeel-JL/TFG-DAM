@@ -1,4 +1,4 @@
-package com.example.proyectodam.Activities;
+package com.example.proyectodam.Activities.Secciones;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectodam.Activities.BoardActivity;
+import com.example.proyectodam.Activities.Perfiles.DoctorActivity;
 import com.example.proyectodam.Adapter.ForoAdapter;
 import com.example.proyectodam.Models.Chats;
 import com.example.proyectodam.R;

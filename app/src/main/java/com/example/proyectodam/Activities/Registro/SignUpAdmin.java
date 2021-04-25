@@ -1,4 +1,4 @@
-package com.example.proyectodam.Activities;
+package com.example.proyectodam.Activities.Registro;
 
 
 import android.app.Activity;
@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,7 +68,7 @@ public class SignUpAdmin extends AppCompatActivity {
             @Override
             public void onClick(android.view.View v) {
                 CropImage.activity(uri).setAspectRatio(1, 1)
-                        .start(com.example.proyectodam.Activities.SignUpAdmin.this);
+                        .start(SignUpAdmin.this);
             }
         });
 
@@ -148,7 +146,7 @@ public class SignUpAdmin extends AppCompatActivity {
                         });
                     } else {
                         //EN CASO DE NO SELECCIONAR NINGUNA FOTO SE GARGA ESTA POR DEFECTO
-                        stringFoto = "https://firebasestorage.googleapis.com/v0/b/aplicacinftc.appspot.com/o/por%20defecto.jpg? alt=media&token=e88772f9-b7c2-422c-967f-2d0016747b53";
+                        stringFoto = "https://firebasestorage.googleapis.com/v0/b/aplicacinftc.appspot.com/o/por%20defecto.jpg?alt=media&token=e88772f9-b7c2-422c-967f-2d0016747b53";
                         completarRegistro();
                     }
                     //TERMINAR DE SUBIR IMAGEN                    //MAS VALIDACIONES
@@ -182,7 +180,7 @@ public class SignUpAdmin extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
                                 Toast.makeText(getApplication(), "Usuario registrado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(com.example.proyectodam.Activities.SignUpAdmin.this, LoginActivity.class));
+                                startActivity(new Intent(SignUpAdmin.this, LoginActivity.class));
                                 finish();
                             } else {
                                 Toast.makeText(getApplication(), "ERROR EN EL REGISTRO 1", Toast.LENGTH_SHORT).show();

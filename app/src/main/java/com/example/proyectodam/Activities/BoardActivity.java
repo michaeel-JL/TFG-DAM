@@ -18,11 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectodam.Activities.Perfiles.DoctorActivity;
+import com.example.proyectodam.Activities.Secciones.ChatPacientes;
+import com.example.proyectodam.Activities.Secciones.ForoDoctorActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,6 @@ import com.example.proyectodam.Adapter.BoardAdapter;
 import com.example.proyectodam.Models.Board;
 import com.example.proyectodam.Models.Note;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,8 +43,6 @@ import java.util.List;
 
 
 public class BoardActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-
-
 
     private FloatingActionButton fab;
     private ListView listView;
@@ -78,22 +77,19 @@ public class BoardActivity extends AppCompatActivity implements AdapterView.OnIt
                 showAlertForCreatingBoard("Añadir nuevo tablero", "Escribir el nombre del tablero");
             }
         });
-
     }
-
 
     //** CRUD Actions **/
     private void readBoard() {
         mDataBase.child("Boards").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 if (dataSnapshot.exists()) {
                     boards.clear();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
                         title = ds.child("title").getValue().toString();
                         numNotes = Integer.parseInt( ds.child("numNotes").getValue().toString());
-
                         String date = ds.child("createdAt").child("date").getValue().toString();
                         String month = ds.child("createdAt").child("month").getValue().toString();
                         int monthInt = Integer.parseInt(month)+1;
@@ -119,9 +115,6 @@ public class BoardActivity extends AppCompatActivity implements AdapterView.OnIt
                         Board board = new Board(id, title, createdAt,numNotes);
                         boards.add(board);
                     }
-
-
-
                 }
                 // Observa como pasamos el activity, con this. Podríamos declarar
                 // Activity o Context en el constructor y funcionaría pasando el mismo valor, this
@@ -131,23 +124,16 @@ public class BoardActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
-
-
         });
 
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.navigationView);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationView);
         bottomNavigationView.setSelectedItemId(R.id.notasItem);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
                         switch (item.getItemId()) {
                             case R.id.perfilItem:
                                 startActivity(new Intent(getApplicationContext(), DoctorActivity.class));
@@ -162,16 +148,13 @@ public class BoardActivity extends AppCompatActivity implements AdapterView.OnIt
                                 overridePendingTransition(0,0);
                                 return true;
                             case R.id.notasItem:
-
                                 return true;
                         }
-
                         return false;
                     }
                 });
-
-
     }
+
     private void createNewBoard(String boardName) {
         Board board = new Board(boardName);
         mDataBase.child("Boards").push().setValue(board).addOnCompleteListener(new OnCompleteListener<Void>() {

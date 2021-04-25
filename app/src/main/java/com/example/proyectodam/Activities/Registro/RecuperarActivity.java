@@ -1,4 +1,4 @@
-package com.example.proyectodam.Activities;
+package com.example.proyectodam.Activities.Registro;
 
 import android.content.Intent;
 import android.os.Bundle;

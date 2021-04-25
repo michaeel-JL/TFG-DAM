@@ -72,7 +72,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             nombreUsuario = (TextView) itemView.findViewById(R.id.textViewNombreUsuario);
             edad = (TextView) itemView.findViewById(R.id.textViewEdad);
             email = (TextView) itemView.findViewById(R.id.textViewEmail);
-           //password = (TextView) itemView.findViewById(R.id.textViewStars);
+            //password = (TextView) itemView.findViewById(R.id.textViewStars);
             rol = (TextView) itemView.findViewById(R.id.textViewRol);
             imagePerfil = (ImageView) itemView.findViewById(R.id.imageViewUser);
             btnDelete = (Button) itemView.findViewById(R.id.buttonDeleteUser);

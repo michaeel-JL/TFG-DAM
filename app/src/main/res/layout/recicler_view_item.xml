@@ -32,6 +32,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:layout_gravity="center"
                 android:id="@+id/imageViewUser"
                 android:layout_width="160dp"
                 android:layout_height="160dp"

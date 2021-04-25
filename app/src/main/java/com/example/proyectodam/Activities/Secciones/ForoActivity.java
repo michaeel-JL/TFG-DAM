@@ -1,4 +1,4 @@
-package com.example.proyectodam.Activities;
+package com.example.proyectodam.Activities.Secciones;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectodam.Activities.Perfiles.PacienteActivity;
 import com.example.proyectodam.Adapter.ForoAdapter;
 import com.example.proyectodam.Models.Chats;
 import com.example.proyectodam.R;
-import com.example.proyectodam.Models.Chats;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -96,10 +95,10 @@ public class ForoActivity extends AppCompatActivity {
 
                         switch (item.getItemId()) {
                             case R.id.perfilItem:
-                                startActivity(new Intent(getApplicationContext(), com.example.proyectodam.Activities.PacienteActivity.class));
+                                startActivity(new Intent(getApplicationContext(), PacienteActivity.class));
                                 overridePendingTransition(0, 0);
                                 return true;
-                            case R.id.consultaItem:
+                            case R.id.medicosList:
                                 startActivity(new Intent(getApplicationContext(), ConsultaActivity.class));
                                 overridePendingTransition(0, 0);
                                 return true;

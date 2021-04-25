@@ -1,12 +1,9 @@
-package com.example.proyectodam.Activities;
+package com.example.proyectodam.Activities.Perfiles;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectodam.Activities.Registro.LoginActivity;
+import com.example.proyectodam.Activities.MostrarUsuariosActivity;
 import com.example.proyectodam.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DoctorActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity {
 
     private CircleImageView imageProfile;
     private TextView textViewUsuario, textViewemail, textViewEdad, textViewRol;
@@ -50,7 +49,7 @@ public class DoctorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.perfil_doc_activity);
+        setContentView(R.layout.perfil_admin_activity);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -65,7 +64,6 @@ public class DoctorActivity extends AppCompatActivity {
         textViewEdad=findViewById(R.id.textEdad);
         logout=findViewById(R.id.logout);
         textViewRol=findViewById(R.id.textRol);
-
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
@@ -108,12 +106,9 @@ public class DoctorActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationView);
-        bottomNavigationView.setSelectedItemId(R.id.perfilItem);
+        bottomNavigationView.setSelectedItemId(R.id.perfilItemAdmin);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -122,21 +117,15 @@ public class DoctorActivity extends AppCompatActivity {
 
 
                         switch (item.getItemId()) {
-                            case R.id.perfilItem:
+                            case R.id.perfilItemAdmin:
 
                                 return true;
-                            case R.id.chatPacientesItem:
-                                startActivity(new Intent(getApplicationContext(), ChatPacientes.class));
+                            case R.id.usuariosItem:
+                                startActivity(new Intent(getApplicationContext(), MostrarUsuariosActivity.class));
                                 overridePendingTransition(0,0);
                                 return true;
-                            case R.id.foroItem:
-                                startActivity(new Intent(getApplicationContext(), ForoDoctorActivity.class));
-                                overridePendingTransition(0,0);
-                                return true;
-                            case R.id.notasItem:
-                                startActivity(new Intent(getApplicationContext(), BoardActivity.class));
-                                overridePendingTransition(0,0);
-                                return true;
+
+
                         }
 
                         return false;
@@ -144,43 +133,18 @@ public class DoctorActivity extends AppCompatActivity {
                 });
 
 
-        //Obtenemos la info del usuario
-        //getUsuarioInfo(user);
-        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-
         //Para cerrar sesión
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(DoctorActivity.this, LoginActivity.class));
+                startActivity(new Intent(AdminActivity.this, LoginActivity.class));
                 finish();
             }
         });
 
-
     }
 
-
-
-    // Inflamos el layout del menu de opciones
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar_menu, menu);
-        return true;
-    }
-    // Manejamos eventos click en el menu de opciones
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ajustes:
-
-                return true;
-            default:
-                return false;
-        }
-    }
 
 
     private void cargarImagen(String link) {
@@ -190,6 +154,4 @@ public class DoctorActivity extends AppCompatActivity {
 
                 .into(imageProfile);
     }
-
-
 }

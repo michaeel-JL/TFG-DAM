@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".Activities.LoginActivity">
-
-
+    tools:context=".Activities.Registro.LoginActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -34,7 +32,8 @@
                 android:id="@+id/tv_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="Iniciar sesión"
+                android:layout_centerHorizontal="true"
                 android:textSize="30sp"
                 android:textColor="@color/gris"
                 android:fontFamily="sans-serif-medium" />
@@ -51,7 +50,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mail"
+                        android:text="Correo"
                         android:inputType="textEmailAddress"
                         android:textAllCaps="true"
                         android:fontFamily="sans-serif-light"
@@ -80,7 +79,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Password"
+                        android:text="Contraseña"
                         android:textAllCaps="true"
                         android:fontFamily="sans-serif-light"
                         android:textSize="15sp"
