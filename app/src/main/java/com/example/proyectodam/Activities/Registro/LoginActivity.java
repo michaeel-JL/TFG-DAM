@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyectodam.Activities.Perfiles.AdminActivity;
 import com.example.proyectodam.Activities.Perfiles.DoctorActivity;
 import com.example.proyectodam.Activities.Perfiles.PacienteActivity;
-import com.example.proyectodam.Activities.Perfiles.PerfilActivity;
 import com.example.proyectodam.R;
 import com.example.proyectodam.Util.Util;
 import com.google.android.gms.tasks.OnCompleteListener;

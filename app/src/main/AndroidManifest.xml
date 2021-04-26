@@ -21,11 +21,13 @@
         </activity>
 
 
-        <activity android:name=".Activities.Perfiles.PerfilActivity"/>
         <activity android:name=".Activities.Registro.LoginActivity" />
         <activity android:name=".Activities.Registro.SignUpActivity" />
         <activity android:name=".Activities.Secciones.ConsultaActivity" />
-        <activity android:name=".Activities.Secciones.ForoActivity" />
+        <activity android:name=".Activities.MostrarNoticiasActivity" />
+        <activity android:name=".Activities.Secciones.NoticiasEditActivity" />
+        <activity android:name=".Activities.Secciones.NoticiasActivity" />
+        <activity android:name=".Activities.Secciones.InicioActivity" />
         <activity android:name=".Activities.Registro.RecuperarActivity" />
         <activity android:name=".Activities.Perfiles.PacienteActivity" />
         <activity android:name=".Activities.Perfiles.DoctorActivity" />

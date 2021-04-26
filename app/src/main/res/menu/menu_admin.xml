@@ -11,6 +11,9 @@
         android:title="Usuarios"
         android:icon="@drawable/ic_usuarios_admin"/>
 
-
+    <item
+        android:id="@+id/noticiasItem"
+        android:title="Noticias"
+        android:icon="@drawable/ic_noticias"/>
 
 </menu>

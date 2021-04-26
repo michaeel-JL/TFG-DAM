@@ -2,16 +2,18 @@ package com.example.proyectodam.Models;
 
 public class Chats {
 
-    private String id, titulo, description, image;
+    private String id, titulo, description, imagePrincipal, imagenSecundaria, textoNoticia;
 
     public Chats() {
     }
 
-    public Chats(String id, String titulo, String description, String image) {
+    public Chats(String id, String titulo, String description, String imagePrincipal, String imagenSecundaria, String textoNoticia) {
         this.id = id;
         this.titulo = titulo;
         this.description = description;
-        this.image = image;
+        this.imagePrincipal = imagePrincipal;
+        this.imagenSecundaria = imagenSecundaria;
+        this.textoNoticia = textoNoticia;
     }
 
     public String getId() {
@@ -38,11 +40,27 @@ public class Chats {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
+    public String getImagePrincipal() {
+        return imagePrincipal;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImagePrincipal(String imagePrincipal) {
+        this.imagePrincipal = imagePrincipal;
+    }
+
+    public String getImagenSecundaria() {
+        return imagenSecundaria;
+    }
+
+    public void setImagenSecundaria(String imagenSecundaria) {
+        this.imagenSecundaria = imagenSecundaria;
+    }
+
+    public String getTextoNoticia() {
+        return textoNoticia;
+    }
+
+    public void setTextoNoticia(String textoNoticia) {
+        this.textoNoticia = textoNoticia;
     }
 }

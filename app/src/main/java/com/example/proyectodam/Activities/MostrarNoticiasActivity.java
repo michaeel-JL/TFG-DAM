@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectodam.Activities.MostrarUsuariosActivity;
 import com.example.proyectodam.Activities.Perfiles.AdminActivity;
-import com.example.proyectodam.Adapter.UserAdapter;
-import com.example.proyectodam.Models.Usuarios;
+import com.example.proyectodam.Activities.Secciones.NoticiasEditActivity;
+import com.example.proyectodam.Adapter.ForoAdapter;
+import com.example.proyectodam.Adapter.NoticiasAdapter;
+import com.example.proyectodam.Models.Chats;
 import com.example.proyectodam.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,12 +32,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MostrarUsuariosActivity  extends AppCompatActivity {
+public class MostrarNoticiasActivity extends AppCompatActivity {
 
-    private List<Usuarios> users;
-    private UserAdapter adapter; //Adaptar
+    private NoticiasAdapter adapter; //Adaptar
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private List<Chats> chats;
 
     private DatabaseReference mDataBase; //BBDD
     private FirebaseAuth mAuth; //Firebase
@@ -45,29 +48,33 @@ public class MostrarUsuariosActivity  extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.usuarios_activity);
+        setContentView(R.layout.noticias_activity);
 
         //Instanciamos Firebase
         mAuth = FirebaseAuth.getInstance();
         mDataBase= FirebaseDatabase.getInstance().getReference();
 
-        users = new ArrayList<Usuarios>();
+        chats = new ArrayList<Chats>();
         layoutManager = new LinearLayoutManager(this);
 
 
         //Redimensionamos el recycler
-        recyclerView= (RecyclerView) findViewById(R.id.recyclerAdmin);
+        recyclerView= (RecyclerView) findViewById(R.id.recyclerAdminNoticias);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
-        //Metodo para cargar las tarjeta de los usuarios
-        getUsersFromFirebase();
+
+
+
+
+        //Metodo para cargar las tarjeta de los chats
+        getChatsFromFirebase();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationView);
-        bottomNavigationView.setSelectedItemId(R.id.usuariosItem);
+        bottomNavigationView.setSelectedItemId(R.id.noticiasItem);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -81,11 +88,11 @@ public class MostrarUsuariosActivity  extends AppCompatActivity {
                                 overridePendingTransition(0,0);
                                 return true;
                             case R.id.usuariosItem:
-
+                                startActivity(new Intent(getApplicationContext(), MostrarUsuariosActivity.class));
+                                overridePendingTransition(0,0);
                                 return true;
                             case R.id.noticiasItem:
-                                startActivity(new Intent(getApplicationContext(), MostrarNoticiasActivity.class));
-                                overridePendingTransition(0,0);
+
                                 return true;
 
                         }
@@ -101,55 +108,60 @@ public class MostrarUsuariosActivity  extends AppCompatActivity {
 
 
 
-    //Lee las ciudades de Firebase
-    private void getUsersFromFirebase() {
 
-        mDataBase.child("Usuarios").addValueEventListener(new ValueEventListener() {
+    //Lee los chats de Firebase
+    private void getChatsFromFirebase() {
+
+        mDataBase.child("chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserAdapter.OnItemClickListener itemListener = null;
-                UserAdapter.OnButtonClickListener btnListener = null;
+                ForoAdapter.OnItemClickListener itemListener = null;
+                ForoAdapter.OnButtonClickListener btnListener = null;
 
                 //Si hay datos...
                 if (dataSnapshot.exists()) {
                     //Actuliza la lista
-                    users.clear();
+                    chats.clear();
                     //Busca todos los datos
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        String nombreUsuario = ds.child("nombreUsuario").getValue().toString();
-                        String edad = ds.child("edad").getValue().toString();
-                        String linkImagen = ds.child("foto").getValue().toString();
-                        String email = ds.child("email").getValue().toString();
-                        String rol = ds.child("rol").getValue().toString();
-                        String password = ds.child("password").getValue().toString();
-                        System.out.println(rol);
-                        String id  = ds.getKey();
+                        String titulo=ds.child("titulo").getValue().toString();
+                        String description=ds.child("description").getValue().toString();
+                        String imagePrincipal = ds.child("imagePrincipal").getValue().toString();
+                        String imageSecundaria = ds.child("imagenSecundaria").getValue().toString();
+                        String decNoticia = ds.child("textoNoticia").getValue().toString();
 
-                        //Creamos un ususario
-                        Usuarios usuario = new Usuarios(id, nombreUsuario, edad, email, password, linkImagen, rol);
+                        String id = ds.getKey();
+                        //Creamos un chat
+                        Chats chat = new Chats(id, titulo, description, imagePrincipal, imageSecundaria, decNoticia);
                         //Añadimos la ciudad al List
-                        users.add(usuario);
+                        chats.add(chat);
                     }
                 }
 
                 //Adaptador
-                adapter = new UserAdapter(users, R.layout.recicler_view_item, new UserAdapter.OnItemClickListener() {
-
-
+                adapter = new NoticiasAdapter(chats, R.layout.recicler_foro_admin, new NoticiasAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(Usuarios users, int position) {
+                    public void onItemClick(Chats chat, int position) {
+
+
 
                     }
 
 
-
-                    //Boton eliminar
-                }, new UserAdapter.OnButtonClickListener() {
+                    //Boton editar
+                }, new NoticiasAdapter.OnButtonClickListener() {
                     @Override
-                    public void onButtonClick(Usuarios users, int position) {
-                        //Alerta para confirma borrar una ciudad
-                        alertDelete("Borrar", "Estas seguro que quieres eliminar al usuario  " + users.getNombreUsuario()+ "?", position);
+                    public void onButtonClick(Chats chat, int position) {
+                        Intent intent = new Intent(MostrarNoticiasActivity.this, NoticiasEditActivity.class);
+                        intent.putExtra("id", chats.get(position).getId());
+                        intent.putExtra("name", chats.get(position).getTitulo());
+                        intent.putExtra("description", chats.get(position).getDescription());
+                        intent.putExtra("imagePrincipal", chats.get(position).getImagePrincipal());
+                        intent.putExtra("imagenSecundaria", chats.get(position).getImagenSecundaria());
+                        intent.putExtra("textoNoticia", chats.get(position).getTextoNoticia());
+                        startActivity(intent);
                     }
+
 
                 });
 
@@ -175,7 +187,7 @@ public class MostrarUsuariosActivity  extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         deleteUser(position); //Borramos la ciudad
                         //Mensaje
-                        Toast.makeText(MostrarUsuariosActivity.this, "Ha sido borrado exitosamente.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MostrarNoticiasActivity.this, "Ha sido borrado exitosamente.", Toast.LENGTH_SHORT).show();
 
                     }
                 })
@@ -185,8 +197,9 @@ public class MostrarUsuariosActivity  extends AppCompatActivity {
 
     //Metodo eliminar usuario de firebase
     private void deleteUser(int position) {
-        String id  = users.get(position).getId(); //Cogemos el ID de la tarjeta seleccionada
-        mDataBase.child("Usuarios").child(id).removeValue(); //Borramos a través del ID
-        users.clear(); //Limpiamos cada que eliminamos
+        String id  = chats.get(position).getId(); //Cogemos el ID de la tarjeta seleccionada
+        mDataBase.child("chats").child(id).removeValue(); //Borramos a través del ID
+        chats.clear(); //Limpiamos cada que eliminamos
     }
+
 }

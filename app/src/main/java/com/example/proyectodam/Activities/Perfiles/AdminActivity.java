@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectodam.Activities.MostrarNoticiasActivity;
 import com.example.proyectodam.Activities.Registro.LoginActivity;
 import com.example.proyectodam.Activities.MostrarUsuariosActivity;
 import com.example.proyectodam.R;
@@ -122,6 +123,10 @@ public class AdminActivity extends AppCompatActivity {
                                 return true;
                             case R.id.usuariosItem:
                                 startActivity(new Intent(getApplicationContext(), MostrarUsuariosActivity.class));
+                                overridePendingTransition(0,0);
+                                return true;
+                            case R.id.noticiasItem:
+                                startActivity(new Intent(getApplicationContext(), MostrarNoticiasActivity.class));
                                 overridePendingTransition(0,0);
                                 return true;
 

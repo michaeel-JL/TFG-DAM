@@ -16,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectodam.Activities.Secciones.ConsultaActivity;
-import com.example.proyectodam.Activities.Secciones.ForoActivity;
 import com.example.proyectodam.Activities.Registro.LoginActivity;
+import com.example.proyectodam.Activities.Secciones.InicioActivity;
 import com.example.proyectodam.Models.Usuarios;
 import com.example.proyectodam.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -120,6 +120,11 @@ public class PacienteActivity extends AppCompatActivity {
 
 
                         switch (item.getItemId()) {
+
+                            case R.id.inicio:
+                                startActivity(new Intent(getApplicationContext(), InicioActivity.class));
+                                overridePendingTransition(0,0);
+                                return true;
                             case R.id.perfilItem:
 
                                 return true;
@@ -128,7 +133,7 @@ public class PacienteActivity extends AppCompatActivity {
                                 overridePendingTransition(0,0);
                                 return true;
                             case R.id.foroItem:
-                                startActivity(new Intent(getApplicationContext(), ForoActivity.class));
+                                startActivity(new Intent(getApplicationContext(), InicioActivity.class));
                                 overridePendingTransition(0,0);
 
                                 return true;
@@ -172,7 +177,7 @@ public class PacienteActivity extends AppCompatActivity {
 
                 return true;
             default:
-               return false;
+                return false;
         }
     }
 
@@ -202,7 +207,7 @@ public class PacienteActivity extends AppCompatActivity {
                     usuario.setRol(dataSnapshot.child("rol").getValue().toString());
 
                     //Se obtiene el url de ubicación de la foto en caso de estar guardado
-               
+
                 }
 
             }

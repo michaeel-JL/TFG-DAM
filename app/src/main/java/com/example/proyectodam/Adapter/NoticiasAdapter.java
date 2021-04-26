@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ForoAdapter extends  RecyclerView.Adapter<ForoAdapter.ViewHolder> {
+public class NoticiasAdapter extends  RecyclerView.Adapter<NoticiasAdapter.ViewHolder> {
 
     private Context context;
     private List<Chats> chats;
@@ -28,7 +28,7 @@ public class ForoAdapter extends  RecyclerView.Adapter<ForoAdapter.ViewHolder> {
     private OnButtonClickListener btnClickListener;
 
 
-    public ForoAdapter(List<Chats> chats, int layout, OnItemClickListener itemListener, OnButtonClickListener btnListener) {
+    public NoticiasAdapter(List<Chats> chats, int layout, OnItemClickListener itemListener, OnButtonClickListener btnListener) {
         this.chats = chats;
         this.layout = layout;
         this.itemClickListener = itemListener;
@@ -59,6 +59,8 @@ public class ForoAdapter extends  RecyclerView.Adapter<ForoAdapter.ViewHolder> {
         public TextView titulo;
         public TextView description;
         public ImageView image;
+        public Button btnEdit;
+
 
 
         public ViewHolder(View itemView) {
@@ -66,6 +68,7 @@ public class ForoAdapter extends  RecyclerView.Adapter<ForoAdapter.ViewHolder> {
             titulo = (TextView) itemView.findViewById(R.id.textViewTitle);
             description=(TextView) itemView.findViewById(R.id.textViewDescription);
             image = (ImageView) itemView.findViewById(R.id.imageChat);
+            btnEdit = (Button) itemView.findViewById(R.id.buttonEditNoticia);
 
         }
 
@@ -76,6 +79,12 @@ public class ForoAdapter extends  RecyclerView.Adapter<ForoAdapter.ViewHolder> {
 
 
 
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    btnListener.onButtonClick(chats, getAdapterPosition());
+                }
+            });
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

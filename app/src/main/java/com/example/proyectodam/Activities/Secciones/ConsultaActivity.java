@@ -92,7 +92,7 @@ public class ConsultaActivity extends AppCompatActivity {
 
                                 return true;
                             case R.id.foroItem:
-                                startActivity(new Intent(getApplicationContext(), ForoActivity.class));
+                                startActivity(new Intent(getApplicationContext(), InicioActivity.class));
                                 overridePendingTransition(0, 0);
                                 return true;
                         }
