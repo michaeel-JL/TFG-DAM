@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    tools:context=".Activities.Registro.LoginActivity">
+    tools:context=".Activities.LoginActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -18,7 +17,6 @@
             android:id="@+id/ImagenLogo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@mipmap/icono_login"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"/>
@@ -68,8 +66,7 @@
                         android:paddingRight="15dp"
                         android:layout_marginTop="5dp"
                         android:inputType="text"
-                        android:maxLines="1"
-                        android:background="@drawable/e_bg"/>
+                        android:maxLines="1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -95,8 +92,7 @@
                         android:inputType="textPassword"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/e_bg"/>
+                        android:layout_marginTop="5dp"/>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fabAdmin"
@@ -107,8 +103,7 @@
                         android:backgroundTint="@color/gris2"
                         app:elevation="6dp"
                         android:layout_margin="16dp"
-                        android:layout_marginBottom="40dp"
-                        android:src="@drawable/ic_admin" />
+                        android:layout_marginBottom="40dp"/>
 
                 </LinearLayout>
 
@@ -119,7 +114,6 @@
                 android:id="@+id/btnlogin"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/btn_tbg"
                 android:fontFamily="sans-serif-medium"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
@@ -158,6 +152,5 @@
             android:textColor="@color/gris2"
             android:fontFamily="sans-serif"/>
     </RelativeLayout>
+
 </RelativeLayout>
-
-
