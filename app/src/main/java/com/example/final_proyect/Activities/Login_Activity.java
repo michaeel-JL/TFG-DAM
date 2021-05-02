@@ -34,7 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class LoginActivity extends AppCompatActivity {
+public class Login_Activity extends AppCompatActivity {
 
     RelativeLayout gallery1, gallery2;
     Button btnlogin, btnsignup, btnreset;
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
         //Cogemos id de los elementos
@@ -69,8 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(Login_Activity.this, SignUp_Activity.class);
+                startActivity(intent);
             }
         });
 
@@ -78,8 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         btnreset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(LoginActivity.this, RecuperarActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(Login_Activity.this, Reset_passwd_Activity.class);
+                startActivity(intent);
             }
         });
 
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
         //Comprobamos que los datos estén bien
         if(login(email,password)) {
             mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             //Si el usuario y contraseña son correctos, se carga el PacienteActivity.
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 barraCarga.dismiss();
-                                Toast.makeText(LoginActivity.this, "Error, compruebe el usuario o contraseña", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login_Activity.this, "Error, compruebe el usuario o contraseña", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

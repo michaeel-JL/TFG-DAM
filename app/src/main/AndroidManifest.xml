@@ -17,8 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_Proyect">
-        <activity android:name=".Activities.Noticia_Activity"></activity>
-        <activity android:name=".Activities.LoginActivity">
+        <activity android:name=".Activities.Chat_Activity"></activity>
+        <activity android:name=".Activities.Noticia_edit_Activity" />
+        <activity android:name=".Activities.SignUp_Activity" />
+        <activity android:name=".Activities.Reset_passwd_Activity" />
+        <activity android:name=".Activities.Noticia_Activity" />
+        <activity android:name=".Activities.Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

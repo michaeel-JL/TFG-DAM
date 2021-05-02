@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.final_proyect.Activities.LoginActivity;
+import com.example.final_proyect.Activities.Login_Activity;
 import com.example.final_proyect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,11 +49,11 @@ public class Perfil_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        imageProfile = (CircleImageView) view.findViewById(R.id.imgProfile);
-        name_profile = view.findViewById(R.id.perfilNombre);
-        email_profile = view.findViewById(R.id.perfilEmail);
-        rol_profile = view.findViewById(R.id.perfilRol);
-        edad_profile = view.findViewById(R.id.perfilEdad);
+        imageProfile = (CircleImageView) view.findViewById(R.id.img_perfil);
+        name_profile = view.findViewById(R.id.nombre_perfil);
+        email_profile = view.findViewById(R.id.email_perfil);
+        rol_profile = view.findViewById(R.id.rol_perfil);
+        edad_profile = view.findViewById(R.id.edad_perfil);
 
         logout = view.findViewById(R.id.logout);
 
@@ -100,7 +100,7 @@ public class Perfil_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                startActivity(new Intent(getActivity(), Login_Activity.class));
                 getActivity().finish();
             }
         });

@@ -4,14 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.final_proyect.Models.Chats;
+import com.example.final_proyect.Models.Noticia;
 import com.example.final_proyect.R;
 import com.squareup.picasso.Picasso;
 
@@ -20,14 +18,14 @@ import java.util.List;
 public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.ViewHolder>{
 
     private Context context;
-    private List<Chats> chats;
+    private List<Noticia> noticias;
     private int layout;
     private OnItemClickListener itemClickListener;
     private OnButtonClickListener btnClickListener;
 
 
-    public Noticias_Adapter(List<Chats> chats, int layout, OnItemClickListener itemListener, OnButtonClickListener btnListener) {
-        this.chats = chats;
+    public Noticias_Adapter(List<Noticia> noticias, int layout, OnItemClickListener itemListener, OnButtonClickListener btnListener) {
+        this.noticias = noticias;
         this.layout = layout;
         this.itemClickListener = itemListener;
         this.btnClickListener = btnListener;
@@ -43,12 +41,12 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(chats.get(position), itemClickListener, btnClickListener);
+        holder.bind(noticias.get(position), itemClickListener, btnClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return chats.size();
+        return noticias.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,27 +64,27 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
 
         }
 
-        public void bind(final Chats chats, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
-            titulo.setText(chats.getTitulo());
-            description.setText(chats.getDescription());
-            Picasso.get().load(chats.getImagePrincipal()).fit().into(image);
+        public void bind(final Noticia noticias, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
+            titulo.setText(noticias.getTitulo());
+            description.setText(noticias.getDescription());
+            Picasso.get().load(noticias.getImagePrincipal()).fit().into(image);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    itemListener.onItemClick(chats, getAdapterPosition());
+                    itemListener.onItemClick(noticias, getAdapterPosition());
                 }
             });
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Chats chat, int position);
+        void onItemClick(Noticia noticias, int position);
     }
 
     public interface OnButtonClickListener {
-        void onButtonClick(Chats chat, int position);
+        void onButtonClick(Noticia noticias, int position);
     }
 
 

@@ -1,13 +1,13 @@
 package com.example.final_proyect.Models;
 
-public class Chats {
+public class Noticia {
 
     private String id, titulo, description, imagePrincipal, imagenSecundaria, textoNoticia;
 
-    public Chats() {
+    public Noticia() {
     }
 
-    public Chats(String id, String titulo, String description, String imagePrincipal, String imagenSecundaria, String textoNoticia) {
+    public Noticia(String id, String titulo, String description, String imagePrincipal, String imagenSecundaria, String textoNoticia) {
         this.id = id;
         this.titulo = titulo;
         this.description = description;
@@ -63,4 +63,5 @@ public class Chats {
     public void setTextoNoticia(String textoNoticia) {
         this.textoNoticia = textoNoticia;
     }
+
 }

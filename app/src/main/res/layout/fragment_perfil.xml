@@ -24,7 +24,7 @@
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgProfile"
+                    android:id="@+id/img_perfil"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     app:civ_border_color="#FF000000"
@@ -35,7 +35,7 @@
 
 
                 <TextView
-                    android:id="@+id/perfilNombre"
+                    android:id="@+id/nombre_perfil"
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:layout_gravity="center_horizontal"
@@ -63,7 +63,7 @@
                     android:layout_height="36dp"/>
 
                 <TextView
-                    android:id="@+id/perfilEdad"
+                    android:id="@+id/edad_perfil"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"/>
                 <TextView
-                    android:id="@+id/perfilEmail"
+                    android:id="@+id/email_perfil"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"/>
                 <TextView
-                    android:id="@+id/perfilRol"
+                    android:id="@+id/rol_perfil"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
