@@ -136,6 +136,7 @@ public class Noticias_Fragment extends Fragment {
                     @Override
                     public void onItemClick(Noticia noticia, int position) {
 
+
                         Intent intent = new Intent(getActivity(), Noticia_Activity.class);
                         intent.putExtra("id", noticias.get(position).getId());
                         intent.putExtra("name", noticias.get(position).getTitulo());

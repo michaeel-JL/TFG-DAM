@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.final_proyect.Models.Chat;
+import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,14 +54,6 @@ public class Chat_Adapter extends RecyclerView.Adapter<Chat_Adapter.viewHolderAd
         holder.tv_mensaje.setText(chat.getMensaje());
 
         if (soloright){
-            if(chat.getVisto().equals("si")){
-                holder.img_entregado.setVisibility(View.GONE);
-                holder.img_visto.setVisibility(View.VISIBLE);
-            }else{
-                holder.img_entregado.setVisibility(View.VISIBLE);
-                holder.img_visto.setVisibility(View.GONE);
-            }
-
             final Calendar c = Calendar.getInstance();
             final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -94,8 +87,6 @@ public class Chat_Adapter extends RecyclerView.Adapter<Chat_Adapter.viewHolderAd
     @Override
     public int getItemViewType(int position) {
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        //Toast.makeText(context, fuser.getUid().toString(), Toast.LENGTH_SHORT).show();
-        //Toast.makeText(context, chatList.get(position).getEnvia().toString(), Toast.LENGTH_SHORT).show();
 
         if(chatList.get(position).getEnvia().equals(fuser.getUid())){
             soloright=true;

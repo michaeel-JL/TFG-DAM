@@ -3,17 +3,15 @@ package com.example.final_proyect.Models;
 public class Estado {
     String fecha;
     String hora;
-    String online;
-    String chatcon;
+    String status;
 
     public Estado() {
     }
 
-    public Estado(String fecha, String hora, String online, String chatcon) {
+    public Estado(String fecha, String hora, String status ) {
         this.fecha = fecha;
         this.hora = hora;
-        this.online = online;
-        this.chatcon = chatcon;
+        this.status = status;
     }
 
     public String getFecha() {
@@ -33,18 +31,11 @@ public class Estado {
     }
 
     public String getOnline() {
-        return online;
+        return status;
     }
 
     public void setOnline(String online) {
-        this.online = online;
+        this.status = status;
     }
 
-    public String getChatcon() {
-        return chatcon;
-    }
-
-    public void setChatcon(String chatcon) {
-        this.chatcon = chatcon;
-    }
 }

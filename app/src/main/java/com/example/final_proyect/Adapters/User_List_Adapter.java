@@ -2,15 +2,12 @@ package com.example.final_proyect.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -37,11 +34,10 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
     Context context;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseDatabase database =  FirebaseDatabase.getInstance();
+    FirebaseDatabase databse = FirebaseDatabase.getInstance();
+
 
     private OnItemClickListener itemClickListener;
-
-    SharedPreferences mPref;
 
     public User_List_Adapter(List<Usuario> userList, Context context) {
         this.userList = userList;
@@ -67,8 +63,6 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
     public void onBindViewHolder(@NonNull viewHolderAdapter holder, int position) {
         Usuario userss = userList.get(position);
 
-        final Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-
         Glide.with(context).load(userss.getFoto()).into(holder.img_user);
         holder.tv_usuario.setText(userss.getNombreUsuario());
 
@@ -82,24 +76,62 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "He dado click al cradview", Toast.LENGTH_SHORT).show();
 
-                //mPref = view.getContext().getSharedPreferences("usuario_sp",Context.MODE_PRIVATE);
-                //final SharedPreferences.Editor editor = mPref.edit();
+                DatabaseReference ref_chats = databse.getReference("Chats").child(user.getUid()).child(userss.getId()).child("id_chat");
+                ref_chats.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    Intent intent = new Intent(view.getContext(), Chat_Activity.class);
-                    intent.putExtra("nombre", userss.getNombreUsuario());
-                    intent.putExtra("img_user", userss.getFoto());
-                    intent.putExtra("id_user", userss.getId());
-                    //editor.putString("usuario_sp",userss.getId());
-                    //editor.apply();
 
-                    view.getContext().startActivity(intent);
+                        //Si existe un IDCHAT
+                        if(snapshot.exists()){
+
+                            //Cogemos el ID_CHAT de firebase
+                            String id_chat = snapshot.getValue(String.class);
+
+                            Intent intent = new Intent(view.getContext(), Chat_Activity.class);
+                            intent.putExtra("nombre", userss.getNombreUsuario());
+                            intent.putExtra("img_user", userss.getFoto());
+                            intent.putExtra("id_user2", userss.getId());
+                            intent.putExtra("id_chat", id_chat);
+                            view.getContext().startActivity(intent);
+
+                        }else{
+
+                            //Creamos un id_unico para el chat y lo guardamos en Firebase
+                            String id_chat = ref_chats.push().getKey();
+
+                            //Guardamos el ID_CHAT en cada usuario
+                            DatabaseReference A = databse.getReference("Chats").child(user.getUid()).child(userss.getId()).child("id_chat");
+                            DatabaseReference B = databse.getReference("Chats").child(userss.getId()).child(user.getUid()).child("id_chat");
+                            A.setValue(id_chat);
+                            B.setValue(id_chat);
+
+                            DatabaseReference ref_mensajes = databse.getReference("Mensajes");
+                            ref_mensajes.child(id_chat);
+
+                            Intent intent = new Intent(view.getContext(), Chat_Activity.class);
+                            intent.putExtra("nombre", userss.getNombreUsuario());
+                            intent.putExtra("img_user", userss.getFoto());
+                            intent.putExtra("id_user2", userss.getId());
+                            intent.putExtra("id_chat", id_chat);
+                            view.getContext().startActivity(intent);
+
+
+                        }//Fin del if
+
+
+                    }//Fin de OnDataChange
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
             }
         });
-
-
-
     }
 
     @Override
@@ -111,9 +143,6 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
         TextView tv_usuario;
         ImageView img_user;
         CardView cardView;
-        ProgressBar progressBar;
-
-
 
         public viewHolderAdapter(@NonNull View itemView) {
             super(itemView);

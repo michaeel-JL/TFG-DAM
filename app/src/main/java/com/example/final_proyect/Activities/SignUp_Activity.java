@@ -68,6 +68,7 @@ public class SignUp_Activity extends AppCompatActivity {
         togglerol=(ToggleButton)findViewById(R.id.rol_tooglebutton);
         imageProfile = (CircleImageView) findViewById(R.id.img_perfil_signup);
         botonAñadirFoto = (TextView) findViewById(R.id.tv_img_signup);
+
         botonAñadirFoto.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {

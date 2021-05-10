@@ -61,11 +61,5 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
         </LinearLayout>
-
-
     </LinearLayout>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
