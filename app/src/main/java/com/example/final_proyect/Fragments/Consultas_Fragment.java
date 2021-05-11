@@ -33,12 +33,8 @@ import java.util.ArrayList;
 
 public class Consultas_Fragment extends Fragment {
 
-
     public Consultas_Fragment() {
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

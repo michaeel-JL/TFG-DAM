@@ -17,34 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="391dp"
-            android:layout_height="match_parent"
-            android:background="@color/teal_200"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/img_usuario_consulta"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_margin="5dp"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="2dp" />
-
-            <TextView
-
-                android:id="@+id/nombre_usuario_consulta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:shadowColor="#000000"
-                android:shadowDx="1"
-                android:shadowDy="2"
-                android:shadowRadius="2"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:textStyle="bold"></TextView>
-        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -53,5 +25,4 @@
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-
 </LinearLayout>

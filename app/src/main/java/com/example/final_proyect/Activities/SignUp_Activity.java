@@ -65,10 +65,12 @@ public class SignUp_Activity extends AppCompatActivity {
         editEdad = (EditText) findViewById(R.id.edad_signup);
         editContraseña = (EditText) findViewById(R.id.password_signup);
         editRepetirContraseña = (EditText) findViewById(R.id.password_repeat_signup);
-        togglerol=(ToggleButton)findViewById(R.id.rol_tooglebutton);
-        imageProfile = (CircleImageView) findViewById(R.id.img_perfil_signup);
-        botonAñadirFoto = (TextView) findViewById(R.id.tv_img_signup);
 
+        togglerol=(ToggleButton)findViewById(R.id.rol_tooglebutton);
+
+        imageProfile = (CircleImageView) findViewById(R.id.img_perfil_signup);
+
+        botonAñadirFoto = (TextView) findViewById(R.id.tv_img_signup);
         botonAñadirFoto.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
@@ -76,8 +78,6 @@ public class SignUp_Activity extends AppCompatActivity {
                         .start(SignUp_Activity.this);
             }
         });
-
-
 
         botonRegistrar = (Button) findViewById(R.id.btn_registrar_signup);
         botonRegistrar.setOnClickListener(new android.view.View.OnClickListener() {
@@ -123,9 +123,7 @@ public class SignUp_Activity extends AppCompatActivity {
         contraseña = editContraseña.getText().toString();
         repetirContraseña = editRepetirContraseña.getText().toString();
 
-
         recordar = "false";
-
 
         //VALIDACIONES
         if (!email.isEmpty() && !nombreUsuario.isEmpty() &&  !edad.isEmpty() && !contraseña.isEmpty() &&

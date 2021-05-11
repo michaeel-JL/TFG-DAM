@@ -130,14 +130,10 @@ public class Chat_Activity extends AppCompatActivity {
         adapter = new Chat_Adapter(chatlist, this);
         rv_chats.setAdapter(adapter);
 
-        Toast.makeText(this, id_chat.toString(), Toast.LENGTH_SHORT).show();
-
-        //Leermensaje();
-
+        //Leer mensajes automaticamente
         ref_mensajes.child(id_chat).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 chatlist.removeAll(chatlist);
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {

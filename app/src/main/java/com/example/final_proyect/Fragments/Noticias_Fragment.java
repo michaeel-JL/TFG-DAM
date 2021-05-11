@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 
 import com.example.final_proyect.Activities.Noticia_Activity;
 import com.example.final_proyect.Adapters.Noticias_Adapter;
-import com.example.final_proyect.Models.Chat;
 import com.example.final_proyect.Models.Noticia;
 import com.example.final_proyect.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

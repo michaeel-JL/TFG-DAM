@@ -3,10 +3,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_perfil">APPMEDICAS</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
+    <string name="map_key" translatable="false">AIzaSyDwMS5JVbC7RksTaqD5TFNDSmTyMNrNK7U</string>
     <string name="hello_world">Hello Square World!</string>
 
 
