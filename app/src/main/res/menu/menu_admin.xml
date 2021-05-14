@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<item
-    android:id="@+id/bn_noticias"
-    android:title="Noticias"
-    android:icon="@drawable/ic_noticias"/>
+    <item
+        android:id="@+id/inicio"
+        android:title="Inicio"
+        android:icon="@drawable/ic_inicio"/>
 
-<item
-    android:id="@+id/bn_consultas"
-    android:title="Consultas"
-    android:icon="@drawable/ic_consultas"/>
+    <item
+        android:id="@+id/usuarios"
+        android:title="Usuarios"
+        android:icon="@drawable/ic_usuarios_admin"/>
 
-<item
-    android:id="@+id/bn_usuarios"
-    android:title="Usuarios"
-    android:icon="@drawable/ic_usuarios"/>
+    <item
+        android:id="@+id/noticias"
+        android:title="Noticias"
+        android:icon="@drawable/ic_noticias"/>
 
-<item
-    android:id="@+id/bn_perfil"
-    android:title="Perfil"
-    android:icon="@drawable/ic_perfil"/>
-
+    <item
+        android:id="@+id/perfil"
+        android:title="Perfil"
+        android:icon="@drawable/ic_profile"/>
 
 </menu>

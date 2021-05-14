@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/a"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+
+        android:clickable="false"
+        android:focusable="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="8dp"
+        tools:ignore="CityActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/card"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/imageViewUser"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_weight="0.80" />
+
+            <LinearLayout
+                android:layout_width="363dp"
+                android:layout_height="164dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="28dp"
+                android:layout_weight="0.60"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewNombreUsuario"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:hint="Nombre Usuario"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/textViewEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Descripcion" />
+
+                <TextView
+                    android:id="@+id/textViewEdad"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Edad"
+
+                    android:textColor="#ff0000" />
+
+                <TextView
+                    android:id="@+id/textViewRol"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Rol"
+
+                    android:textColor="#ff0000" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:orientation="horizontal" />
+
+
+                <Button
+                    android:id="@+id/buttonDeleteUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="#000000"
+                    android:text="Eliminar" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
