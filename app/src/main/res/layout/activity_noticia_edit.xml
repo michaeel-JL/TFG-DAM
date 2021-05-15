@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".Activities.Noticia_edit_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
         tools:layout_editor_absoluteY="186dp">
 
         <EditText
-            android:id="@+id/tituloNoticia"
+            android:id="@+id/titulo_noticia_edit"
             android:textSize="28dp"
             android:textStyle="bold|italic"
             android:layout_width="match_parent"
@@ -41,7 +40,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imagenNoticia"
+                android:id="@+id/img_noticia_edit"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 />
@@ -54,23 +53,16 @@
                 android:inputType="textMultiLine" />
 
             <EditText
-                android:id="@+id/textoNoticia"
+                android:id="@+id/texto_noticia_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
-
-
         </LinearLayout>
-
-
-
-
-
-
-
-
     </LinearLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

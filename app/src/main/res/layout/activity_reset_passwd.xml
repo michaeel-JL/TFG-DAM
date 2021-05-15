@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Reset_passwd_Activity">
+
+
+    <RelativeLayout
+        android:layout_width="333dp"
+        android:layout_height="675dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+
+        <ImageView
+            android:id="@+id/imagen_reset_passwd"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"/>
+
+        <RelativeLayout
+            android:id="@+id/gallery1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imagen_reset_passwd">
+
+            <TextView
+                android:id="@+id/tv_reset1"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="¿Olvidó su contraseña?"
+                android:gravity="center"
+                android:textColor="@color/gris"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tv_reset2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/tv_reset1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Introduce tu email para enviarle un correo de recuperación"
+                android:gravity="center"
+                android:textColor="@color/gris2"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/texto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_reset1"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Email"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                    <EditText
+                        android:id="@+id/email_reset_passwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/gris2"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_reset_passswd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text="Enviar email"
+            app:backgroundTint="@color/black"
+            android:textAllCaps="true"
+            android:layout_below="@id/gallery1"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"     />
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
