@@ -1,10 +1,77 @@
 {
   "project_info": {
     "project_number": "323270051256",
+    "firebase_url": "https://proyecto-dam-f26c5-default-rtdb.firebaseio.com",
     "project_id": "proyecto-dam-f26c5",
     "storage_bucket": "proyecto-dam-f26c5.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323270051256:android:7276032108a6fdc3b37b4d",
+        "android_client_info": {
+          "package_name": "com.example.chatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYOmZa8udXZU8-ejp6gzM8zhvD4Utrc8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323270051256:android:608f330865ca6db6b37b4d",
+        "android_client_info": {
+          "package_name": "com.example.final_proyect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323270051256-8k6rk8ih7hp9vhbtoh1lgcjaishd5q1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.final_proyect",
+            "certificate_hash": "865aa94b3859e5e5f0851ec73ca3520ee887db9f"
+          }
+        },
+        {
+          "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYOmZa8udXZU8-ejp6gzM8zhvD4Utrc8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:323270051256:android:fb27a9db25786a92b37b4d",
@@ -13,6 +80,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "323270051256-76u8a37e4e1r1c7rf3fk794kb2fefbu3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyectodam",
+            "certificate_hash": "865aa94b3859e5e5f0851ec73ca3520ee887db9f"
+          }
+        },
         {
           "client_id": "323270051256-t97n3tae6c9145h91mf401u052un6sb6.apps.googleusercontent.com",
           "client_type": 3

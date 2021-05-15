@@ -1,11 +1,22 @@
 <resources>
-    <string name="app_name">ProyectoDAM</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Final_Proyect</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_perfil">APPMEDICAS</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
+    <string name="map_key" translatable="false">AIzaSyDwMS5JVbC7RksTaqD5TFNDSmTyMNrNK7U</string>
     <string name="hello_world">Hello Square World!</string>
+
+
+    <string name="spn_title">Escoge la etiqueta</string>
+
+    <string-array name="dlangs">
+        <item>NUTRICIÓN</item>
+        <item>GINECOLOGIA</item>
+        <item>PEDIATRIA</item>
+        <item>PSICOLOGIA</item>
+        <item>RECETAS</item>
+        <item>MEDICINA GENERAL</item>
+        <item>PERSONAL</item>
+    </string-array>
+
 </resources>
