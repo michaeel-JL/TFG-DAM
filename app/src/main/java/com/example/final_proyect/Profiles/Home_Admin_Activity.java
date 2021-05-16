@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import com.example.final_proyect.Fragments.Consultas_Fragment;
 import com.example.final_proyect.Fragments.Noticias_Fragment;
@@ -61,7 +64,6 @@ public class Home_Admin_Activity extends AppCompatActivity {
                                     if(flag){
                                         //Cuando flag  es true añadimos noticias aduque list
                                         integerDeque.addFirst(R.id.bn_noticias);
-
                                         flag = false;
                                     }
                                 }
@@ -139,4 +141,19 @@ public class Home_Admin_Activity extends AppCompatActivity {
         estadoUsuario("offline");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ic_add:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

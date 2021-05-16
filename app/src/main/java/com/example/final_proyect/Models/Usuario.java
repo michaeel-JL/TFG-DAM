@@ -2,19 +2,19 @@ package com.example.final_proyect.Models;
 
 public class Usuario {
 
-    private String id, nombreUsuario, edad, email, password, foto, rol;
 
-    public Usuario(String id, String nombreUsuario,String edad, String email, String password, String foto, String rol) {
+    private String id, nombre, apellidos, sexo , edad, email, password, foto, rol;
+
+    public Usuario(String id, String nombre, String apellidos, String sexo, String edad, String email, String password, String foto, String rol) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.sexo = sexo;
         this.edad = edad;
         this.email = email;
         this.password = password;
         this.foto = foto;
         this.rol = rol;
-    }
-
-    public Usuario() {
     }
 
     public String getId() {
@@ -25,12 +25,28 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public String getEdad() {
@@ -72,7 +88,4 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
-
-
-
 }

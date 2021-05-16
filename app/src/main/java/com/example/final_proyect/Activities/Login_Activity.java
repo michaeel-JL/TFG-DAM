@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,29 +42,49 @@ public class Login_Activity extends AppCompatActivity {
     EditText mMail, mPassword;
     TextView Mail, Password, textoSplashScreen;
 
+    private String PREFS_KEY = "mispreferencias";
     private FirebaseAuth mAuth;
-    private SharedPreferences prefs;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
     private ProgressDialog barraCarga;
     private String rol;
     private DatabaseReference mDataBase;
-
     //boton flotante
     private FloatingActionButton fab;
+    private Switch rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
-        //Cogemos id de los elementos
+
         items();
 
         barraCarga = new ProgressDialog(this);
 
-        //Se auto-rellenan el email y contraseña en caso de haberse guardado
-        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        setCredentialsIfExist();
+
+        rememberMe= (Switch) findViewById(R.id.remember_me_switch);
+
+
+
+        //Referenciamos los elementos de la vista
+        mDataBase = FirebaseDatabase.getInstance().getReference();
+        gallery1 = findViewById(R.id.gallery1);
+        gallery2 = findViewById(R.id.gallery2);
+        btnlogin = findViewById(R.id.btnlogin);
+        btnsignup = findViewById(R.id.btnsignup);
+        btnreset = findViewById(R.id.btnreset);
+        mMail = findViewById(R.id.mail);
+        mPassword = findViewById(R.id.password);
+        barraCarga = new ProgressDialog(this);
+        //Iniciar instancia de autenticación
+        mAuth = FirebaseAuth.getInstance();
+
+
+
+
 
         //BTN - Registrarse
         btnsignup.setOnClickListener(new View.OnClickListener() {
@@ -91,23 +112,24 @@ public class Login_Activity extends AppCompatActivity {
             }
         });
 
-        //LOGIN PARA ADMIN
-        fab = (FloatingActionButton) findViewById(R.id.fabAdmin);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent intent = new Intent(getApplication(), SignUpAdmin.class);
-                //startActivity(intent);
-            }
-        });
+
+
+
+        //se auto-rellenan el email y contraseña en caso de haberse guardado
+        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        setCredentialsIfExist();
 
     }
+
+
+
+
+
 
     //Iniciamos sesion
     private void inicioSesion() {
 
-        //Iniciar instancia de autenticación
-        mAuth = FirebaseAuth.getInstance();
+
 
         //Se recogen las credenciales para loguear al usuario
         String email= mMail.getText().toString();
@@ -122,7 +144,7 @@ public class Login_Activity extends AppCompatActivity {
                             //Si el usuario y contraseña son correctos, se carga el PacienteActivity.
                             if (task.isSuccessful()) {
                                 barraCarga.dismiss();
-
+                                saveOnPreferences(mMail.getText().toString().trim(), mPassword.getText().toString().trim());
                                 //Cogemos los datos del usuario y su ID
                                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 String uid = user.getUid();
@@ -143,7 +165,7 @@ public class Login_Activity extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplication(), Home_Doctor_Activity.class);
                                                 startActivity(intent);
                                             }
-                                            else if(rol.equals("usuario")){
+                                            else if(rol.equals("paciente")){
                                                 Intent intent = new Intent(getApplication(), Home_User_Activity.class);
                                                 startActivity(intent);
                                             }
@@ -170,6 +192,8 @@ public class Login_Activity extends AppCompatActivity {
                         }
                     });
         }
+
+
     }
 
     //Comprobamos sus datos
@@ -220,8 +244,21 @@ public class Login_Activity extends AppCompatActivity {
         mPassword = findViewById(R.id.password);
     }
 
+
+    //método que guarda el email y contraseña introducidos
+    private void saveOnPreferences(String email, String password) {
+        if (rememberMe.isChecked()) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("email", email);
+            editor.putString("pass", password);
+            editor.apply();
+        } else {
+
+            Util.removedSharedPreferences(prefs);
+        }
+    }
+
+
+
 }
-
-
-
 

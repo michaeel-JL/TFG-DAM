@@ -67,7 +67,7 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
         Usuario userss = userList.get(position);
 
         Glide.with(context).load(userss.getFoto()).into(holder.img_user);
-        holder.tv_usuario.setText(userss.getNombreUsuario());
+        holder.tv_usuario.setText(userss.getNombre());
 
         //Si el usuario que está recorriendo es igual al que tenemos lo oculta
         if (userss.getId().equals(user.getUid())){
@@ -93,7 +93,7 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
                             String id_chat = snapshot.getValue(String.class);
 
                             Intent intent = new Intent(view.getContext(), Chat_Activity.class);
-                            intent.putExtra("nombre", userss.getNombreUsuario());
+                            intent.putExtra("nombre", userss.getNombre());
                             intent.putExtra("img_user", userss.getFoto());
                             intent.putExtra("id_user2", userss.getId());
                             intent.putExtra("id_chat", id_chat);
@@ -114,7 +114,7 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
                             ref_mensajes.child(id_chat);
 
                             Intent intent = new Intent(view.getContext(), Chat_Activity.class);
-                            intent.putExtra("nombre", userss.getNombreUsuario());
+                            intent.putExtra("nombre", userss.getNombre());
                             intent.putExtra("img_user", userss.getFoto());
                             intent.putExtra("id_user2", userss.getId());
                             intent.putExtra("id_chat", id_chat);
@@ -166,14 +166,14 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
         else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                 List<Usuario> collect = usuariosOriginal.stream()
-                        .filter(i -> i.getNombreUsuario().toLowerCase().contains(strSearrch))
+                        .filter(i -> i.getNombre().toLowerCase().contains(strSearrch))
                         .collect(Collectors.toList());
                 userList.clear();
                 userList.addAll(collect);
             }else {
                 userList.clear();
                 for (Usuario i : usuariosOriginal){
-                    if (i.getNombreUsuario().toLowerCase().contains(strSearrch)){
+                    if (i.getNombre().toLowerCase().contains(strSearrch)){
                         userList.add(i);
                     }
                 }

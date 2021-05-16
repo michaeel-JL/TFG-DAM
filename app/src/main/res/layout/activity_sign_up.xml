@@ -21,7 +21,9 @@
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_loginsignup"/>
+
         <RelativeLayout
             android:id="@+id/gallery1"
             android:layout_width="wrap_content"
@@ -51,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="sans-serif-light"
-                        android:text="Usuario"
+                        android:text="Nombre"
                         android:textAllCaps="true"
                         android:textColor="@color/gris"
                         android:textSize="15sp" />
@@ -66,6 +68,54 @@
                         android:paddingRight="15dp"
                         android:textColor="@color/gris"
                         android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Apellidos"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gris"
+                        android:textSize="15sp" />
+                    <EditText
+                        android:id="@+id/apellidos_signup"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="5dp"
+                        android:singleLine="true"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/gris"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Sexo"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gris"
+                        android:textSize="15sp" />
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radioGroup"
+                        android:orientation="horizontal">
+                        <RadioButton android:id="@+id/radio_femenino"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="F"
+                            />
+                        <RadioButton android:id="@+id/radio_masculino"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="M"
+                            />
+                    </RadioGroup>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -181,6 +231,7 @@
                     android:layout_height="130dp"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp"
+                    android:src="@mipmap/ic_icono_medico"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"/>
                 <TextView

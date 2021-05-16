@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -35,12 +37,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignUp_Activity extends AppCompatActivity {
 
-    private EditText editEmail, editNombreUsuario, editEdad, editContraseña, editRepetirContraseña;
+    private EditText editEmail, editNombre, editEdad, editContraseña, editRepetirContraseña, editApellidos;
     private ToggleButton togglerol;
     private CircleImageView imageProfile;
     private Button botonRegistrar, botonLogin;
     private TextView botonAñadirFoto;
-    private String email, nombreUsuario, edad, contraseña, repetirContraseña, stringFoto;
+    private String email, nombre, apellidos, sexo="" , edad, contraseña, repetirContraseña, stringFoto;
     private String rol="paciente";
     private String recordar = "false";
     //PARA LA FOTO DE PERFIL
@@ -50,6 +52,7 @@ public class SignUp_Activity extends AppCompatActivity {
     private DatabaseReference mDataBase;
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
+    private RadioButton radioButtonF, radioButtonM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +64,36 @@ public class SignUp_Activity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
 
         editEmail = (EditText) findViewById(R.id.email_signup);
-        editNombreUsuario = (EditText) findViewById(R.id.nombre_signup);
+        editNombre = (EditText) findViewById(R.id.nombre_signup);
+        editApellidos = (EditText) findViewById(R.id.apellidos_signup) ;
         editEdad = (EditText) findViewById(R.id.edad_signup);
         editContraseña = (EditText) findViewById(R.id.password_signup);
         editRepetirContraseña = (EditText) findViewById(R.id.password_repeat_signup);
-
         togglerol=(ToggleButton)findViewById(R.id.rol_tooglebutton);
+        radioButtonF = (RadioButton) findViewById(R.id.radio_femenino);
+        radioButtonM = (RadioButton) findViewById(R.id.radio_masculino);
+
+        RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.radio_femenino:
+                        sexo="Mujer";
+                        break;
+                    case R.id.radio_masculino:
+                        sexo="Hombre";
+                        break;
+
+                }
+            }
+        });
+
+
+
 
         imageProfile = (CircleImageView) findViewById(R.id.img_perfil_signup);
-
         botonAñadirFoto = (TextView) findViewById(R.id.tv_img_signup);
         botonAñadirFoto.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
@@ -78,6 +102,8 @@ public class SignUp_Activity extends AppCompatActivity {
                         .start(SignUp_Activity.this);
             }
         });
+
+
 
         botonRegistrar = (Button) findViewById(R.id.btn_registrar_signup);
         botonRegistrar.setOnClickListener(new android.view.View.OnClickListener() {
@@ -118,16 +144,20 @@ public class SignUp_Activity extends AppCompatActivity {
     private void registrarUsuario() {
         //COGEMOS LO DE LOS EDIT Y LOS SPINNER
         email = editEmail.getText().toString();
-        nombreUsuario = editNombreUsuario.getText().toString();
+        nombre = editNombre.getText().toString();
+        apellidos = editApellidos.getText().toString();
         edad = editEdad.getText().toString();
         contraseña = editContraseña.getText().toString();
         repetirContraseña = editRepetirContraseña.getText().toString();
 
+        System.out.println("SYSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"+sexo);
+
         recordar = "false";
 
+
         //VALIDACIONES
-        if (!email.isEmpty() && !nombreUsuario.isEmpty() &&  !edad.isEmpty() && !contraseña.isEmpty() &&
-                !repetirContraseña.isEmpty() && !email.trim().equals("") && !nombreUsuario.trim().equals("") && !edad.trim().equals("")) {
+        if (!email.isEmpty() && !nombre.isEmpty() &&  !edad.isEmpty() && !contraseña.isEmpty() &&
+                !repetirContraseña.isEmpty() && !sexo.isEmpty() && !email.trim().equals("") && !nombre.trim().equals("") && !edad.trim().equals("")&& !sexo.trim().equals("")) {
             if (contraseña.length() >= 6 || contraseña.trim().equals("")) {
                 if (contraseña.equals(repetirContraseña)) {
                     //SUBIR IMAGEN
@@ -187,7 +217,7 @@ public class SignUp_Activity extends AppCompatActivity {
                     String id = mAuth.getCurrentUser().getUid();
 
                     //CREAMOS OBJETO PARA PASARSELO A LA BASE
-                    Usuario user = new Usuario(id, nombreUsuario,edad, email, contraseña,stringFoto, rol);
+                    Usuario user = new Usuario(id, nombre, apellidos, sexo,edad, email, contraseña,stringFoto, rol);
 
                     //ENTRAMOS DONDE LOS USUARIOS Y LE METEMOS EL OBJETO LUEGO HAY VALIDACIONES
                     mDataBase.child("Usuarios").child(id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -239,4 +269,7 @@ public class SignUp_Activity extends AppCompatActivity {
         }
         //SI ES CORRECTO
     }
+
+
+
 }

@@ -54,7 +54,7 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nombreUsuario;
+        public TextView nombre;
         public TextView edad;
         public TextView email;
 
@@ -66,7 +66,7 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nombreUsuario = (TextView) itemView.findViewById(R.id.textViewNombreUsuario);
+            nombre = (TextView) itemView.findViewById(R.id.textViewNombreUsuario);
             edad = (TextView) itemView.findViewById(R.id.textViewEdad);
             email = (TextView) itemView.findViewById(R.id.textViewEmail);
             //password = (TextView) itemView.findViewById(R.id.textViewStars);
@@ -76,7 +76,7 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
         }
 
         public void bind(final Usuario users, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
-            nombreUsuario.setText(users.getNombreUsuario());
+            nombre.setText(users.getNombre());
             email.setText("Email: "+users.getEmail());
             edad.setText("Edad: "+users.getEdad());
             rol.setText("Rol: "+users.getRol());

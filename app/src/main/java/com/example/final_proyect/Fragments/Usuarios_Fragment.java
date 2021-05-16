@@ -92,17 +92,19 @@ public class Usuarios_Fragment extends Fragment {
                     users.clear();
                     //Busca todos los datos
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        String nombreUsuario = ds.child("nombreUsuario").getValue().toString();
+                        String nombreUsuario = ds.child("nombre").getValue().toString();
                         String edad = ds.child("edad").getValue().toString();
                         String linkImagen = ds.child("foto").getValue().toString();
                         String email = ds.child("email").getValue().toString();
                         String rol = ds.child("rol").getValue().toString();
                         String password = ds.child("password").getValue().toString();
+                        String apellidos = ds.child("apellidos").getValue().toString();
+                        String sexo=ds.child("sexo").getValue().toString();
                         System.out.println(rol);
                         String id  = ds.getKey();
 
                         //Creamos un ususario
-                        Usuario usuario = new Usuario(id, nombreUsuario, edad, email, password, linkImagen, rol);
+                        Usuario usuario = new Usuario(id, nombreUsuario, apellidos, sexo, edad, email, password, linkImagen, rol);
                         //Añadimos la ciudad al List
                         users.add(usuario);
                     }
@@ -121,7 +123,7 @@ public class Usuarios_Fragment extends Fragment {
                     @Override
                     public void onButtonClick(Usuario users, int position) {
                         //Alerta para confirma borrar una ciudad
-                        alertDelete("Borrar", "Estas seguro que quieres eliminar al usuario  " + users.getNombreUsuario()+ "?", position);
+                        alertDelete("Borrar", "Estas seguro que quieres eliminar al usuario  " + users.getNombre()+ "?", position);
                     }
 
                 });

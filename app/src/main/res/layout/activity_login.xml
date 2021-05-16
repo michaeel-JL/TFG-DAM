@@ -20,7 +20,9 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_login"
+            />
 
         <RelativeLayout
             android:id="@+id/gallery1"
@@ -96,18 +98,20 @@
                         android:paddingRight="15dp"
                         android:layout_marginTop="5dp"/>
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabAdmin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"
-                        android:backgroundTint="@color/gris2"
-                        app:elevation="6dp"
-                        android:layout_margin="16dp"
-                        android:layout_marginBottom="40dp"/>
+
 
                 </LinearLayout>
+                <Switch
+                    android:id="@+id/remember_me_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remember me"
+                    android:textAllCaps="false"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="15sp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/gris"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             </LinearLayout>
             <Button
