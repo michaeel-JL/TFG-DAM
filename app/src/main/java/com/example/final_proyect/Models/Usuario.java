@@ -4,6 +4,8 @@ public class Usuario {
 
 
     private String id, nombre, apellidos, sexo , edad, email, password, foto, rol;
+    public Usuario() {
+    }
 
     public Usuario(String id, String nombre, String apellidos, String sexo, String edad, String email, String password, String foto, String rol) {
         this.id = id;

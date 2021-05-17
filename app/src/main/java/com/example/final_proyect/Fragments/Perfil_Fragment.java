@@ -45,7 +45,7 @@ public class Perfil_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().setTitle("Pefil");
+        getActivity().setTitle("Perfil");
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -58,9 +58,17 @@ public class Perfil_Fragment extends Fragment {
         name_profile = view.findViewById(R.id.nombre_perfil);
         email_profile = view.findViewById(R.id.email_perfil);
         edad_profile = view.findViewById(R.id.edad_perfil);
-        sexo_profile=view.findViewById(R.id.dato6);
+        sexo_profile=view.findViewById(R.id.sexo);
 
-        //logout = view.findViewById(R.id.logout);
+        logout = view.findViewById(R.id.cerrar_sesion);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
+            }
+        });
+
+
 
 
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -68,13 +76,6 @@ public class Perfil_Fragment extends Fragment {
 
         DatabaseReference ref;
         ref = FirebaseDatabase.getInstance().getReference();
-
-        /*
-        //Obtenemos la info del usuario
-        getUsuarioInfo(user);
-        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        */
-
 
         // Agregamos un listener a la referencia
         ref.child("Usuarios").child(uid).addValueEventListener(new ValueEventListener() {
@@ -107,21 +108,12 @@ public class Perfil_Fragment extends Fragment {
                 System.out.println("Error de lectura: " + databaseError.getCode());
             }
         });
-
-
-
-
-
-
-
         return view;
-
-
     }
 
-/*
+
     private void logOut() {
-        Intent intent = new Intent(this, Login_Activity.class);
+        Intent intent = new Intent(getContext(), Login_Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -129,7 +121,7 @@ public class Perfil_Fragment extends Fragment {
     private void removeSharedPreferences() {
         prefs.edit().clear().apply();
     }
-    */
+
     private void cargarImagen(String link) {
         Picasso.get()
                 .load(link)

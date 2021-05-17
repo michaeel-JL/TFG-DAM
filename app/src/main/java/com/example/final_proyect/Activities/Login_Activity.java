@@ -165,7 +165,7 @@ public class Login_Activity extends AppCompatActivity {
                                                 Intent intent = new Intent(getApplication(), Home_Doctor_Activity.class);
                                                 startActivity(intent);
                                             }
-                                            else if(rol.equals("paciente")){
+                                            else if(rol.equals("usuario")){
                                                 Intent intent = new Intent(getApplication(), Home_User_Activity.class);
                                                 startActivity(intent);
                                             }

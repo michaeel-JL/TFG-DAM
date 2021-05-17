@@ -3,6 +3,8 @@ package com.example.final_proyect.Activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,21 +21,22 @@ import com.google.firebase.database.ValueEventListener;
 public class NuevaNoticia extends AppCompatActivity {
 
     private FloatingActionButton fab; //Boton flotante
-    private EditText titulo, descripción, imagenPrincipal, imagenSecundaria, texto;
+    private EditText titulo, descripci贸n, imagenPrincipal, imagenSecundaria, texto;
     private DatabaseReference mDataBase; //BBDD
     private int contador;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nueva_noticia_activity);
+        setContentView(R.layout.activity_nueva_noticia);
 
         titulo = findViewById(R.id.new_titulo);
-        descripción = findViewById(R.id.new_description);
+        descripci贸n = findViewById(R.id.new_description);
         imagenPrincipal = findViewById(R.id.new_imagenPrincipal);
         imagenSecundaria = findViewById(R.id.new_imagenSecundaria);
         texto = findViewById(R.id.new_texto);
-
+        spinner = (Spinner) findViewById(R.id.spn);
 
 
 
@@ -52,19 +55,25 @@ public class NuevaNoticia extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String id_noticias = mDataBase.getKey();
-                        //Noticia
-                        Noticia noticia = new Noticia();
-                        noticia.setTitulo(titulo.getText().toString());
-                        noticia.setDescription(descripción.getText().toString());
-                        noticia.setImagePrincipal(imagenPrincipal.getText().toString());
-                        noticia.setImagenSecundaria(imagenSecundaria.getText().toString());
-                        noticia.setTextoNoticia(texto.getText().toString());
+                        if (!titulo.getText().toString().isEmpty() && !descripci贸n.getText().toString().isEmpty() &&  !imagenPrincipal.getText().toString().isEmpty() && !imagenSecundaria.getText().toString().isEmpty() &&
+                                !spinner.getSelectedItem().toString().isEmpty() ) {
 
 
-                        ref_noticias.child(noticia.getTitulo()).setValue(noticia);
-                        onBackPressed();
+                            String id_noticias = mDataBase.getKey();
+                            //Noticia
+                            Noticia noticia = new Noticia();
+                            noticia.setTitulo(titulo.getText().toString());
+                            noticia.setDescription(descripci贸n.getText().toString());
+                            noticia.setImagePrincipal(imagenPrincipal.getText().toString());
+                            noticia.setImagenSecundaria(imagenSecundaria.getText().toString());
+                            noticia.setTextoNoticia(texto.getText().toString());
+                            noticia.setEtiqueta(spinner.getSelectedItem().toString());
+                            ref_noticias.child(noticia.getTitulo()).setValue(noticia);
+                            onBackPressed();
 
+                        }else{
+                            Toast.makeText(getApplication(), "COMPLETE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

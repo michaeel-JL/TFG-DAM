@@ -45,9 +45,8 @@ import java.util.Deque;
 
 public class Home_User_Activity extends AppCompatActivity {
 
-    private SupportMapFragment mapFragment;
-    private FusedLocationProviderClient client;
-    private int REQUEST_CODE = 111;
+    Fragment currentFRagment;
+
 
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -66,16 +65,6 @@ public class Home_User_Activity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.navigation);
         integerDeque.push(R.id.bn_noticias);
-
-        mapFragment = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.google_map);
-        client = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-
-            getCurrentLocation();
-        }else{
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-        }
 
         //Cargamos los fargments
         cargarFragments(new Noticias_Fragment());
@@ -164,6 +153,8 @@ public class Home_User_Activity extends AppCompatActivity {
         });
     }
 
+
+
     /*
     @Override
     protected void onResume() {
@@ -177,59 +168,5 @@ public class Home_User_Activity extends AppCompatActivity {
         estadoUsuario("offline");
     }
      */
-    private void getCurrentLocation() {
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        /*
-
-        Task<Location> task = client.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-
-                if (location != null) {
-                    mapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Aqui estoy");
-
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
-
-                            googleMap.addMarker(markerOptions).showInfoWindow();
-
-                        }
-                    });
-                }
-            }
-        });
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode == REQUEST_CODE){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                getCurrentLocation();
-            }
-        }else {
-            Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
-        }
-
-
-         */
-    }
-
-
 
 }

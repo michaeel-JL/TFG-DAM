@@ -59,6 +59,7 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
         public TextView titulo;
         public TextView description;
         public ImageView image;
+        public TextView etiqueta;
 
 
         public ViewHolder(View itemView) {
@@ -66,14 +67,14 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
             titulo = (TextView) itemView.findViewById(R.id.titulo_noticia_cv);
             description=(TextView) itemView.findViewById(R.id.descripcion_noticia_cv);
             image = (ImageView) itemView.findViewById(R.id.imagen_noticia_cv);
-
+            etiqueta= (TextView)itemView.findViewById(R.id.txt_etiqueta);
         }
 
         public void bind(final Noticia noticias, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
             titulo.setText(noticias.getTitulo());
             description.setText(noticias.getDescription());
             Picasso.get().load(noticias.getImagePrincipal()).fit().into(image);
-
+            etiqueta.setText(noticias.getEtiqueta());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,6 +92,5 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
     public interface OnButtonClickListener {
         void onButtonClick(Noticia noticias, int position);
     }
-
 
 }

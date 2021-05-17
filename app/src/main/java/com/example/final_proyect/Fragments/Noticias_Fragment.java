@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.final_proyect.Activities.Noticia_Activity;
 import com.example.final_proyect.Activities.Noticia_edit_Activity;
+import com.example.final_proyect.Activities.NuevaNoticia;
 import com.example.final_proyect.Adapters.Noticias_Adapter;
 import com.example.final_proyect.Models.Noticia;
 import com.example.final_proyect.R;
@@ -46,6 +50,9 @@ public class Noticias_Fragment extends Fragment  {
     private Context context;
     private String rol;
 
+    private MenuItem item;
+
+
     public Noticias_Fragment() {
 
     }
@@ -62,10 +69,12 @@ public class Noticias_Fragment extends Fragment  {
         //Metodo para cargar las tarjeta de las ciudades
         getNoticiasFromFirebase();
 
-        getActivity().setTitle("Usuarios");
+        getActivity().setTitle("Noticias");
 
         //Array de Noticias
         noticias = new ArrayList<Noticia>();
+
+        setHasOptionsMenu(true);
 
         layoutManager = new LinearLayoutManager(context);
 
@@ -78,7 +87,6 @@ public class Noticias_Fragment extends Fragment  {
         recyclerView.setAdapter(adapter);
 
         return view;
-
 
     }
 
@@ -102,10 +110,12 @@ public class Noticias_Fragment extends Fragment  {
                         String imagePrincipal = ds.child("imagePrincipal").getValue().toString();
                         String imageSecundaria = ds.child("imagenSecundaria").getValue().toString();
                         String decNoticia = ds.child("textoNoticia").getValue().toString();
+                        String etiqueta = ds.child("etiqueta").getValue().toString();
+
 
                         String id = ds.getKey();
                         //Creamos un chat
-                        Noticia noticia = new Noticia(id, titulo, description, imagePrincipal, imageSecundaria, decNoticia);
+                        Noticia noticia = new Noticia(id, titulo, description, imagePrincipal, imageSecundaria, decNoticia, etiqueta);
                         //Añadimos la ciudad al List
                         noticias.add(noticia);
                     }
@@ -138,6 +148,7 @@ public class Noticias_Fragment extends Fragment  {
                                         intent.putExtra("imagePrincipal", noticias.get(position).getImagePrincipal());
                                         intent.putExtra("imagenSecundaria", noticias.get(position).getImagenSecundaria());
                                         intent.putExtra("textoNoticia", noticias.get(position).getTextoNoticia());
+                                        intent.putExtra("etiqueta", noticias.get(position).getEtiqueta());
                                         startActivity(intent);
 
 
@@ -149,6 +160,7 @@ public class Noticias_Fragment extends Fragment  {
                                         intent.putExtra("imagePrincipal", noticias.get(position).getImagePrincipal());
                                         intent.putExtra("imagenSecundaria", noticias.get(position).getImagenSecundaria());
                                         intent.putExtra("textoNoticia", noticias.get(position).getTextoNoticia());
+                                        intent.putExtra("etiqueta", noticias.get(position).getEtiqueta());
                                         startActivity(intent);
 
 
@@ -182,6 +194,30 @@ public class Noticias_Fragment extends Fragment  {
 
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_add, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.ic_add_noticia).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ic_add_noticia:
+                Intent intent = new Intent(getActivity(), NuevaNoticia.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

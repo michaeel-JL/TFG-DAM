@@ -33,11 +33,12 @@ public class Home_Admin_Activity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    DatabaseReference ref_estado = database.getReference("Estado").child(user.getUid());
+    //DatabaseReference ref_estado = database.getReference("Estado").child(user.getUid());
 
     BottomNavigationView bottomNavigationView;
     Deque<Integer> integerDeque = new ArrayDeque<>(4);
     boolean flag = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,7 @@ public class Home_Admin_Activity extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
-
                         int id = item.getItemId();
-
                         if(integerDeque.contains(id)){
                             if(id == R.id.bn_noticias){
                                 if(integerDeque.size() != 1){
@@ -109,25 +108,20 @@ public class Home_Admin_Activity extends AppCompatActivity {
                 .replace(R.id.viewPager, fragment, fragment.getClass().getSimpleName())
                 .commit();
     }
-
-
-
+/*
     private void estadoUsuario(String estado) {
-
         ref_estado.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Estado est = new Estado("", "", estado);
                 ref_estado.setValue(est);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
     }
+
 
     @Override
     protected void onResume() {
@@ -141,19 +135,5 @@ public class Home_Admin_Activity extends AppCompatActivity {
         estadoUsuario("offline");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_add, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.ic_add:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+ */
 }

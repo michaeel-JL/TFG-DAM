@@ -3,7 +3,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_perfil">APPMEDICAS</string>
-    <string name="map_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDwMS5JVbC7RksTaqD5TFNDSmTyMNrNK7U</string>
+    <string name="map_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDwMS5JVbC7RksTaqD5TFNDSmTyMNrNK7U</string>
     <string name="hello_world">Hello Square World!</string>
 
 

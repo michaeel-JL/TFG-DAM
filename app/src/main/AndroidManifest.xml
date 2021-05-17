@@ -31,8 +31,11 @@
         <activity android:name=".Activities.Noticia_edit_Activity"/>
         <activity android:name=".Activities.SignUp_Activity"/>
         <activity android:name=".Activities.Reset_passwd_Activity"/>
+        <activity android:name=".Activities.NuevaNoticia"/>
         <activity android:name=".Activities.Noticia_Activity"/>
         <activity android:name=".Activities.Login_Activity"/>
+        <activity android:name=".Activities.User_Edit_Activity"/>
+        <activity android:name=".Activities.Nuevo_Usuario_Activity"/>
         <activity android:name=".Activities.SplashActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>

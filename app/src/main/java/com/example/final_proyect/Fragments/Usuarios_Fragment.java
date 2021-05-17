@@ -3,6 +3,7 @@ package com.example.final_proyect.Fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,10 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.final_proyect.Activities.Nuevo_Usuario_Activity;
+import com.example.final_proyect.Activities.User_Edit_Activity;
 import com.example.final_proyect.Adapters.User_Adapter;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
@@ -54,6 +60,9 @@ public class Usuarios_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_usuarios_, container, false);
 
+        setHasOptionsMenu(true);
+
+
         //Instanciamos Firebase
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
@@ -76,7 +85,6 @@ public class Usuarios_Fragment extends Fragment {
     }
 
 
-
     //Lee las ciudades de Firebase
     private void getUsersFromFirebase() {
 
@@ -84,7 +92,6 @@ public class Usuarios_Fragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User_Adapter.OnItemClickListener itemListener = null;
-                User_Adapter.OnButtonClickListener btnListener = null;
 
                 //Si hay datos...
                 if (dataSnapshot.exists()) {
@@ -99,13 +106,13 @@ public class Usuarios_Fragment extends Fragment {
                         String rol = ds.child("rol").getValue().toString();
                         String password = ds.child("password").getValue().toString();
                         String apellidos = ds.child("apellidos").getValue().toString();
-                        String sexo=ds.child("sexo").getValue().toString();
+                        String sexo = ds.child("sexo").getValue().toString();
                         System.out.println(rol);
-                        String id  = ds.getKey();
+                        String id = ds.getKey();
 
                         //Creamos un ususario
                         Usuario usuario = new Usuario(id, nombreUsuario, apellidos, sexo, edad, email, password, linkImagen, rol);
-                        //Añadimos la ciudad al List
+                        //AÃ±adimos la ciudad al List
                         users.add(usuario);
                     }
                 }
@@ -114,16 +121,21 @@ public class Usuarios_Fragment extends Fragment {
                 adapter = new User_Adapter(users, R.layout.cardview_user, new User_Adapter.OnItemClickListener() {
 
                     @Override
-                    public void onItemClick(Usuario users, int position) {
+                    public void onItemClick(Usuario user, int position) {
 
-                    }
+                        Intent intent = new Intent(getActivity(), User_Edit_Activity.class);
+                        intent.putExtra("id", users.get(position).getId());
+                        intent.putExtra("nombre", users.get(position).getNombre());
+                        intent.putExtra("apellidos", users.get(position).getApellidos());
+                        intent.putExtra("email", users.get(position).getEmail());
+                        intent.putExtra("edad", users.get(position).getEdad());
+                        intent.putExtra("foto", users.get(position).getFoto());
+                        intent.putExtra("rol", users.get(position).getRol());
+                        intent.putExtra("sexo", users.get(position).getSexo());
+                        intent.putExtra("password", users.get(position).getPassword());
 
-                    //Boton eliminar
-                }, new User_Adapter.OnButtonClickListener() {
-                    @Override
-                    public void onButtonClick(Usuario users, int position) {
-                        //Alerta para confirma borrar una ciudad
-                        alertDelete("Borrar", "Estas seguro que quieres eliminar al usuario  " + users.getNombre()+ "?", position);
+                        startActivity(intent);
+
                     }
 
                 });
@@ -140,27 +152,27 @@ public class Usuarios_Fragment extends Fragment {
     }
 
 
-    //Mensaje para confirmar la eliminación de borrar un user
-    private void alertDelete(String nombreUser, String message, int position) {
-        AlertDialog dialog = new AlertDialog.Builder(getContext())
-                .setTitle(nombreUser)
-                .setMessage(message)
-                .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteUser(position); //Borramos la ciudad
-                        //Mensaje
-                        Toast.makeText(getActivity(), "Ha sido borrado exitosamente.", Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-                .setNegativeButton("Cancelar", null).show();
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_add, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
-    //Metodo eliminar usuario de firebase
-    private void deleteUser(int position) {
-        String id  = users.get(position).getId(); //Cogemos el ID de la tarjeta seleccionada
-        mDataBase.child("Usuarios").child(id).removeValue(); //Borramos a través del ID
-        users.clear(); //Limpiamos cada que eliminamos
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.ic_add_user).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ic_add_user:
+                Intent intent = new Intent(getActivity(), Nuevo_Usuario_Activity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

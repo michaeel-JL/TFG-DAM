@@ -76,6 +76,7 @@
                             android:paddingBottom="5dp"/>
 
                         <TextView
+                            android:id="@+id/txt_etiqueta"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Etiqueta"

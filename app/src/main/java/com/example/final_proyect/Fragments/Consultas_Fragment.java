@@ -96,7 +96,6 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
-
                                 usersArrayList.removeAll(usersArrayList);
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
@@ -121,7 +120,6 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
                         }
                     });
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -129,7 +127,6 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
         });
         return view;
     }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;

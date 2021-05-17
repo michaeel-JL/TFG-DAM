@@ -2,18 +2,20 @@ package com.example.final_proyect.Models;
 
 public class Noticia {
 
-    private String id, titulo, description, imagePrincipal, imagenSecundaria, textoNoticia;
+    private String id, titulo, description, imagePrincipal, imagenSecundaria, textoNoticia, etiqueta;
 
     public Noticia() {
     }
 
-    public Noticia(String id, String titulo, String description, String imagePrincipal, String imagenSecundaria, String textoNoticia) {
+
+    public Noticia(String id, String titulo, String description, String imagePrincipal, String imagenSecundaria, String textoNoticia, String etiqueta) {
         this.id = id;
         this.titulo = titulo;
         this.description = description;
         this.imagePrincipal = imagePrincipal;
         this.imagenSecundaria = imagenSecundaria;
         this.textoNoticia = textoNoticia;
+        this.etiqueta = etiqueta;
     }
 
     public String getId() {
@@ -64,4 +66,11 @@ public class Noticia {
         this.textoNoticia = textoNoticia;
     }
 
+    public String getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(String etiqueta) {
+        this.etiqueta = etiqueta;
+    }
 }

@@ -22,13 +22,11 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
     private List<Usuario> users;
     private int layout;
     private OnItemClickListener itemClickListener;
-    private OnButtonClickListener btnClickListener;
 
-    public User_Adapter(List<Usuario> users, int layout, OnItemClickListener itemListener, OnButtonClickListener btnListener) {
+    public User_Adapter(List<Usuario> users, int layout, OnItemClickListener itemListener) {
         this.users = users;
         this.layout = layout;
         this.itemClickListener = itemListener;
-        this.btnClickListener = btnListener;
     }
 
     @Override
@@ -41,16 +39,13 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(users.get(position), itemClickListener, btnClickListener);
+        holder.bind(users.get(position), itemClickListener);
     }
-
 
     @Override
     public int getItemCount() {
         return users.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -61,8 +56,6 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
         //private TextView password;
         public ImageView imagePerfil;
         private TextView rol;
-        public Button btnDelete;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,22 +65,14 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
             //password = (TextView) itemView.findViewById(R.id.textViewStars);
             rol = (TextView) itemView.findViewById(R.id.textViewRol);
             imagePerfil = (ImageView) itemView.findViewById(R.id.imageViewUser);
-            btnDelete = (Button) itemView.findViewById(R.id.buttonDeleteUser);
         }
 
-        public void bind(final Usuario users, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
+        public void bind(final Usuario users, final OnItemClickListener itemListener) {
             nombre.setText(users.getNombre());
             email.setText("Email: "+users.getEmail());
-            edad.setText("Edad: "+users.getEdad());
+            edad.setText(users.getEdad());
             rol.setText("Rol: "+users.getRol());
             Picasso.get().load(users.getFoto()).fit().into(imagePerfil);
-
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    btnListener.onButtonClick(users, getAdapterPosition());
-                }
-            });
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +87,4 @@ public class User_Adapter extends RecyclerView.Adapter<User_Adapter.ViewHolder>{
     public interface OnItemClickListener {
         void onItemClick(Usuario users, int position);
     }
-
-    public interface OnButtonClickListener {
-        void onButtonClick(Usuario users, int position);
-    }
-
-
 }
