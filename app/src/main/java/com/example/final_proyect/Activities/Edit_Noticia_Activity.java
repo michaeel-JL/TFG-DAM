@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class Noticia_edit_Activity extends AppCompatActivity {
+public class Edit_Noticia_Activity extends AppCompatActivity {
 
     private FloatingActionButton fab; //Boton flotante
     private Noticias_Adapter adapter; //Adaptar

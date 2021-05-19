@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class User_Edit_Activity extends AppCompatActivity {
+public class Edit_User_Activity extends AppCompatActivity {
 
     private String id, nombre, apellidos, edad, sexo, email, rol , password, foto;
     private EditText edit_name, edit_apellidos, edit_edad, edit_email, edit_rol;

@@ -1,8 +1,6 @@
 package com.example.final_proyect.Fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,10 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.final_proyect.Activities.Nuevo_Usuario_Activity;
-import com.example.final_proyect.Activities.User_Edit_Activity;
+import com.example.final_proyect.Activities.Add_User_Activity;
+import com.example.final_proyect.Activities.Edit_User_Activity;
 import com.example.final_proyect.Adapters.User_Adapter;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
@@ -85,7 +82,7 @@ public class Usuarios_Fragment extends Fragment {
     }
 
 
-    //Lee las ciudades de Firebase
+    //Lee los Usuarios de Firebase
     private void getUsersFromFirebase() {
 
         mDataBase.child("Usuarios").addValueEventListener(new ValueEventListener() {
@@ -123,7 +120,7 @@ public class Usuarios_Fragment extends Fragment {
                     @Override
                     public void onItemClick(Usuario user, int position) {
 
-                        Intent intent = new Intent(getActivity(), User_Edit_Activity.class);
+                        Intent intent = new Intent(getActivity(), Edit_User_Activity.class);
                         intent.putExtra("id", users.get(position).getId());
                         intent.putExtra("nombre", users.get(position).getNombre());
                         intent.putExtra("apellidos", users.get(position).getApellidos());
@@ -168,7 +165,7 @@ public class Usuarios_Fragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.ic_add_user:
-                Intent intent = new Intent(getActivity(), Nuevo_Usuario_Activity.class);
+                Intent intent = new Intent(getActivity(), Add_User_Activity.class);
                 startActivity(intent);
                 return true;
             default:

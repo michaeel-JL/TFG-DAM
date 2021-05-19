@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,8 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.final_proyect.Activities.Noticia_Activity;
-import com.example.final_proyect.Activities.Noticia_edit_Activity;
-import com.example.final_proyect.Activities.NuevaNoticia;
+import com.example.final_proyect.Activities.Edit_Noticia_Activity;
+import com.example.final_proyect.Activities.Add_Noticia_Activity;
 import com.example.final_proyect.Adapters.Noticias_Adapter;
 import com.example.final_proyect.Models.Noticia;
 import com.example.final_proyect.R;
@@ -141,7 +140,7 @@ public class Noticias_Fragment extends Fragment  {
 
                                     rol = dataSnapshot.child("rol").getValue(String.class);
                                     if(rol.equals("admin")){
-                                        Intent intent = new Intent(getActivity(), Noticia_edit_Activity.class);
+                                        Intent intent = new Intent(getActivity(), Edit_Noticia_Activity.class);
                                         intent.putExtra("id", noticias.get(position).getId());
                                         intent.putExtra("name", noticias.get(position).getTitulo());
                                         intent.putExtra("description", noticias.get(position).getDescription());
@@ -212,7 +211,7 @@ public class Noticias_Fragment extends Fragment  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.ic_add_noticia:
-                Intent intent = new Intent(getActivity(), NuevaNoticia.class);
+                Intent intent = new Intent(getActivity(), Add_Noticia_Activity.class);
                 startActivity(intent);
                 return true;
             default:

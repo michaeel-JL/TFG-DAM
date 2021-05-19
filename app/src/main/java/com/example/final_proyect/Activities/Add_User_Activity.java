@@ -35,7 +35,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Nuevo_Usuario_Activity extends AppCompatActivity {
+public class Add_User_Activity extends AppCompatActivity {
 
     private String email, nombre, apellidos, sexo="" , edad, contraseña, repetirContraseña, stringFoto, rol;
     private EditText editEmail, editNombre, editEdad, editContraseña, editRepetirContraseña, editApellidos;
@@ -56,7 +56,7 @@ public class Nuevo_Usuario_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_usuario);
+        setContentView(R.layout.activity_add_usuario);
         showAlertForCreatingUserRol();
 
 
@@ -64,14 +64,14 @@ public class Nuevo_Usuario_Activity extends AppCompatActivity {
         mDataBase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
 
-        editEmail = (EditText) findViewById(R.id.email_signup);
-        editNombre = (EditText) findViewById(R.id.nombre_signup);
-        editApellidos = (EditText) findViewById(R.id.apellidos_signup) ;
-        editEdad = (EditText) findViewById(R.id.edad_signup);
-        editContraseña = (EditText) findViewById(R.id.password_signup);
-        editRepetirContraseña = (EditText) findViewById(R.id.password_repeat_signup);
-        radioButtonF = (RadioButton) findViewById(R.id.radio_femenino);
-        radioButtonM = (RadioButton) findViewById(R.id.radio_masculino);
+        editEmail = (EditText) findViewById(R.id.add_user_email);
+        editNombre = (EditText) findViewById(R.id.add_user_nombre);
+        editApellidos = (EditText) findViewById(R.id.add_user_apellidos) ;
+        editEdad = (EditText) findViewById(R.id.add_user_edad);
+        editContraseña = (EditText) findViewById(R.id.add_user_pswd);
+        editRepetirContraseña = (EditText) findViewById(R.id.add_user_pswd2);
+        radioButtonF = (RadioButton) findViewById(R.id.add_user_femenino);
+        radioButtonM = (RadioButton) findViewById(R.id.add_user_masculino);
 
 
         RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
@@ -80,10 +80,10 @@ public class Nuevo_Usuario_Activity extends AppCompatActivity {
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
-                    case R.id.radio_femenino:
+                    case R.id.add_user_femenino:
                         sexo="Mujer";
                         break;
-                    case R.id.radio_masculino:
+                    case R.id.add_user_masculino:
                         sexo="Hombre";
                         break;
 
@@ -92,18 +92,18 @@ public class Nuevo_Usuario_Activity extends AppCompatActivity {
         });
 
 
-        imageProfile = (CircleImageView) findViewById(R.id.img_perfil_signup);
-        botonAñadirFoto = (TextView) findViewById(R.id.tv_img_signup);
+        imageProfile = (CircleImageView) findViewById(R.id.add_user_img);
+        botonAñadirFoto = (TextView) findViewById(R.id.add_user_txtimg);
         botonAñadirFoto.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
                 CropImage.activity(uri).setAspectRatio(1, 1)
-                        .start(Nuevo_Usuario_Activity.this);
+                        .start(Add_User_Activity.this);
             }
         });
 
 
-        botonRegistrar = (Button) findViewById(R.id.btn_registrar_signup);
+        botonRegistrar = (Button) findViewById(R.id.add_user_btn_signup);
         botonRegistrar.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View v) {
@@ -131,11 +131,11 @@ public class Nuevo_Usuario_Activity extends AppCompatActivity {
                 switch (which) {
                     case 0:
                         rol="medico";
-                        Toast.makeText(Nuevo_Usuario_Activity.this, "Médico", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Add_User_Activity.this, "Médico", Toast.LENGTH_LONG).show();
                         break;
                     case 1:
                         rol="admin";
-                        Toast.makeText(Nuevo_Usuario_Activity.this, "Administrador", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Add_User_Activity.this, "Administrador", Toast.LENGTH_LONG).show();
                         break;
 
                 }
@@ -242,7 +242,7 @@ public class Nuevo_Usuario_Activity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()) {
                                 Toast.makeText(getApplication(), "Usuario registrado", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Nuevo_Usuario_Activity.this, Usuarios_Fragment.class));
+                                startActivity(new Intent(Add_User_Activity.this, Usuarios_Fragment.class));
                                 finish();
                             } else {
                                 Toast.makeText(getApplication(), "ERROR EN EL REGISTRO 1", Toast.LENGTH_SHORT).show();

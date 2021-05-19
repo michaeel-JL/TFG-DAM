@@ -42,7 +42,7 @@
                     android:text="Título" />
 
                 <EditText
-                    android:id="@+id/new_titulo"
+                    android:id="@+id/add_noticia_titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -54,7 +54,7 @@
                     android:text="Link imagen principal" />
 
                 <EditText
-                    android:id="@+id/new_imagenPrincipal"
+                    android:id="@+id/add_noticia_img1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -66,7 +66,7 @@
                     android:text="Link Imagen Secundaria" />
 
                 <EditText
-                    android:id="@+id/new_imagenSecundaria"
+                    android:id="@+id/add_noticia_img2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -78,7 +78,7 @@
                     android:text="Descripción: " />
 
                 <EditText
-                    android:id="@+id/new_description"
+                    android:id="@+id/add_noticia_descripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -90,7 +90,7 @@
                     android:text="Texto de la noticia: (Max. 500 caracteres)" />
 
                 <EditText
-                    android:id="@+id/new_texto"
+                    android:id="@+id/add_noticia_texto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="500"
@@ -104,7 +104,7 @@
 
 
                 <Spinner
-                    android:id="@+id/spn"
+                    android:id="@+id/add_noticia_spn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/dlangs"
@@ -112,7 +112,7 @@
                     android:prompt="@string/spn_title" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabSave"
+                    android:id="@+id/add_noticia_btn_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|bottom"

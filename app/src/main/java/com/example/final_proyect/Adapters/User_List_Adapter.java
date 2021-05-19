@@ -85,7 +85,6 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
                         //Si existe un IDCHAT
                         if(snapshot.exists()){
 

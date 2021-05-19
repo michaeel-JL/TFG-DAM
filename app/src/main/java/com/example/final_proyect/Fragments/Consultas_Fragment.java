@@ -92,11 +92,13 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myref = database.getReference("Usuarios");
+
                     myref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
                                 usersArrayList.removeAll(usersArrayList);
+
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                                     String rol = dataSnapshot.getValue(Usuario.class).getRol();
@@ -110,6 +112,7 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
                             } else {
                                 Toast.makeText(getContext(), "No existen usuarios", Toast.LENGTH_SHORT).show();
                             }
+
                             adapter = new User_List_Adapter(usersArrayList, getContext());
                             rv.setAdapter(adapter);
                             adapter.notifyDataSetChanged();

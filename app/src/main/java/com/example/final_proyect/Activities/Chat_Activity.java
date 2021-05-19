@@ -134,8 +134,7 @@ public class Chat_Activity extends AppCompatActivity {
         ref_mensajes.child(id_chat).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chatlist.removeAll(chatlist);
-
+                chatlist.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Chat chat = dataSnapshot.getValue(Chat.class);
                     chatlist.add(chat);

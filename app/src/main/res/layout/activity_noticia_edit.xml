@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Noticia_edit_Activity">
+    tools:context=".Activities.Edit_Noticia_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"

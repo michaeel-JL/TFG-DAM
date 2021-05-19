@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class NuevaNoticia extends AppCompatActivity {
+public class Add_Noticia_Activity extends AppCompatActivity {
 
     private FloatingActionButton fab; //Boton flotante
     private EditText titulo, descripci贸n, imagenPrincipal, imagenSecundaria, texto;
@@ -29,19 +29,19 @@ public class NuevaNoticia extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nueva_noticia);
+        setContentView(R.layout.activity_add_noticia);
 
-        titulo = findViewById(R.id.new_titulo);
-        descripci贸n = findViewById(R.id.new_description);
-        imagenPrincipal = findViewById(R.id.new_imagenPrincipal);
-        imagenSecundaria = findViewById(R.id.new_imagenSecundaria);
-        texto = findViewById(R.id.new_texto);
-        spinner = (Spinner) findViewById(R.id.spn);
+        titulo = findViewById(R.id.add_noticia_titulo);
+        descripci贸n = findViewById(R.id.add_noticia_descripcion);
+        imagenPrincipal = findViewById(R.id.add_noticia_img1);
+        imagenSecundaria = findViewById(R.id.add_noticia_img2);
+        texto = findViewById(R.id.add_noticia_texto);
+        spinner = (Spinner) findViewById(R.id.add_noticia_spn);
 
 
 
         //boton guardar
-        FloatingActionButton fab = findViewById(R.id.fabSave);
+        FloatingActionButton fab = findViewById(R.id.add_noticia_btn_save);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
