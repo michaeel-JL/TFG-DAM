@@ -113,6 +113,7 @@ public class Alergias_Activity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.ic_add_noticia:
                 Intent intent = new Intent(this, Add_Alergia_Activity.class);
+                intent.putExtra("editar", "no");
                 startActivity(intent);
                 return true;
             default:

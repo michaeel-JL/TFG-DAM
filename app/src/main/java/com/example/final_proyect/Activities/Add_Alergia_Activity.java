@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.final_proyect.Models.Alergia;
 import com.example.final_proyect.Models.Chat;
@@ -30,6 +31,7 @@ public class Add_Alergia_Activity extends AppCompatActivity {
     private DatabaseReference mDataBase; //BBDD
     private Spinner spn_gravedad;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String id_alergia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,24 @@ public class Add_Alergia_Activity extends AppCompatActivity {
 
         String uid = user.getUid();
 
+        String editar_alergia = getIntent().getExtras().getString("editar");
+
+        if(editar_alergia.equals("si")){
+
+            String nombre_alergia = getIntent().getExtras().getString("n_alergia");
+            String gravedad_alergia = getIntent().getExtras().getString("gravedad_alergia");
+            String descripcion_alergia = getIntent().getExtras().getString("descripcion_alergia");
+            id_alergia = getIntent().getExtras().getString("id_alergia");
+
+            //Nos devuelve la posicion del spinner
+            int pos = positionSpiner(gravedad_alergia);
+
+            alergia_name.setText(nombre_alergia);
+            alergia_details.setText(descripcion_alergia);
+            spn_gravedad.setSelection(pos);
+        }
 
         //Boton guardar
-
         FloatingActionButton fab = findViewById(R.id.add_alergia_btn_save);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,34 +69,47 @@ public class Add_Alergia_Activity extends AppCompatActivity {
                 mDataBase = FirebaseDatabase.getInstance().getReference();
                 FirebaseDatabase databse = FirebaseDatabase.getInstance();
 
-
                 DatabaseReference ref_alergias = databse.getReference("Alergias").child(uid);
                 ref_alergias.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String id = ref_alergias.push().getKey();
-
                         Alergia alergia = new Alergia();
                         alergia.setNombre(alergia_name.getText().toString());
                         alergia.setDescripcion(alergia_details.getText().toString());
                         alergia.setGravedad(spn_gravedad.getSelectedItem().toString());
-                        alergia.setId(id);
-                        ref_alergias.child(alergia.getId()).setValue(alergia);
+
+                        //Comprobamos si hay que editar o crear uno nuevo
+                        if(editar_alergia.equals("si")){
+                            alergia.setId(id_alergia);
+                            ref_alergias.child(id_alergia).setValue(alergia);
+
+                        }else{
+                            String id = ref_alergias.push().getKey();
+                            alergia.setId(id);
+                            ref_alergias.child(alergia.getId()).setValue(alergia);
+                        }
                         onBackPressed();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
-
                 });
-
             }
         });
+    }
 
+    private int positionSpiner(String gravedad_alergia) {
 
+        //Comprobamos el tipo
+        if (gravedad_alergia.equals("Débil")){
+            return 0;
+        }else if(gravedad_alergia.equals("Normal")){
+            return 1;
+        }else if(gravedad_alergia.equals("Fuerte")){
+            return 2 ;
+        }
+        return 1;
     }
 
 }

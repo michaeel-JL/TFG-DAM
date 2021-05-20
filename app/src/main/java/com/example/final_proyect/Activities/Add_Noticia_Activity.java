@@ -58,7 +58,6 @@ public class Add_Noticia_Activity extends AppCompatActivity {
                         if (!titulo.getText().toString().isEmpty() && !descripci贸n.getText().toString().isEmpty() &&  !imagenPrincipal.getText().toString().isEmpty() && !imagenSecundaria.getText().toString().isEmpty() &&
                                 !spinner.getSelectedItem().toString().isEmpty() ) {
 
-
                             String id_noticias = mDataBase.getKey();
                             //Noticia
                             Noticia noticia = new Noticia();

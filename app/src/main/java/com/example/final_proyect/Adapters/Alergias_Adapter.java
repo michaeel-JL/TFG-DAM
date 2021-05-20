@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -62,16 +63,18 @@ public class Alergias_Adapter extends RecyclerView.Adapter<Alergias_Adapter.view
             @Override
             public void onClick(View view) {
 
-                DatabaseReference ref_alergias = databse.getReference("Enfermedades").child(user.getUid()).child(alergiass.getId());
+                DatabaseReference ref_alergias = databse.getReference("Alergias").child(user.getUid()).child(alergiass.getId());
                 ref_alergias.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()) {
 
                             Intent intent = new Intent(view.getContext(), Add_Alergia_Activity.class);
-                            intent.putExtra("nombre_alergia", alergiass.getNombre());
+                            intent.putExtra("n_alergia", alergiass.getNombre());
                             intent.putExtra("descripcion_alergia", alergiass.getDescripcion());
-                            intent.putExtra("gravedad", alergiass.getGravedad());
+                            intent.putExtra("gravedad_alergia", alergiass.getGravedad());
+                            intent.putExtra("id_alergia", alergiass.getId());
+                            intent.putExtra("editar", "si");
                             view.getContext().startActivity(intent);
 
                         }
