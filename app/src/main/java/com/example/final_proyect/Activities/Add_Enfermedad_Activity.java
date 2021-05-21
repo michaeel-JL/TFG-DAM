@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.final_proyect.Models.Enfermedad;
@@ -61,44 +60,41 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
         }
         //Boton guardar
         FloatingActionButton fab = findViewById(R.id.add_enfermedad_btn_save);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDataBase = FirebaseDatabase.getInstance().getReference();
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+        fab.setOnClickListener(view -> {
+            mDataBase = FirebaseDatabase.getInstance().getReference();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-                DatabaseReference ref_enfermedades = database.getReference("Enfermedades").child(uid);
-                ref_enfermedades.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+            DatabaseReference ref_enfermedades = database.getReference("Enfermedades").child(uid);
+            ref_enfermedades.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        Enfermedad enfermedad = new Enfermedad();
-                        enfermedad.setNombre(etxt_nombre.getText().toString());
-                        enfermedad.setDetalles(etxt_detalles.getText().toString());
+                    Enfermedad enfermedad = new Enfermedad();
+                    enfermedad.setNombre(etxt_nombre.getText().toString());
+                    enfermedad.setDetalles(etxt_detalles.getText().toString());
 
-                        if (editar_enfermedad.equals("si")){
-                            enfermedad.setId(id_enfermedad);
-                            enfermedad.setFecha_diagnostico(fecha_diag);
-                            enfermedad.setFecha_resolucion(fecha_resol);
-                            ref_enfermedades.child(id_enfermedad).setValue(enfermedad);
+                    if (editar_enfermedad.equals("si")){
+                        enfermedad.setId(id_enfermedad);
+                        enfermedad.setFecha_diagnostico(fecha_diag);
+                        enfermedad.setFecha_resolucion(fecha_resol);
+                        ref_enfermedades.child(id_enfermedad).setValue(enfermedad);
 
-                        }else{
-                            String id = ref_enfermedades.push().getKey();
-                            enfermedad.setFecha_diagnostico(fecha_diag);
-                            enfermedad.setFecha_resolucion(fecha_resol);
-                            enfermedad.setId(id);
-                            ref_enfermedades.child(enfermedad.getId()).setValue(enfermedad);
-                        }
-                        onBackPressed();
+                    }else{
+                        String id = ref_enfermedades.push().getKey();
+                        enfermedad.setFecha_diagnostico(fecha_diag);
+                        enfermedad.setFecha_resolucion(fecha_resol);
+                        enfermedad.setId(id);
+                        ref_enfermedades.child(enfermedad.getId()).setValue(enfermedad);
                     }
+                    onBackPressed();
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                }
+            });
 
-            }
         });
 
 
@@ -113,13 +109,10 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
         int mes = cal.get(Calendar.MONTH);
         int dia = cal.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dpd = new DatePickerDialog(Add_Enfermedad_Activity.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        DatePickerDialog dpd = new DatePickerDialog(Add_Enfermedad_Activity.this, (view1, year, month, dayOfMonth) -> {
 
-                fecha_diag = dayOfMonth + "/" + month + "/" + year;
-                etxt_diag.setText("Diagnosticado el: " + fecha_diag);
-            }
+            fecha_diag = dayOfMonth + "/" + month + "/" + year;
+            etxt_diag.setText("Diagnosticado el: " + fecha_diag);
         }, anio, mes, dia);
         dpd.show();
     }
@@ -130,13 +123,10 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
         int mes = cal.get(Calendar.MONTH);
         int dia = cal.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dpd = new DatePickerDialog(Add_Enfermedad_Activity.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        DatePickerDialog dpd = new DatePickerDialog(Add_Enfermedad_Activity.this, (view1, year, month, dayOfMonth) -> {
 
-                fecha_resol = dayOfMonth + "/" + month + "/" + year;
-                etxt_resol.setText("Diagnosticado el: " + fecha_resol);
-            }
+            fecha_resol = dayOfMonth + "/" + month + "/" + year;
+            etxt_resol.setText("Diagnosticado el: " + fecha_resol);
         }, anio, mes, dia);
         dpd.show();
     }

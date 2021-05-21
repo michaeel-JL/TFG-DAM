@@ -103,9 +103,10 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
                             //Creamos un id_unico para el chat y lo guardamos en Firebase
                             String id_chat = ref_chats.push().getKey();
 
-                            //Guardamos el ID_CHAT en cada usuario
+                            //Guardamos el ID_CHAT en ambos usuarios
                             DatabaseReference A = databse.getReference("Chats").child(user.getUid()).child(userss.getId()).child("id_chat");
                             DatabaseReference B = databse.getReference("Chats").child(userss.getId()).child(user.getUid()).child("id_chat");
+                            //SAVE
                             A.setValue(id_chat);
                             B.setValue(id_chat);
 

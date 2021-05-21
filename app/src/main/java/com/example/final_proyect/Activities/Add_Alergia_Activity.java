@@ -3,17 +3,12 @@ package com.example.final_proyect.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.final_proyect.Models.Alergia;
-import com.example.final_proyect.Models.Chat;
 import com.example.final_proyect.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Add_Alergia_Activity extends AppCompatActivity {
 
-    private FloatingActionButton fab; //Boton flotante
     private EditText alergia_name, alergia_details;
     private DatabaseReference mDataBase; //BBDD
     private Spinner spn_gravedad;
@@ -63,39 +57,36 @@ public class Add_Alergia_Activity extends AppCompatActivity {
 
         //Boton guardar
         FloatingActionButton fab = findViewById(R.id.add_alergia_btn_save);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDataBase = FirebaseDatabase.getInstance().getReference();
-                FirebaseDatabase databse = FirebaseDatabase.getInstance();
+        fab.setOnClickListener(view -> {
+            mDataBase = FirebaseDatabase.getInstance().getReference();
+            FirebaseDatabase databse = FirebaseDatabase.getInstance();
 
-                DatabaseReference ref_alergias = databse.getReference("Alergias").child(uid);
-                ref_alergias.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+            DatabaseReference ref_alergias = databse.getReference("Alergias").child(uid);
+            ref_alergias.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        Alergia alergia = new Alergia();
-                        alergia.setNombre(alergia_name.getText().toString());
-                        alergia.setDescripcion(alergia_details.getText().toString());
-                        alergia.setGravedad(spn_gravedad.getSelectedItem().toString());
+                    Alergia alergia = new Alergia();
+                    alergia.setNombre(alergia_name.getText().toString());
+                    alergia.setDescripcion(alergia_details.getText().toString());
+                    alergia.setGravedad(spn_gravedad.getSelectedItem().toString());
 
-                        //Comprobamos si hay que editar o crear uno nuevo
-                        if(editar_alergia.equals("si")){
-                            alergia.setId(id_alergia);
-                            ref_alergias.child(id_alergia).setValue(alergia);
+                    //Comprobamos si hay que editar o crear uno nuevo
+                    if(editar_alergia.equals("si")){
+                        alergia.setId(id_alergia);
+                        ref_alergias.child(id_alergia).setValue(alergia);
 
-                        }else{
-                            String id = ref_alergias.push().getKey();
-                            alergia.setId(id);
-                            ref_alergias.child(alergia.getId()).setValue(alergia);
-                        }
-                        onBackPressed();
+                    }else{
+                        String id = ref_alergias.push().getKey();
+                        alergia.setId(id);
+                        ref_alergias.child(alergia.getId()).setValue(alergia);
                     }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-            }
+                    onBackPressed();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
         });
     }
 

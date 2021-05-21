@@ -39,7 +39,7 @@
                         android:textColor="@color/gris"
                         android:textSize="15sp" />
                     <EditText
-                        android:id="@+id/add_user_nombre"
+                        android:id="@+id/ajustes_nombre"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="5dp"
@@ -61,7 +61,7 @@
                         android:textColor="@color/gris"
                         android:textSize="15sp" />
                     <EditText
-                        android:id="@+id/add_user_apellidos"
+                        android:id="@+id/ajustes_apellidos"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="5dp"
@@ -89,14 +89,14 @@
                         android:id="@+id/radioGroup"
                         android:orientation="horizontal">
 
-                        <RadioButton android:id="@+id/add_user_femenino"
+                        <RadioButton android:id="@+id/ajustes_femenino"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="F"
                             android:textColor="#DF3EFF"
 
                             />
-                        <RadioButton android:id="@+id/add_user_masculino"
+                        <RadioButton android:id="@+id/ajustes_masculino"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="M"
@@ -117,7 +117,7 @@
                         android:textColor="@color/gris"
                         android:textSize="15sp" />
                     <EditText
-                        android:id="@+id/add_user_edad"
+                        android:id="@+id/ajustes_edad"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="5dp"
@@ -131,7 +131,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/add_user_txtimg"
+                    android:id="@+id/ajustes_img_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -142,7 +142,7 @@
                     android:layout_marginTop="10dp"/>
                 <Button
 
-                    android:id="@+id/add_user_btn_signup"
+                    android:id="@+id/ajustes_btn_save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"

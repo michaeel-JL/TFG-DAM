@@ -42,47 +42,43 @@ public class Add_Noticia_Activity extends AppCompatActivity {
 
         //boton guardar
         FloatingActionButton fab = findViewById(R.id.add_noticia_btn_save);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener(view -> {
 
 
-                mDataBase = FirebaseDatabase.getInstance().getReference();
-                FirebaseDatabase databse = FirebaseDatabase.getInstance();
+            mDataBase = FirebaseDatabase.getInstance().getReference();
+            FirebaseDatabase databse = FirebaseDatabase.getInstance();
 
-                DatabaseReference ref_noticias = databse.getReference("Noticias");
-                ref_noticias.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+            DatabaseReference ref_noticias = databse.getReference("Noticias");
+            ref_noticias.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        if (!titulo.getText().toString().isEmpty() && !descripci贸n.getText().toString().isEmpty() &&  !imagenPrincipal.getText().toString().isEmpty() && !imagenSecundaria.getText().toString().isEmpty() &&
-                                !spinner.getSelectedItem().toString().isEmpty() ) {
+                    if (!titulo.getText().toString().isEmpty() && !descripci贸n.getText().toString().isEmpty() &&  !imagenPrincipal.getText().toString().isEmpty() && !imagenSecundaria.getText().toString().isEmpty() &&
+                            !spinner.getSelectedItem().toString().isEmpty() ) {
 
-                            String id_noticias = mDataBase.getKey();
-                            //Noticia
-                            Noticia noticia = new Noticia();
-                            noticia.setTitulo(titulo.getText().toString());
-                            noticia.setDescription(descripci贸n.getText().toString());
-                            noticia.setImagePrincipal(imagenPrincipal.getText().toString());
-                            noticia.setImagenSecundaria(imagenSecundaria.getText().toString());
-                            noticia.setTextoNoticia(texto.getText().toString());
-                            noticia.setEtiqueta(spinner.getSelectedItem().toString());
-                            ref_noticias.child(noticia.getTitulo()).setValue(noticia);
-                            onBackPressed();
+                        //Noticia
+                        Noticia noticia = new Noticia();
+                        noticia.setTitulo(titulo.getText().toString());
+                        noticia.setDescription(descripci贸n.getText().toString());
+                        noticia.setImagePrincipal(imagenPrincipal.getText().toString());
+                        noticia.setImagenSecundaria(imagenSecundaria.getText().toString());
+                        noticia.setTextoNoticia(texto.getText().toString());
+                        noticia.setEtiqueta(spinner.getSelectedItem().toString());
+                        ref_noticias.child(noticia.getTitulo()).setValue(noticia);
+                        onBackPressed();
 
-                        }else{
-                            Toast.makeText(getApplication(), "COMPLETE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
-                        }
+                    }else{
+                        Toast.makeText(getApplication(), "COMPLETE TODOS LOS CAMPOS", Toast.LENGTH_SHORT).show();
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                }
+            });
 
 
-            }
         });
     }}
 

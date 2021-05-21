@@ -53,6 +53,15 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
 
+
+            <ImageButton
+                android:id="@+id/comentarios_noticia"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="right"
+                android:background="@color/white"
+                app:srcCompat="@drawable/ic_comentarios_foreground" />
+
             <TextView
                 android:id="@+id/texto_noticia"
                 android:layout_width="match_parent"

@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_Proyect">
-        <activity android:name=".Activities.Ajustes_Activity"></activity>
+        <activity android:name=".Activities.Comentarios_Activity"></activity>
+        <activity android:name=".Activities.Ajustes_Activity" />
         <activity android:name=".Activities.Add_Enfermedad_Activity" />
         <activity android:name=".Activities.Enfermedades_Activity" />
         <activity android:name=".Activities.Add_Alergia_Activity" />
