@@ -17,6 +17,7 @@ import com.example.final_proyect.Adapters.Chat_Adapter;
 import com.example.final_proyect.Adapters.Comentarios_adapter;
 import com.example.final_proyect.Models.Chat;
 import com.example.final_proyect.Models.Comentario;
+import com.example.final_proyect.Models.Noticia;
 import com.example.final_proyect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,8 +61,8 @@ public class Comentarios_Activity extends AppCompatActivity {
 
         img_user_comentario = findViewById(R.id.img_user_comentarios);
         user_name_comentario = findViewById(R.id.usuario_comentarios);
-        mensaje_enviar = findViewById(R.id.mensaje_comentarios);
-        btn_send = findViewById(R.id.btn_enviar_mensaje);
+        mensaje_enviar = findViewById(R.id.mensaje_send_comentarios);
+        btn_send = findViewById(R.id.btn_send_comentarios);
 
         //Recuperamos los datos pasados
         Intent intent = getIntent();
@@ -88,12 +89,32 @@ public class Comentarios_Activity extends AppCompatActivity {
                     //Creamos el bojeto comentario
                     Comentario comentario = new Comentario(idpush, user.getUid(), id_noticia, msj, dateFormat.format(c.getTime()), timeFormat.format(c.getTime()));
 
-                    //Guardamos el mensaje en Firebase
-                    ref_comentarios.child(id_noticia).child(idpush).setValue(comentario);
+
 
                     //Mensaje de confirmación limpiamos el campo mensaje
                     Toast.makeText(Comentarios_Activity.this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
                     mensaje_enviar.setText("");
+
+
+
+                    //Buscamos cuantos likes tiene la noticia actual
+                    DatabaseReference ref_noticia = databse.getReference("Noticias").child(id_noticia);
+                    ref_noticia.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int comentarios = snapshot.getValue(Noticia.class).getComentarios();
+                            ref_noticia.child("comentarios").setValue(comentarios + 1);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+
+                    //Guardamos el mensaje en Firebase
+                    ref_comentarios.child(id_noticia).child(idpush).setValue(comentario);
+
+
 
                 }else {
                     Toast.makeText(Comentarios_Activity.this, "El mensaje está vacio", Toast.LENGTH_SHORT).show();
@@ -129,10 +150,7 @@ public class Comentarios_Activity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-
     }
-
     private void setScroll() {
         rv_comentarios.scrollToPosition(adapter.getItemCount() - 1);
     }

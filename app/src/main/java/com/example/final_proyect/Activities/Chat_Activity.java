@@ -2,9 +2,11 @@ package com.example.final_proyect.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.final_proyect.Adapters.Chat_Adapter;
 import com.example.final_proyect.Models.Chat;
+import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,13 +39,13 @@ public class Chat_Activity extends AppCompatActivity {
     CircleImageView img_user;
     TextView username;
     ImageView ic_conectado, ic_desconectado;
+    Toolbar toolbar_chat;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase databse = FirebaseDatabase.getInstance();
 
     DatabaseReference ref_estado = databse.getReference("Estado").child(user.getUid());
     DatabaseReference ref_mensajes = databse.getReference("Mensajes");
-
 
     EditText et_mensaje_txt;
     ImageButton btn_enviar_mensaje;
@@ -53,7 +56,6 @@ public class Chat_Activity extends AppCompatActivity {
     RecyclerView rv_chats;
     Chat_Adapter adapter;
     ArrayList<Chat> chatlist;
-
 
     @Override
     public void onBackPressed() {
@@ -66,10 +68,11 @@ public class Chat_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_);
 
-        img_user = findViewById(R.id.img_usuario);
-        username = findViewById(R.id.tv_user);
+        img_user = findViewById(R.id.img_usuario_chat);
+        username = findViewById(R.id.usuario_chat);
         ic_conectado = findViewById(R.id.icon_conectado);
         ic_desconectado = findViewById(R.id.icon_desconectado);
+        toolbar_chat = findViewById(R.id.toolbar_chat);
 
         String usuario = getIntent().getExtras().getString("nombre");
         String foto = getIntent().getExtras().getString("img_user");
@@ -78,6 +81,31 @@ public class Chat_Activity extends AppCompatActivity {
 
         et_mensaje_txt = findViewById(R.id.et_txt_mensaje);
         btn_enviar_mensaje = findViewById(R.id.btn_enviar_mensaje);
+
+        //COmprobamos el rol del usuario actual
+        DatabaseReference ref_usuarioActual = databse.getReference("Usuarios").child(user.getUid());
+        ref_usuarioActual.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rol = snapshot.getValue(Usuario.class).getRol();
+
+                //Si es MEDICO o ADMIN puede ver el perfil del usuario chat
+                if(rol.equals("medico") || rol.equals("admin")){
+                    toolbar_chat.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(Chat_Activity.this, Ver_Perfil_Activity.class);
+                            intent.putExtra("id_paciente", id_user2);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         DatabaseReference ref_chats = databse.getReference("Chats").child(user.getUid()).child(id_user2).child("id_chat");
         btn_enviar_mensaje.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +204,6 @@ public class Chat_Activity extends AppCompatActivity {
                 ref_estado.child("fecha").setValue(dateFormat.format(c.getTime()));
                 ref_estado.child("hora").setValue(timeFormat.format(c.getTime()));
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

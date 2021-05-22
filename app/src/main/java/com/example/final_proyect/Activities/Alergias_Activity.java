@@ -1,6 +1,10 @@
 package com.example.final_proyect.Activities;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +20,9 @@ import com.example.final_proyect.Adapters.Alergias_Adapter;
 import com.example.final_proyect.Adapters.User_List_Adapter;
 import com.example.final_proyect.Models.Alergia;
 import com.example.final_proyect.Models.Chat;
+import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,9 +41,8 @@ public class Alergias_Activity extends AppCompatActivity {
     Spinner spn_gravedad;
 
     //BBDD
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDataBase;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
     DatabaseReference ref;
 
     @Override
@@ -45,7 +50,17 @@ public class Alergias_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alergias);
 
-        setTitle("Alergias");
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_alergias);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_alergias);
+
+
+
 
         spn_gravedad = findViewById(R.id.add_alergia_spn_gravedad);
 
@@ -56,41 +71,69 @@ public class Alergias_Activity extends AppCompatActivity {
         rv = findViewById(R.id.rv);
         rv.setLayoutManager(mLayoutManager);
 
-        //Referencia del id
-        String uid = user.getUid();
-        ref = FirebaseDatabase.getInstance().getReference();
-
         alergiaList = new ArrayList<>();
 
         adapter = new Alergias_Adapter(alergiaList,this);
         rv.setAdapter(adapter);
 
-        ref.child("Alergias").child(uid).addValueEventListener(new ValueEventListener() {
+        //Comprobamos que rol tiene el usuario actual
+        ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("Usuarios").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists()){
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    alergiaList.removeAll(alergiaList);
+                String rol = snapshot.getValue(Usuario.class).getRol();
 
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                if(rol.equals("medico")){
 
-                        Alergia alergia = dataSnapshot.getValue(Alergia.class);
-                        alergiaList.add(alergia);
-                        setScroll();
-                    }
+                    //Recogemos el id del PACIENTE y buscamos sus alergias
+                    String id_paciente = getIntent().getExtras().getString("id_paciente");
+                    ref.child("Alergias").child(id_paciente).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            mostrarAlergias(snapshot);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+
+                        }
+                    });
+
+                }else if(rol.equals("usuario")){
+                    //Cargamos las alergias del usuario ACTUAl
+                    ref.child("Alergias").child(uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            mostrarAlergias(snapshot);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                        }
+                    });
                 }
-                adapter = new Alergias_Adapter(alergiaList, getBaseContext());
-                rv.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
             }
-
             @Override
-            public void onCancelled(DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
 
     }
+
+    private void mostrarAlergias(DataSnapshot snapshot) {
+
+        if (snapshot.exists()){
+            alergiaList.removeAll(alergiaList);
+            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                Alergia alergia = dataSnapshot.getValue(Alergia.class);
+                alergiaList.add(alergia);
+                setScroll();
+            }
+        }
+        adapter = new Alergias_Adapter(alergiaList, getBaseContext());
+        rv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
     private void setScroll() {
         rv.scrollToPosition(adapter.getItemCount() - 1);
     }
@@ -104,7 +147,18 @@ public class Alergias_Activity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.ic_add_noticia).setVisible(true);
+        ref.child("Usuarios").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rol = snapshot.getValue(Usuario.class).getRol();
+                if (rol.equals("usuario")){
+                    menu.findItem(R.id.ic_add_noticia).setVisible(true);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         return true;
     }
 

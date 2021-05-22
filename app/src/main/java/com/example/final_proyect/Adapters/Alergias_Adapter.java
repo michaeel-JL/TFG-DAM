@@ -37,6 +37,8 @@ public class Alergias_Adapter extends RecyclerView.Adapter<Alergias_Adapter.view
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase databse = FirebaseDatabase.getInstance();
+    DatabaseReference ref;
+
 
     public Alergias_Adapter(List<Alergia> alergiaList, Context context) {
         this.alergiaList = alergiaList;
@@ -59,37 +61,46 @@ public class Alergias_Adapter extends RecyclerView.Adapter<Alergias_Adapter.view
         holder.txt_alergia.setText(alergiass.getNombre());
         holder.txt_gravedad.setText(alergiass.getGravedad());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        //Referencia del id
+        String uid = user.getUid();
+        ref = FirebaseDatabase.getInstance().getReference();
+
+        ref.child("Usuarios").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rol = snapshot.getValue(Usuario.class).getRol();
 
-                DatabaseReference ref_alergias = databse.getReference("Alergias").child(user.getUid()).child(alergiass.getId());
-                ref_alergias.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-
-                            Intent intent = new Intent(view.getContext(), Add_Alergia_Activity.class);
-                            intent.putExtra("n_alergia", alergiass.getNombre());
-                            intent.putExtra("descripcion_alergia", alergiass.getDescripcion());
-                            intent.putExtra("gravedad_alergia", alergiass.getGravedad());
-                            intent.putExtra("id_alergia", alergiass.getId());
-                            intent.putExtra("editar", "si");
-                            view.getContext().startActivity(intent);
-
+                if(rol.equals("medico")){
+                    holder.cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            enviarDatosAddAlergia(view, alergiass, "vista_medico");
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-
+                    });
+                }else if (rol.equals("usuario")){
+                    holder.cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            enviarDatosAddAlergia(view, alergiass, "si");
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    private void enviarDatosAddAlergia(View view, Alergia alergiass, String modo) {
+
+        Intent intent = new Intent(view.getContext(), Add_Alergia_Activity.class);
+        intent.putExtra("n_alergia", alergiass.getNombre());
+        intent.putExtra("descripcion_alergia", alergiass.getDescripcion());
+        intent.putExtra("gravedad_alergia", alergiass.getGravedad());
+        intent.putExtra("id_alergia", alergiass.getId());
+        intent.putExtra("editar", modo);
+        view.getContext().startActivity(intent);
 
     }
 

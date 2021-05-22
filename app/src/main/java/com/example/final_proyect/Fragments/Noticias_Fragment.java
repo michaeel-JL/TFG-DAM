@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,12 +20,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.final_proyect.Activities.Noticia_Activity;
 import com.example.final_proyect.Activities.Edit_Noticia_Activity;
 import com.example.final_proyect.Activities.Add_Noticia_Activity;
 import com.example.final_proyect.Adapters.Noticias_Adapter;
 import com.example.final_proyect.Models.Noticia;
+import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +39,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Noticias_Fragment extends Fragment  {
@@ -51,6 +59,9 @@ public class Noticias_Fragment extends Fragment  {
 
     private MenuItem item;
 
+    FirebaseDatabase databse = FirebaseDatabase.getInstance();
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String uid = user.getUid();
 
     public Noticias_Fragment() {
 
@@ -61,6 +72,10 @@ public class Noticias_Fragment extends Fragment  {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_noticias, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar_notificas_f);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.toolbar_noticias);
 
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
@@ -110,13 +125,35 @@ public class Noticias_Fragment extends Fragment  {
                         String imageSecundaria = ds.child("imagenSecundaria").getValue().toString();
                         String decNoticia = ds.child("textoNoticia").getValue().toString();
                         String etiqueta = ds.child("etiqueta").getValue().toString();
+                        String slikes = ds.child("megustas").getValue().toString();
+                        String scomentarios = ds.child("comentarios").getValue().toString();
+                        String fecha = ds.child("fecha").getValue().toString();
+                        String hora = ds.child("hora").getValue().toString();
 
+                        int likes = Integer.parseInt(slikes);
+                        int comentarios = Integer.parseInt(scomentarios);
 
                         String id = ds.getKey();
                         //Creamos un chat
-                        Noticia noticia = new Noticia(id, titulo, description, imagePrincipal, imageSecundaria, decNoticia, etiqueta);
+                        Noticia noticia = new Noticia(id, titulo, description, imagePrincipal, imageSecundaria, decNoticia, etiqueta, fecha, hora, likes, comentarios);
                         //Añadimos la ciudad al List
                         noticias.add(noticia);
+
+                        Collections.sort(noticias, new Comparator<Noticia>() {
+                            @Override
+                            public int compare(Noticia noticia, Noticia t1) {
+                                return noticia.getFecha().compareTo(t1.getFecha());
+                            }
+                        });
+
+                        Collections.sort(noticias, new Comparator<Noticia>() {
+                            @Override
+                            public int compare(Noticia noticia, Noticia t1) {
+                                return noticia.getFecha().compareTo(t1.getHora());
+                            }
+                        });
+
+
                     }
                 }
 
@@ -204,7 +241,20 @@ public class Noticias_Fragment extends Fragment  {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.ic_add_noticia).setVisible(true);
+
+        DatabaseReference ref_usuarios = databse.getReference("Usuarios").child(uid);
+        ref_usuarios.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rol = snapshot.getValue(Usuario.class).getRol();
+                if (rol.equals("admin")){
+                    menu.findItem(R.id.ic_add_noticia).setVisible(true);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     @Override

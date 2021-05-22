@@ -56,18 +56,20 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView titulo;
-        public TextView description;
+        public TextView titulo, description, etiqueta,fecha,  num_likes, num_comentarios;
         public ImageView image;
-        public TextView etiqueta;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            titulo = (TextView) itemView.findViewById(R.id.titulo_noticia_cv);
-            description=(TextView) itemView.findViewById(R.id.descripcion_noticia_cv);
-            image = (ImageView) itemView.findViewById(R.id.imagen_noticia_cv);
-            etiqueta= (TextView)itemView.findViewById(R.id.txt_etiqueta);
+            titulo =  itemView.findViewById(R.id.titulo_noticia_cv);
+            description = itemView.findViewById(R.id.descripcion_noticia_cv);
+            image =  itemView.findViewById(R.id.imagen_noticia_cv);
+            etiqueta = itemView.findViewById(R.id.txt_etiqueta);
+            fecha = itemView.findViewById(R.id.fecha_noticia_cv);
+            num_likes = itemView.findViewById(R.id.num_likes_noticia);
+            num_comentarios = itemView.findViewById(R.id.num_comentarios_noticia);
+
         }
 
         public void bind(final Noticia noticias, final OnItemClickListener itemListener, final OnButtonClickListener btnListener) {
@@ -75,6 +77,11 @@ public class Noticias_Adapter extends  RecyclerView.Adapter<Noticias_Adapter.Vie
             description.setText(noticias.getDescription());
             Picasso.get().load(noticias.getImagePrincipal()).fit().into(image);
             etiqueta.setText(noticias.getEtiqueta());
+            String likes = String.valueOf(noticias.getMegustas());
+            fecha.setText(noticias.getFecha());
+            String comentarios = String.valueOf(noticias.getComentarios());
+            num_likes.setText(likes);
+            num_comentarios.setText(comentarios);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

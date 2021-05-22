@@ -202,10 +202,10 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
 
                     //Comprobamos el rol de cada uno
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        String rol = dataSnapshot.getValue(Usuario.class).getRol();
+                        String rol_u = dataSnapshot.getValue(Usuario.class).getRol();
 
                         //Mostramos solos a los medicos
-                        if (rol.equals("medico")) {
+                        if (rol_u.equals("medico")) {
                             Usuario user = dataSnapshot.getValue(Usuario.class);
                             usersArrayList.add(user);
                         }

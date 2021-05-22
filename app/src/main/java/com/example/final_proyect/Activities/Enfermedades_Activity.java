@@ -1,5 +1,6 @@
 package com.example.final_proyect.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.example.final_proyect.Adapters.Alergias_Adapter;
 import com.example.final_proyect.Adapters.Enfermedades_Adapter;
 import com.example.final_proyect.Models.Alergia;
 import com.example.final_proyect.Models.Enfermedad;
+import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,32 +62,60 @@ public class Enfermedades_Activity extends AppCompatActivity {
         adapter = new Enfermedades_Adapter(enfermedadList,this);
         rv.setAdapter(adapter);
 
-        ref.child("Enfermedades").child(uid).addValueEventListener(new ValueEventListener() {
+        //Comprobamos que rol tiene el usuario actual
+        ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("Usuarios").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists()){
-
-                    enfermedadList.removeAll(enfermedadList);
-
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                        Enfermedad enfermedad = dataSnapshot.getValue(Enfermedad.class);
-                        enfermedadList.add(enfermedad);
-                        setScroll();
-                    }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String rol = snapshot.getValue(Usuario.class).getRol();
+                if(rol.equals("medico")){
+                    //Recogemos el id del PACIENTE y buscamos sus alergias
+                    String id_paciente = getIntent().getExtras().getString("id_paciente");
+                    ref.child("Enfermedades").child(id_paciente).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            mostrarEnfermedades(snapshot);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                        }
+                    });
+                }else if(rol.equals("usuario")){
+                    //Cargamos las alergias del usuario ACTUAl
+                    ref.child("Enfermedades").child(uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            mostrarEnfermedades(snapshot);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                        }
+                    });
                 }
-                //adapter = new Enfermedades_Adapter(enfermedadList, getBaseContext());
-                //rv.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
             }
-
             @Override
-            public void onCancelled(DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
     }
+
+    private void mostrarEnfermedades(DataSnapshot snapshot) {
+        if (snapshot.exists()){
+
+            enfermedadList.removeAll(enfermedadList);
+
+            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                Enfermedad enfermedad = dataSnapshot.getValue(Enfermedad.class);
+                enfermedadList.add(enfermedad);
+                setScroll();
+            }
+        }
+        adapter = new Enfermedades_Adapter(enfermedadList, getBaseContext());
+        rv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
     private void setScroll() {
         rv.scrollToPosition(adapter.getItemCount() - 1);
     }

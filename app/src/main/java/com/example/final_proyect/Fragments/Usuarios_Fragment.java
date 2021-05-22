@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.final_proyect.Activities.Add_User_Activity;
+import com.example.final_proyect.Activities.Add_Dcotor_Activity;
 import com.example.final_proyect.Activities.Edit_User_Activity;
 import com.example.final_proyect.Adapters.User_Adapter;
 import com.example.final_proyect.Models.Usuario;
@@ -165,7 +165,7 @@ public class Usuarios_Fragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.ic_add_user:
-                Intent intent = new Intent(getActivity(), Add_User_Activity.class);
+                Intent intent = new Intent(getActivity(), Add_Dcotor_Activity.class);
                 startActivity(intent);
                 return true;
             default:

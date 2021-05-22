@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -52,11 +54,13 @@ public class Perfil_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().setTitle("Perfil");
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
+        Toolbar toolbar = view.findViewById(R.id.toolbar_perfil_f);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.toolbar_perfil);
         mAuth = FirebaseAuth.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
         imageProfile = (CircleImageView) view.findViewById(R.id.img_perfil);
         name_profile = view.findViewById(R.id.nombre_perfil);
@@ -95,7 +99,6 @@ public class Perfil_Fragment extends Fragment {
 
         });
 
-
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
@@ -107,8 +110,9 @@ public class Perfil_Fragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+
                     //email
-                    email = dataSnapshot.child("email").getValue(String.class);
+                    email = dataSnapshot.child( "email").getValue(String.class);
                     email_profile.setText(email);
                     //usuario
                     nombre = dataSnapshot.child("nombre").getValue(String.class);
@@ -139,7 +143,6 @@ public class Perfil_Fragment extends Fragment {
         return view;
     }
 
-
     private void logOut() {
         Intent intent = new Intent(getContext(), Login_Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -154,8 +157,6 @@ public class Perfil_Fragment extends Fragment {
         Picasso.get()
                 .load(link)
                 .fit()
-
                 .into(imageProfile);
     }
-
 }

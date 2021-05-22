@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.Cambiar_Contrasena_Activity">
+
+    <include
+        android:id="@+id/toolbar_cambiar_contrasena"
+        layout="@layout/toolbar">
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/linelay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-light"
+                android:text="     Nueva Contraseña"
+                android:drawableLeft="@drawable/ic_password"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@color/gris"
+                android:textSize="15sp" />
+            <EditText
+                android:id="@+id/pass1"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/gris"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-light"
+                android:text="     Repetir Contraseña"
+                android:drawableLeft="@drawable/ic_password"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@color/gris"
+                android:textSize="15sp" />
+            <EditText
+                android:id="@+id/pass2"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/gris"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/boton_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cambiar" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,7 +1,9 @@
 package com.example.final_proyect.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -28,38 +30,41 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
 
     private DatabaseReference mDataBase; //BBDD
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FloatingActionButton fab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_enfermedad);
-        setTitle("Añadir Enfermedad");
+
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_add_enfermedad);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_add_enfermedad);
 
         etxt_diag = findViewById(R.id.add_enfermedad_fecha_diag);
         etxt_resol = findViewById(R.id.add_enfermedad_fecha_resol);
         etxt_nombre = findViewById(R.id.add_enfermedad_nombre);
         etxt_detalles = findViewById(R.id.add_enfermedad_detalles);
+        fab = findViewById(R.id.add_enfermedad_btn_save);
 
         String uid = user.getUid();
-
         String editar_enfermedad = getIntent().getExtras().getString("editar");
 
         if(editar_enfermedad.equals("si")){
-
-            String nombre_enfermedad = getIntent().getExtras().getString("nombre_enfermedad");
-            String detalles_enfermedad = getIntent().getExtras().getString("detalles_enfermedad");
-            fecha_diag = getIntent().getExtras().getString("fecha_d_enfermedad");
-            fecha_resol = getIntent().getExtras().getString("fecha_r_enfermedad");
-            id_enfermedad = getIntent().getExtras().getString("id_enfermedad");
-
-            etxt_nombre.setText(nombre_enfermedad);
-            etxt_detalles.setText(detalles_enfermedad);
-            etxt_diag.setText("Diagnosticado el: " + fecha_diag);
-            etxt_resol.setText("Diagnosticado el: " + fecha_resol);
+            cargarDatos();
+        }else if (editar_enfermedad.equals("vista_medico")){
+            cargarDatos();
+            noEdit();
         }
+
+
         //Boton guardar
-        FloatingActionButton fab = findViewById(R.id.add_enfermedad_btn_save);
         fab.setOnClickListener(view -> {
             mDataBase = FirebaseDatabase.getInstance().getReference();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -96,10 +101,29 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
             });
 
         });
+    }
 
+    private void noEdit() {
 
+        etxt_nombre.setEnabled(false);
+        etxt_detalles.setEnabled(false);
+        etxt_diag.setEnabled(false);
+        etxt_resol.setEnabled(false);
+        fab.setVisibility(View.INVISIBLE);
+    }
 
+    private void cargarDatos() {
 
+        String nombre_enfermedad = getIntent().getExtras().getString("nombre_enfermedad");
+        String detalles_enfermedad = getIntent().getExtras().getString("detalles_enfermedad");
+        fecha_diag = getIntent().getExtras().getString("fecha_d_enfermedad");
+        fecha_resol = getIntent().getExtras().getString("fecha_r_enfermedad");
+        id_enfermedad = getIntent().getExtras().getString("id_enfermedad");
+
+        etxt_nombre.setText(nombre_enfermedad);
+        etxt_detalles.setText(detalles_enfermedad);
+        etxt_diag.setText("Diagnosticado el: " + fecha_diag);
+        etxt_resol.setText("Diagnosticado el: " + fecha_resol);
 
     }
 

@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:text="Nombre de la alergia"
+                android:text="Nombre de la enfermedad"
                 android:textColor="@color/gris"
                 android:textSize="18dp"/>
 

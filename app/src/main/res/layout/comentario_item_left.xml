@@ -9,9 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardiew"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="20dp"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_margin="10dp"
@@ -39,24 +37,43 @@
                     android:background="@drawable/estilo_redondo"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                     <TextView
                         android:id="@+id/usuario_comentarios"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Nombre de usuario"
+                        android:text="Nombre"
                         android:paddingTop="5dp"
                         android:paddingLeft="15dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="10dp"/>
+
+                    <TextView
+                        android:id="@+id/apellidos_comentarios"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Apellidos"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="5dp"
                         android:paddingRight="15dp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="10dp"/>
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/mensaje_comentarios"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="5dp"
                         android:text="Mensaje..."
                         android:textColor="@color/black"
                         android:textSize="12dp"/>
@@ -67,7 +84,7 @@
                 android:id="@+id/fecha_comentarios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="25dp"
                 android:textSize="8dp"
                 android:text="20/12/2020"/>
 

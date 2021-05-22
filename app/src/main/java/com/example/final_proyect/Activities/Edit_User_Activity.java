@@ -9,7 +9,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.final_proyect.Models.Noticia;
 import com.example.final_proyect.Models.Usuario;
@@ -27,12 +29,19 @@ public class Edit_User_Activity extends AppCompatActivity {
 
     private String spin_rol_a,  spin_rol_b;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit);
 
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_edit_user);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_edit_user);
 
         //Elementos
         RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup_edit);
@@ -131,12 +140,14 @@ public class Edit_User_Activity extends AppCompatActivity {
 
                 usersRef.setValue(usuario);
                 onBackPressed();
-
             }
         });
-
-
-
     }
 
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

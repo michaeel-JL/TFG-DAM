@@ -20,7 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_Proyect">
-        <activity android:name=".Activities.Comentarios_Activity"></activity>
+        <activity android:name=".Activities.Cambiar_Email_Activity"></activity>
+        <activity android:name=".Activities.Cambiar_Contrasena_Activity" />
+        <activity android:name=".Activities.Ver_Perfil_Activity" />
+        <activity android:name=".Activities.Add_Admin_Activity" />
+        <activity android:name=".Activities.Comentarios_Activity" />
         <activity android:name=".Activities.Ajustes_Activity" />
         <activity android:name=".Activities.Add_Enfermedad_Activity" />
         <activity android:name=".Activities.Enfermedades_Activity" />
@@ -42,7 +46,7 @@
         <activity android:name=".Activities.Noticia_Activity" />
         <activity android:name=".Activities.Login_Activity" />
         <activity android:name=".Activities.Edit_User_Activity" />
-        <activity android:name=".Activities.Add_User_Activity" />
+        <activity android:name=".Activities.Add_Dcotor_Activity" />
         <activity
             android:name=".Activities.SplashActivity"
             android:theme="@style/SplashScreen">

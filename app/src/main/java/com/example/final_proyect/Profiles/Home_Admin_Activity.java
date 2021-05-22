@@ -1,14 +1,15 @@
 package com.example.final_proyect.Profiles;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.example.final_proyect.Fragments.Consultas_Fragment;
 import com.example.final_proyect.Fragments.Noticias_Fragment;
@@ -30,15 +31,9 @@ import java.util.Deque;
 
 public class Home_Admin_Activity extends AppCompatActivity {
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    //DatabaseReference ref_estado = database.getReference("Estado").child(user.getUid());
-
     BottomNavigationView bottomNavigationView;
     Deque<Integer> integerDeque = new ArrayDeque<>(4);
     boolean flag = true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,32 +103,4 @@ public class Home_Admin_Activity extends AppCompatActivity {
                 .replace(R.id.viewPager, fragment, fragment.getClass().getSimpleName())
                 .commit();
     }
-/*
-    private void estadoUsuario(String estado) {
-        ref_estado.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Estado est = new Estado("", "", estado);
-                ref_estado.setValue(est);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        estadoUsuario("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        estadoUsuario("offline");
-    }
-
- */
 }

@@ -1,11 +1,16 @@
 package com.example.final_proyect.Activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +28,6 @@ public class Edit_Noticia_Activity extends AppCompatActivity {
 
     private FloatingActionButton fab; //Boton flotante
     private Noticias_Adapter adapter; //Adaptar
-
     private DatabaseReference mDataBase; //BBDD
     private FirebaseAuth mAuth; //Firebase
     private SharedPreferences prefs;
@@ -36,6 +40,15 @@ public class Edit_Noticia_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noticia_edit);
+
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_edit_user);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_edit_noticia);
 
         tituloNoticia= (EditText) findViewById(R.id.titulo_noticia_edit);
         textoNoticia=findViewById(R.id.texto_noticia_edit);
@@ -68,24 +81,16 @@ public class Edit_Noticia_Activity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference noticiasRef = ref.child("Noticias").child(id);
-
                 noticiasRef.child("titulo").setValue(tituloNoticia.getText().toString());
                 noticiasRef.child("textoNoticia").setValue(textoNoticia.getText().toString());
-
-
                 onBackPressed();
-
             }
         });
-
     }
-
     //** Dialogs **/
-
     private void showAlertForCreatingNote() {
 
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
@@ -109,17 +114,39 @@ public class Edit_Noticia_Activity extends AppCompatActivity {
             }
         });
 
-
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
-
-
             }
         });
 
         androidx.appcompat.app.AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_delete_noticia, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ic_delete:
+                DatabaseReference ref_noticias = FirebaseDatabase.getInstance().getReference().child("Noticias").child(id);
+                ref_noticias.removeValue();
+
+                DatabaseReference ref_like = FirebaseDatabase.getInstance().getReference().child("Likes").child(id);
+                ref_like.removeValue();
+
+                DatabaseReference ref_comentarios = FirebaseDatabase.getInstance().getReference().child("Comentarios").child(id);
+                ref_comentarios.removeValue();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
