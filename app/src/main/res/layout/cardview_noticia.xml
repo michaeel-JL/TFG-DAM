@@ -68,7 +68,6 @@
                             android:id="@+id/fecha_noticia_cv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2021/05/23"
                             android:textSize="12dp"
                             android:textColor="#000000"
                             android:layout_alignParentLeft="true"
@@ -76,6 +75,7 @@
                             android:paddingBottom="5dp"/>
 
                         <TextView
+                            android:id="@+id/txt_etiqueta"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Etiqueta"
@@ -97,6 +97,55 @@
                         android:maxLines="3"
                         android:textColor="@color/black"
                         android:textSize="14dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/megusta_img"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_toLeftOf="@+id/comentario_img"
+                            android:src="@drawable/ic_megusta2_foreground" />
+
+
+                        <ImageView
+                            android:id="@+id/comentario_img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:paddingLeft="5dp"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/ic_comentario"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/num_likes_noticia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="14dp"
+                            android:layout_marginRight="45dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            />
+
+                        <TextView
+                            android:id="@+id/num_comentarios_noticia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:paddingLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"/>
+
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

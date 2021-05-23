@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.Perfil_Fragment">
+
+  <include
+      android:id="@+id/toolbar_add_alergia"
+      layout="@layout/toolbar">
+  </include>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:layout_marginTop="10dp"
+      android:layout_marginRight="20dp"
+      android:layout_marginLeft="20dp"
+      android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Nombre del alérgeno* (ej: polen)"/>
+
+        <EditText
+            android:id="@+id/add_alergia_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/caja">
+
+          <TextView
+              android:id="@+id/txt_gravedad"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:text="Gravedad:"/>
+
+          <Spinner
+              android:id="@+id/add_alergia_spn_gravedad"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:entries="@array/gravedad"
+              android:layout_toRightOf="@+id/txt_gravedad"
+              />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Detalles"/>
+
+        <EditText
+            android:id="@+id/add_alergia_detalles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="500"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_alergia_btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_save"
+            android:layout_margin="16dp" />
+      </LinearLayout>
+</LinearLayout>

@@ -53,6 +53,41 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/comentarios_noticia"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@color/white"
+                app:srcCompat="@drawable/ic_comentario_foreground"/>
+
+
+            <ImageButton
+                android:id="@+id/megusta1_noticia"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/comentarios_noticia"
+                android:background="@color/white"
+                app:srcCompat="@drawable/ic_megusta1_foreground" />
+
+                <ImageButton
+                    android:id="@+id/megusta2_noticia"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/comentarios_noticia"
+                    android:background="@color/white"
+                    app:srcCompat="@drawable/ic_megusta2_foreground"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
             <TextView
                 android:id="@+id/texto_noticia"
                 android:layout_width="match_parent"

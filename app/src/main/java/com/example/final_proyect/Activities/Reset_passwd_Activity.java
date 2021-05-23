@@ -1,7 +1,9 @@
 package com.example.final_proyect.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +29,15 @@ public class Reset_passwd_Activity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_passwd);
+
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_reset_pasword);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_reset_password);
 
 
         btnRecuperar = findViewById(R.id.btn_reset_passswd);
@@ -81,5 +92,12 @@ public class Reset_passwd_Activity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

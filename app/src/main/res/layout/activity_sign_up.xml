@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.Perfil_Fragment">
+
+    <include
+        android:id="@+id/toolbar_sign_up"
+        layout="@layout/toolbar">
+    </include>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.SignUp_Activity">
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -204,25 +218,7 @@
                         android:paddingRight="15dp"
                         android:textColor="@color/gris"
                         android:textSize="12sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif-light"
-                        android:singleLine="true"
-                        android:text="Rol"
-                        android:textAllCaps="true"
-                        android:textColor="@color/gris"
-                        android:textSize="15sp"/>
 
-                    <ToggleButton
-                        android:id="@+id/rol_tooglebutton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/teal_200"
-                        android:textOff="Paciente"
-                        android:textOn="Médico" />
                 </LinearLayout>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -281,3 +277,4 @@
 
 
 </ScrollView>
+    </LinearLayout>

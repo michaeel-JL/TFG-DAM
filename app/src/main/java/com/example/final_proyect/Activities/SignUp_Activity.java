@@ -1,7 +1,9 @@
 package com.example.final_proyect.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,13 +40,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SignUp_Activity extends AppCompatActivity {
 
     private EditText editEmail, editNombre, editEdad, editContraseña, editRepetirContraseña, editApellidos;
-    private ToggleButton togglerol;
     private CircleImageView imageProfile;
     private Button botonRegistrar, botonLogin;
     private TextView botonAñadirFoto;
     private String email, nombre, apellidos, sexo="" , edad, contraseña, repetirContraseña, stringFoto;
-    private String rol="paciente";
-    private String recordar = "false";
+    private String rol="usuario";
     //PARA LA FOTO DE PERFIL
     private static final int GALLERY_INTENT = 1;
     private Uri uri;
@@ -53,12 +53,24 @@ public class SignUp_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
     private RadioButton radioButtonF, radioButtonM;
+    private  int edad_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_sign_up);
+
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_sign_up);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_sign_up);
+
+
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -69,7 +81,6 @@ public class SignUp_Activity extends AppCompatActivity {
         editEdad = (EditText) findViewById(R.id.edad_signup);
         editContraseña = (EditText) findViewById(R.id.password_signup);
         editRepetirContraseña = (EditText) findViewById(R.id.password_repeat_signup);
-        togglerol=(ToggleButton)findViewById(R.id.rol_tooglebutton);
         radioButtonF = (RadioButton) findViewById(R.id.radio_femenino);
         radioButtonM = (RadioButton) findViewById(R.id.radio_masculino);
 
@@ -123,21 +134,8 @@ public class SignUp_Activity extends AppCompatActivity {
             }
         });
 
-        togglerol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is paciente
-                    Toast.makeText(getApplication(), "Medico", Toast.LENGTH_SHORT).show();
-                    rol="medico";
 
-                } else {
-                    // The toggle is medico
 
-                    Toast.makeText(getApplication(), "Paciente", Toast.LENGTH_SHORT).show();
-                    rol="paciente";
-                }
-            }
-        });
 
 
     }
@@ -150,9 +148,12 @@ public class SignUp_Activity extends AppCompatActivity {
         contraseña = editContraseña.getText().toString();
         repetirContraseña = editRepetirContraseña.getText().toString();
 
-        System.out.println("SYSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"+sexo);
+        try {
+            edad_= Integer.parseInt(edad);
 
-        recordar = "false";
+        } catch(NumberFormatException nfe) {
+            Toast.makeText(getApplication(), "EDAD INCORRECTA", Toast.LENGTH_SHORT).show();
+        }
 
 
         //VALIDACIONES
@@ -160,44 +161,51 @@ public class SignUp_Activity extends AppCompatActivity {
                 !repetirContraseña.isEmpty() && !sexo.isEmpty() && !email.trim().equals("") && !nombre.trim().equals("") && !edad.trim().equals("")&& !sexo.trim().equals("")) {
             if (contraseña.length() >= 6 || contraseña.trim().equals("")) {
                 if (contraseña.equals(repetirContraseña)) {
-                    //SUBIR IMAGEN
-                    if (uri!=null) {
-                        //MARCAMOS LA RUTA DE LAS IMAGENES EN EL STORANGE
-                        final StorageReference filePath = mStorage.child("Fotos de perfil").child(uri.getLastPathSegment());
-                        //COGEMOS ESA RUTA Y LE METEMOS LA URI, QUE ES LA FOTO SELECCIONADA, GUARDADA ANTERIORMENTE EN EL ANTERIOR ON CLICK
-                        filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                //GUARDA LA URL DE LA ULTIMA FOTO SUBIDA
-                                Task<Uri> downloadUrl = mStorage.child("Fotos de perfil").child(uri.getLastPathSegment()).
-                                        getDownloadUrl();
-                                //SI ES CORRECTO ENTRAMOS AQUI
-                                downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri2) {
-                                        //URI DOS CORRESPONDE A downloadUrl Y SE LO AÑADIMOS A UN STRING QUE LE PASAMOS AL OBJETO
-                                        stringFoto = uri2.toString();
+                    if(edad_>0 && edad_<100){
+
+                        //SUBIR IMAGEN
+                        if (uri!=null) {
+                            //MARCAMOS LA RUTA DE LAS IMAGENES EN EL STORANGE
+                            final StorageReference filePath = mStorage.child("Fotos de perfil").child(uri.getLastPathSegment());
+                            //COGEMOS ESA RUTA Y LE METEMOS LA URI, QUE ES LA FOTO SELECCIONADA, GUARDADA ANTERIORMENTE EN EL ANTERIOR ON CLICK
+                            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    //GUARDA LA URL DE LA ULTIMA FOTO SUBIDA
+                                    Task<Uri> downloadUrl = mStorage.child("Fotos de perfil").child(uri.getLastPathSegment()).
+                                            getDownloadUrl();
+                                    //SI ES CORRECTO ENTRAMOS AQUI
+                                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri2) {
+                                            //URI DOS CORRESPONDE A downloadUrl Y SE LO AÑADIMOS A UN STRING QUE LE PASAMOS AL OBJETO
+                                            stringFoto = uri2.toString();
 
 
-                                        //LLAMAMOS AL METODO PARA REGISTRO
-                                        completarRegistro();
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplication(), "ERROR AL CARGAR LA IMAGEN", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                                            //LLAMAMOS AL METODO PARA REGISTRO
+                                            completarRegistro();
+                                        }
+                                    });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplication(), "ERROR AL CARGAR LA IMAGEN", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            //EN CASO DE NO SELECCIONAR NINGUNA FOTO SE GARGA ESTA POR DEFECTO
+                            stringFoto = "https://firebasestorage.googleapis.com/v0/b/aplicacinftc.appspot.com/o/por%20defecto.jpg?alt=media&token=e88772f9-b7c2-422c-967f-2d0016747b53";
+                            completarRegistro();
+                        }
+                        //TERMINAR DE SUBIR IMAGEN                    //MAS VALIDACIONES
                     } else {
-                        //EN CASO DE NO SELECCIONAR NINGUNA FOTO SE GARGA ESTA POR DEFECTO
-                        stringFoto = "https://firebasestorage.googleapis.com/v0/b/aplicacinftc.appspot.com/o/por%20defecto.jpg?alt=media&token=e88772f9-b7c2-422c-967f-2d0016747b53";
-                        completarRegistro();
+                        Toast.makeText(getApplication(), "EDAD INCORRECTA", Toast.LENGTH_SHORT).show();
+
                     }
-                    //TERMINAR DE SUBIR IMAGEN                    //MAS VALIDACIONES
-                } else {
+                }else{
                     Toast.makeText(getApplication(), "LAS CONTRASEÑAS NO COINCIDEN", Toast.LENGTH_SHORT).show();
+
                 }
             } else {
                 Toast.makeText(getApplication(), "LA CONTRASEÑA NO ES SEGURA", Toast.LENGTH_SHORT).show();
@@ -269,7 +277,12 @@ public class SignUp_Activity extends AppCompatActivity {
         }
         //SI ES CORRECTO
     }
-
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
 
 }

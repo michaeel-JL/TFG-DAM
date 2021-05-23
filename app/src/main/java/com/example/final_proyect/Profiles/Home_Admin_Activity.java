@@ -1,10 +1,14 @@
 package com.example.final_proyect.Profiles;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.final_proyect.Fragments.Consultas_Fragment;
@@ -27,11 +31,6 @@ import java.util.Deque;
 
 public class Home_Admin_Activity extends AppCompatActivity {
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-    DatabaseReference ref_estado = database.getReference("Estado").child(user.getUid());
-
     BottomNavigationView bottomNavigationView;
     Deque<Integer> integerDeque = new ArrayDeque<>(4);
     boolean flag = true;
@@ -52,16 +51,13 @@ public class Home_Admin_Activity extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
-
                         int id = item.getItemId();
-
                         if(integerDeque.contains(id)){
                             if(id == R.id.bn_noticias){
                                 if(integerDeque.size() != 1){
                                     if(flag){
                                         //Cuando flag  es true añadimos noticias aduque list
                                         integerDeque.addFirst(R.id.bn_noticias);
-
                                         flag = false;
                                     }
                                 }
@@ -107,36 +103,4 @@ public class Home_Admin_Activity extends AppCompatActivity {
                 .replace(R.id.viewPager, fragment, fragment.getClass().getSimpleName())
                 .commit();
     }
-
-
-
-    private void estadoUsuario(String estado) {
-
-        ref_estado.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Estado est = new Estado("", "", estado);
-                ref_estado.setValue(est);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        estadoUsuario("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        estadoUsuario("offline");
-    }
-
 }
