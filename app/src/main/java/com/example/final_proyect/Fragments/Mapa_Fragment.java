@@ -256,13 +256,12 @@ public class Mapa_Fragment extends Fragment implements OnMapReadyCallback, View.
         marker.setTitle("Posición actual");
         marker.setDraggable(true);
         marker.setSnippet("Latitud: "+location.getLatitude()+" Longitud "+location.getLongitude());
-
-
     }
+
     private void zoomToLocation(Location location) {
         camera = new CameraPosition.Builder()
                 .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                .zoom(15)           // limit -> 21
+                .zoom(18)           // limit -> 21
                 .bearing(0)         // 0 - 365º
                 .tilt(30)           // limit -> 90
                 .build();

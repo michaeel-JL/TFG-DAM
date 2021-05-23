@@ -53,8 +53,6 @@
                         android:layout_height="wrap_content"
                         android:text="Correo"
                         android:inputType="textEmailAddress"
-                        android:textAllCaps="true"
-                        android:fontFamily="sans-serif-light"
                         android:textSize="15sp"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/gris"/>
@@ -80,11 +78,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Contraseña"
-                        android:textAllCaps="true"
-                        android:fontFamily="sans-serif-light"
                         android:textSize="15sp"
                         android:layout_marginTop="20dp"
                         android:textColor="@color/gris"/>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
@@ -97,6 +98,15 @@
                         android:paddingRight="15dp"
                         android:layout_marginTop="5dp"/>
 
+                    <ImageView
+                        android:id="@+id/ic_visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_visible"/>
+                    </RelativeLayout>
+
 
 
                 </LinearLayout>
@@ -104,7 +114,7 @@
                     android:id="@+id/remember_me_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Remember me"
+                    android:text="Recordar usuario"
                     android:textAllCaps="false"
                     android:fontFamily="sans-serif-light"
                     android:textSize="15sp"
@@ -122,7 +132,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:paddingLeft="50dp"
                 android:paddingRight="50dp"
-                android:text="Login"
+                android:text="Iniciar sesión"
                 android:textSize="16sp"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
@@ -142,10 +152,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:text="Sign Up"
+            android:text="Registrarse"
             android:id="@+id/btnsignup"
             android:textAllCaps="true"
-            android:textColor="@color/gris2"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:fontFamily="sans-serif"/>
 
         <Button
@@ -156,7 +167,8 @@
             android:id="@+id/btnreset"
             android:text="¿Olvidó su contraseña?"
             android:textAllCaps="true"
-            android:textColor="@color/gris2"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:fontFamily="sans-serif"/>
     </RelativeLayout>
 

@@ -70,6 +70,7 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
 
         Glide.with(context).load(userss.getFoto()).into(holder.img_user);
         holder.tv_usuario.setText(userss.getNombre());
+
         if(userss.getRol().equals("medico")){
 
             String id = userss.getId();

@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -41,6 +44,8 @@ public class Login_Activity extends AppCompatActivity {
     Button btnlogin, btnsignup, btnreset;
     EditText mMail, mPassword;
     TextView Mail, Password, textoSplashScreen;
+    ImageView visible;
+    Boolean psw = true;
 
     private String PREFS_KEY = "mispreferencias";
     private FirebaseAuth mAuth;
@@ -78,9 +83,30 @@ public class Login_Activity extends AppCompatActivity {
         btnreset = findViewById(R.id.btnreset);
         mMail = findViewById(R.id.mail);
         mPassword = findViewById(R.id.password);
+        visible = findViewById(R.id.ic_visible);
         barraCarga = new ProgressDialog(this);
         //Iniciar instancia de autenticación
         mAuth = FirebaseAuth.getInstance();
+
+        visible.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!psw) {
+                    mPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    psw = true;
+
+                    ///aqui puedes cambiar el texto del boton, o textview, o cambiar la imagen de un imageView.
+                }
+                else {
+                    mPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    psw = false;
+
+                    ///aqui puedes cambiar el texto del boton, o textview, o cambiar la imagen de un imageView.
+                }
+            }
+        });
+
+
 
 
 

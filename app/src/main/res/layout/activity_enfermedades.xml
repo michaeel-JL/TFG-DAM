@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:orientation="vertical"
         android:background="#905EF0FF"
         >
@@ -21,8 +21,10 @@
             android:layout_height="wrap_content"
             android:text="Esta es la lista de tus enfermedades, donde tanto tú como tu médico podéis añadir y modificar contenido. Procura mantenerla actualizada para agilizar las consultas con los médicos"
             android:textSize="16sp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="35dp"
             android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             />
 
     </LinearLayout>

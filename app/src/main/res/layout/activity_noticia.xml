@@ -23,7 +23,8 @@
         <TextView
             android:id="@+id/titulo_noticia"
             android:textSize="28dp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -50,14 +51,9 @@
                 android:id="@+id/imagen_noticia"
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
+                android:layout_marginBottom="5dp"
                 />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
 
 
             <RelativeLayout
@@ -95,6 +91,7 @@
 
             </RelativeLayout>
             <TextView
+                android:layout_marginTop="5dp"
                 android:id="@+id/texto_noticia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

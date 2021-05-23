@@ -66,6 +66,7 @@ public class Comentarios_adapter extends RecyclerView.Adapter<Comentarios_adapte
         ref_usuarios.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 String nombre_envia = snapshot.getValue(Usuario.class).getNombre();
                 String foto_user = snapshot.getValue(Usuario.class).getFoto();
                 String apellidos_user = snapshot.getValue(Usuario.class).getApellidos();
@@ -73,8 +74,6 @@ public class Comentarios_adapter extends RecyclerView.Adapter<Comentarios_adapte
                 holder.nombre_coment.setText(nombre_envia);
                 holder.apellidos_coment.setText(apellidos_user);
                 Picasso.get().load(foto_user).fit().into(holder.img_coment);
-
-
             }
 
             @Override

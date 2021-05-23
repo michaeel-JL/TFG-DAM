@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.final_proyect.R;
-import com.example.final_proyect.Util.Util;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -91,35 +91,49 @@ public class Cambiar_Contrasena_Activity extends AppCompatActivity {
                 if(password1.getText().toString().equals(password2.getText().toString()) ){
                     if(password1.getText().toString().length()>=6 && password2.getText().toString().length()>=6){
 
+                        if(password1.getText().toString()!=null){
 
 
-                        FirebaseUser user_ = FirebaseAuth.getInstance().getCurrentUser();
+
+                            FirebaseUser user_ = FirebaseAuth.getInstance().getCurrentUser();
 
 
-                        AuthCredential credential = EmailAuthProvider
-                                .getCredential(email_N, password_N);
+                            AuthCredential credential = EmailAuthProvider
+                                    .getCredential(email_N, password_N);
 
-                        user_.reauthenticate(credential)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            user.updatePassword(password1.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                    } else {
+                            user_.reauthenticate(credential)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                user.updatePassword(password1.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                        } else {
+                                                        }
                                                     }
-                                                }
-                                            });
-                                        } else {
+                                                });
+                                            } else {
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+
+                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            String uid = user.getUid();
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                            DatabaseReference noticiasRef = ref.child("Usuarios").child(uid);
+
+                            noticiasRef.child("password").setValue(password1.getText().toString());
 
 
-                        Toast.makeText(Cambiar_Contrasena_Activity.this, "CONTRASEÑA CAMBIADA CON EXITO", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Cambiar_Contrasena_Activity.this, "CONTRASEÑA CAMBIADA CON EXITO", Toast.LENGTH_LONG).show();
 
+                        }else{
+                            Toast.makeText(Cambiar_Contrasena_Activity.this, "CAMPO VACÍO", Toast.LENGTH_LONG).show();
+
+                        }
                     }else{
                         Toast.makeText(Cambiar_Contrasena_Activity.this, "CONTRASEÑA DEMASIADO CORTA", Toast.LENGTH_LONG).show();
 
