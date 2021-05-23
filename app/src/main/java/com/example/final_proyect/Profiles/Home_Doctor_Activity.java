@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import com.example.final_proyect.Fragments.Consultas_Fragment;
 import com.example.final_proyect.Fragments.Noticias_Fragment;
 import com.example.final_proyect.Fragments.Perfil_Fragment;
-import com.example.final_proyect.Models.Estado;
 import com.example.final_proyect.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,36 +103,6 @@ public class Home_Doctor_Activity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.viewPager, fragment, fragment.getClass().getSimpleName())
                 .commit();
-    }
-
-
-    private void estadoUsuario(String estado) {
-
-        ref_estado.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Estado est = new Estado("", "", estado);
-                ref_estado.setValue(est);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        estadoUsuario("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        estadoUsuario("offline");
     }
 
 }

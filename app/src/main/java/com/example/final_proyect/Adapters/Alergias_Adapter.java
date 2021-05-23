@@ -77,6 +77,7 @@ public class Alergias_Adapter extends RecyclerView.Adapter<Alergias_Adapter.view
                             enviarDatosAddAlergia(view, alergiass, "vista_medico");
                         }
                     });
+
                 }else if (rol.equals("usuario")){
                     holder.cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -84,6 +85,30 @@ public class Alergias_Adapter extends RecyclerView.Adapter<Alergias_Adapter.view
                             enviarDatosAddAlergia(view, alergiass, "si");
                         }
                     });
+                    holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            //PulsaciÃ³n larga
+                            DatabaseReference refAlergias = FirebaseDatabase.getInstance().getReference().child("Alergias").child(uid);
+
+                            refAlergias.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.exists()){
+
+                                        refAlergias.child(uid).child(alergiass.getId()).removeValue();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            return false;
+                        }
+                    });
+
                 }
             }
             @Override

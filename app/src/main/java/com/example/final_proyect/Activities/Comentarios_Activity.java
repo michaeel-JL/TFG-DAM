@@ -1,7 +1,9 @@
 package com.example.final_proyect.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +60,16 @@ public class Comentarios_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentarios);
+
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_comentarios);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_comentarios);
+
 
         img_user_comentario = findViewById(R.id.img_user_comentarios);
         user_name_comentario = findViewById(R.id.usuario_comentarios);
@@ -153,5 +165,12 @@ public class Comentarios_Activity extends AppCompatActivity {
     }
     private void setScroll() {
         rv_comentarios.scrollToPosition(adapter.getItemCount() - 1);
+    }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

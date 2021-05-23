@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragments.Usuarios_Fragment">
+    tools:context=".Fragments.Usuarios_Fragment"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar_usuarios_f"
+        layout="@layout/toolbar">
+    </include>
 
     <FrameLayout
         android:id="@+id/container"
@@ -13,24 +19,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/recyclerAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".Splash.Activities.MainActivity">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
 
-    <ListView
-        android:id="@+id/listViewBoard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </ListView>
-
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recyclerAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Splash.Activities.MainActivity">
-
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

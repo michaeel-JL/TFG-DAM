@@ -14,9 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.final_proyect.Adapters.Noticias_Adapter;
 import com.example.final_proyect.Models.Chat;
+import com.example.final_proyect.Profiles.Home_Admin_Activity;
 import com.example.final_proyect.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -108,8 +110,13 @@ public class Edit_Noticia_Activity extends AppCompatActivity {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference noticiasRef = ref.child("Noticias").child(id);
 
-                noticiasRef.child("imagenSecundaria").setValue(URL.getText().toString());
-                Picasso.get().load(URL.getText().toString()).fit().into(imagenNoticia);
+                if(URL.getText().length()==0){
+                    Toast.makeText(getApplication(), "PROPORCIONE UN LINK VÁLIDO", Toast.LENGTH_SHORT).show();
+                }else if(URL.getText().length()>0){
+                    noticiasRef.child("imagenSecundaria").setValue(URL.getText().toString());
+                    Picasso.get().load(URL.getText().toString()).fit().into(imagenNoticia);
+
+                }
 
             }
         });
@@ -143,10 +150,19 @@ public class Edit_Noticia_Activity extends AppCompatActivity {
 
                 DatabaseReference ref_comentarios = FirebaseDatabase.getInstance().getReference().child("Comentarios").child(id);
                 ref_comentarios.removeValue();
+                startActivity(new Intent(Edit_Noticia_Activity.this, Home_Admin_Activity.class));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

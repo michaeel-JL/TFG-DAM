@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.final_proyect.Models.Medico;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
 
@@ -35,15 +37,17 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Add_Dcotor_Activity extends AppCompatActivity {
+public class Add_Doctor_Activity extends AppCompatActivity {
 
-    private String email, nombre=" ", apellidos=" ", sexo=" " , edad=" ", password, stringFoto, rol="medico";
+    private String email, nombre=" ", apellidos=" ", sexo=" " , edad=" ",especialidad,  password, stringFoto, rol="medico";
     private EditText editEmail, editTextApellidos,editTextEdad, editTextNombre;
     private TextView textPassword;
     private CircleImageView imageProfile;
     private TextView btn_add_foto;
     private Button botonRegistrar, copiar_password;
     private TextView botonAñadirFoto;
+    private Spinner spinner;
+
 
     //OBJETO PARA LA BASE DE DATOS
     private DatabaseReference mDataBase;
@@ -84,6 +88,8 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
         editTextNombre = (EditText) findViewById(R.id.nombre_signup);
         editTextApellidos = (EditText) findViewById(R.id.apellidos_signup) ;
         editTextEdad = (EditText) findViewById(R.id.edad_signup);
+        spinner = (Spinner) findViewById(R.id.add_usuario_spn);
+
 
         password=generateRandomString(10);
         textPassword=findViewById(R.id.generate_password);
@@ -116,7 +122,7 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
             @Override
             public void onClick(android.view.View v) {
                 CropImage.activity(uri).setAspectRatio(1, 1)
-                        .start(Add_Dcotor_Activity.this);
+                        .start(Add_Doctor_Activity.this);
             }
         });
 
@@ -130,7 +136,7 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
         copiar_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Add_Dcotor_Activity.this, "Copiado al portapapeles", Toast.LENGTH_LONG).show();
+                Toast.makeText(Add_Doctor_Activity.this, "Copiado al portapapeles", Toast.LENGTH_LONG).show();
 
                 ClipboardManager myClipboard = myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData myClip;
@@ -158,12 +164,12 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
             switch (which) {
                 case 0:
                     rol="medico";
-                    Toast.makeText(Add_Dcotor_Activity.this, "Médico", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Add_Doctor_Activity.this, "Médico", Toast.LENGTH_LONG).show();
 
                     break;
                 case 1:
                     rol="admin";
-                    Toast.makeText(Add_Dcotor_Activity.this, "Administrador", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Add_Doctor_Activity.this, "Administrador", Toast.LENGTH_LONG).show();
 
                     break;
 
@@ -173,7 +179,7 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", (dialogInterface, i) -> {
 
             if(rol.equals("admin")){
-                startActivity(new Intent(Add_Dcotor_Activity.this, Add_Admin_Activity.class));
+                startActivity(new Intent(Add_Doctor_Activity.this, Add_Admin_Activity.class));
                 finish();
             }
         });
@@ -196,11 +202,12 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
         nombre = editTextNombre.getText().toString();
         apellidos = editTextApellidos.getText().toString();
         edad = editTextEdad.getText().toString();
+        especialidad = spinner.getSelectedItem().toString();
         recordar = "false";
 
         //VALIDACIONES
         if (!email.isEmpty() &&  !password.isEmpty() &&!nombre.isEmpty() &&  !edad.isEmpty()&& !sexo.isEmpty()
-                && !email.trim().equals("") ) {
+                && !email.trim().equals("") && !spinner.getSelectedItem().toString().isEmpty() ) {
             if (password.length() >= 6 || password.trim().equals("")) {
                 //SUBIR IMAGEN
                 if (uri!=null) {
@@ -244,17 +251,18 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
                 //GUARDAMOS LA ID DEL USUARIO CREADO
                 String id = mAuth2.getCurrentUser().getUid();
 
-
                 //CREAMOS OBJETO PARA PASARSELO A LA BASE
-                Usuario user = new Usuario(id, nombre, apellidos, sexo,edad, email, password,stringFoto, rol);
+                Medico user = new Medico(id, nombre, apellidos, sexo,edad, email, password,stringFoto, rol, especialidad );
 
                 //ENTRAMOS DONDE LOS USUARIOS Y LE METEMOS EL OBJETO LUEGO HAY VALIDACIONES
                 //COMIENZO VALIDACIONES
                 mDataBase.child("Usuarios").child(id).setValue(user).addOnCompleteListener(task2 -> {
                     if (task2.isSuccessful()) {
                         Toast.makeText(getApplication(), "Usuario registrado", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
-                    } else {
+
+                        //Redirige al login
+                        Intent intent = new Intent(this, Login_Activity.class);
+                        startActivity(intent);                    } else {
                         Toast.makeText(getApplication(), "ERROR EN EL REGISTRO 1", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -309,6 +317,13 @@ public class Add_Dcotor_Activity extends AppCompatActivity {
         return sb.toString();
     }
 
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
 
 }

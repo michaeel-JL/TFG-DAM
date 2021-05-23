@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.final_proyect.Activities.Add_Dcotor_Activity;
+import com.example.final_proyect.Activities.Add_Doctor_Activity;
 import com.example.final_proyect.Activities.Edit_User_Activity;
 import com.example.final_proyect.Adapters.User_Adapter;
 import com.example.final_proyect.Models.Usuario;
@@ -53,9 +55,12 @@ public class Usuarios_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().setTitle("Usuarios");
-
         View view = inflater.inflate(R.layout.fragment_usuarios_, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar_usuarios_f);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.toolbar_usuarios);
+
 
         setHasOptionsMenu(true);
 
@@ -158,14 +163,14 @@ public class Usuarios_Fragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.ic_add_user).setVisible(true);
+        menu.findItem(R.id.ic_add).setVisible(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.ic_add_user:
-                Intent intent = new Intent(getActivity(), Add_Dcotor_Activity.class);
+            case R.id.ic_add:
+                Intent intent = new Intent(getActivity(), Add_Doctor_Activity.class);
                 startActivity(intent);
                 return true;
             default:

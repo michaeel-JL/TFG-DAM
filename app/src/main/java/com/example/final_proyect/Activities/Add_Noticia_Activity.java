@@ -2,6 +2,7 @@ package com.example.final_proyect.Activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class Add_Noticia_Activity extends AppCompatActivity {
     private int contador;
     private Spinner spinner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,6 @@ public class Add_Noticia_Activity extends AppCompatActivity {
         imagenSecundaria = findViewById(R.id.add_noticia_img2);
         texto = findViewById(R.id.add_noticia_texto);
         spinner = (Spinner) findViewById(R.id.add_noticia_spn);
-
 
 
         //boton guardar
@@ -105,5 +106,12 @@ public class Add_Noticia_Activity extends AppCompatActivity {
                 }
             });
         });
+    }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }}
 

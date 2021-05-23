@@ -1,30 +1,17 @@
 package com.example.final_proyect.Profiles;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.final_proyect.Fragments.Consultas_Fragment;
 import com.example.final_proyect.Fragments.Noticias_Fragment;
 import com.example.final_proyect.Fragments.Perfil_Fragment;
 import com.example.final_proyect.Fragments.Usuarios_Fragment;
-import com.example.final_proyect.Models.Estado;
 import com.example.final_proyect.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

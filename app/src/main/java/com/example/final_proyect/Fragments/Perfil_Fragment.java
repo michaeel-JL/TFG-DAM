@@ -1,6 +1,5 @@
 package com.example.final_proyect.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.final_proyect.Activities.Ajustes_Activity;
@@ -33,15 +33,17 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.final_proyect.R.id.btn_alergias;
+import static com.example.final_proyect.R.id.invisible;
 
 
 public class Perfil_Fragment extends Fragment {
 
     private CircleImageView imageProfile;
-    private String nombre, apellidos, email, edad, foto, sexo;
+    private String nombre, apellidos, email, edad, foto, sexo, rol;
     private TextView name_profile, apellidos_profile, email_profile, edad_profile, sexo_profile;
     private Button logout;
     private ImageButton btn_alergias, btn_enfermades, btn_ajustes;
+    private LinearLayout ly_enfermedades, ly_alergias;
 
     //BBDD
     private FirebaseAuth mAuth;
@@ -68,6 +70,8 @@ public class Perfil_Fragment extends Fragment {
         email_profile = view.findViewById(R.id.email_perfil);
         edad_profile = view.findViewById(R.id.edad_perfil);
         sexo_profile=view.findViewById(R.id.sexo);
+        ly_enfermedades=view.findViewById(R.id.ly_enfermedades);
+        ly_alergias=view.findViewById(R.id.ly_alergias);
 
         btn_alergias = view.findViewById(R.id.btn_alergias);
         btn_enfermades = view.findViewById(R.id.btn_enfermedades);
@@ -125,6 +129,7 @@ public class Perfil_Fragment extends Fragment {
                     apellidos =  dataSnapshot.child("apellidos").getValue(String.class);
                     apellidos_profile.setText(apellidos);
 
+
                     //sexo
                     sexo = dataSnapshot.child("sexo").getValue(String.class);
                     sexo_profile.setText(sexo);
@@ -132,6 +137,16 @@ public class Perfil_Fragment extends Fragment {
                     //Foto perfil
                     foto = dataSnapshot.child("foto").getValue(String.class).toString();
                     cargarImagen(foto);
+
+
+                    rol =dataSnapshot.child("rol").getValue(String.class).toString();
+                    if(rol.equals("admin")|| rol.equals("medico")){
+                        ly_enfermedades.setVisibility(View.GONE);
+                        ly_alergias.setVisibility(View.GONE);
+
+                    }else{
+
+                    }
                 }
             }
 

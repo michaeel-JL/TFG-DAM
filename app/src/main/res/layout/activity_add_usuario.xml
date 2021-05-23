@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/imagenlogo"
-                android:layout_width="60dp"
-                android:layout_height="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
@@ -129,6 +129,19 @@
                         </RadioGroup>
 
                         <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Especialidad" />
+
+                        <Spinner
+                            android:id="@+id/add_usuario_spn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:entries="@array/especialidades"
+                            android:layout_marginTop="10dip"
+                            android:prompt="@string/spn_title" />
+
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -180,7 +193,7 @@
                             android:layout_height="30dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-light"
-                            android:text="ContraseÃ±a Generada"
+                            android:text="Generated Password "
                             android:textAllCaps="true"
                             android:textColor="@color/gris"
                             android:textSize="15sp"

@@ -7,8 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.final_proyect.Models.Enfermedad;
 import com.example.final_proyect.R;
@@ -26,7 +29,7 @@ import java.util.Calendar;
 public class Add_Enfermedad_Activity extends AppCompatActivity {
     EditText etxt_nombre, etxt_detalles, etxt_diag, etxt_resol;
     String fecha_diag, fecha_resol;
-    String id_enfermedad;
+    String id_enfermedad, editar_enfermedad, uid;
 
     private DatabaseReference mDataBase; //BBDD
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -53,8 +56,11 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
         etxt_detalles = findViewById(R.id.add_enfermedad_detalles);
         fab = findViewById(R.id.add_enfermedad_btn_save);
 
-        String uid = user.getUid();
-        String editar_enfermedad = getIntent().getExtras().getString("editar");
+        id_enfermedad = getIntent().getExtras().getString("id_enfermedad");
+
+
+        uid = user.getUid();
+        editar_enfermedad = getIntent().getExtras().getString("editar");
 
         if(editar_enfermedad.equals("si")){
             cargarDatos();
@@ -66,39 +72,35 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
 
         //Boton guardar
         fab.setOnClickListener(view -> {
+
             mDataBase = FirebaseDatabase.getInstance().getReference();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-
             DatabaseReference ref_enfermedades = database.getReference("Enfermedades").child(uid);
-            ref_enfermedades.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    Enfermedad enfermedad = new Enfermedad();
-                    enfermedad.setNombre(etxt_nombre.getText().toString());
-                    enfermedad.setDetalles(etxt_detalles.getText().toString());
+            if (!etxt_diag.getText().toString().isEmpty() && !etxt_resol.getText().toString().isEmpty() && !etxt_nombre.getText().toString().isEmpty() && !etxt_detalles.getText().toString().isEmpty() ) {
 
-                    if (editar_enfermedad.equals("si")){
-                        enfermedad.setId(id_enfermedad);
-                        enfermedad.setFecha_diagnostico(fecha_diag);
-                        enfermedad.setFecha_resolucion(fecha_resol);
-                        ref_enfermedades.child(id_enfermedad).setValue(enfermedad);
+                Enfermedad enfermedad = new Enfermedad();
+                enfermedad.setNombre(etxt_nombre.getText().toString());
+                enfermedad.setDetalles(etxt_detalles.getText().toString());
+                enfermedad.setFecha_diagnostico(fecha_diag);
+                enfermedad.setFecha_resolucion(fecha_resol);
 
-                    }else{
-                        String id = ref_enfermedades.push().getKey();
-                        enfermedad.setFecha_diagnostico(fecha_diag);
-                        enfermedad.setFecha_resolucion(fecha_resol);
-                        enfermedad.setId(id);
-                        ref_enfermedades.child(enfermedad.getId()).setValue(enfermedad);
-                    }
-                    onBackPressed();
+                //Si editamos cogemos el id
+                if (editar_enfermedad.equals("si")) {
+                    enfermedad.setId(id_enfermedad);
+                    ref_enfermedades.child(id_enfermedad).setValue(enfermedad);
+
+                    //Si NO editamos creamos un id
+                } else {
+                    String id = ref_enfermedades.push().getKey();
+                    enfermedad.setId(id);
+                    ref_enfermedades.child(enfermedad.getId()).setValue(enfermedad);
                 }
+                onBackPressed();
+            }else{
+                Toast.makeText(this, "No pueden haber campos vacíos", Toast.LENGTH_SHORT).show();
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
 
         });
     }
@@ -117,8 +119,6 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
         String nombre_enfermedad = getIntent().getExtras().getString("nombre_enfermedad");
         String detalles_enfermedad = getIntent().getExtras().getString("detalles_enfermedad");
         fecha_diag = getIntent().getExtras().getString("fecha_d_enfermedad");
-        fecha_resol = getIntent().getExtras().getString("fecha_r_enfermedad");
-        id_enfermedad = getIntent().getExtras().getString("id_enfermedad");
 
         etxt_nombre.setText(nombre_enfermedad);
         etxt_detalles.setText(detalles_enfermedad);
@@ -154,4 +154,46 @@ public class Add_Enfermedad_Activity extends AppCompatActivity {
         }, anio, mes, dia);
         dpd.show();
     }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_delete_noticia, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        if(editar_enfermedad.equals("si")) {
+            menu.findItem(R.id.ic_delete).setVisible(true);
+        }else{
+            menu.findItem(R.id.ic_delete).setVisible(false);
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ic_delete:
+
+                DatabaseReference ref_enfermedades = FirebaseDatabase.getInstance().getReference().child("Enfermedades").child(uid).child(id_enfermedad);
+                ref_enfermedades.removeValue();
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 }

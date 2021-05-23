@@ -1,7 +1,9 @@
 package com.example.final_proyect.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,11 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RatingBar;
 
-import com.example.final_proyect.Adapters.Alergias_Adapter;
 import com.example.final_proyect.Adapters.Enfermedades_Adapter;
-import com.example.final_proyect.Models.Alergia;
 import com.example.final_proyect.Models.Enfermedad;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
@@ -34,9 +33,9 @@ public class Enfermedades_Activity extends AppCompatActivity {
     RecyclerView rv;
 
     //BBDD
-    private FirebaseAuth mAuth;
     private DatabaseReference mDataBase;
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
     DatabaseReference ref;
 
     @Override
@@ -44,7 +43,14 @@ public class Enfermedades_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enfermedades);
 
-        setTitle("Enfermedades");
+        //configuración Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_enfermedades);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);
+        ab.setTitle(R.string.toolbar_enfermedades);
 
         LinearLayoutManager mLayoutManager;
         mLayoutManager = new LinearLayoutManager(this);
@@ -53,12 +59,13 @@ public class Enfermedades_Activity extends AppCompatActivity {
         rv = findViewById(R.id.enfermedades_rv);
         rv.setLayoutManager(mLayoutManager);
 
-        //Referencia del id
-        String uid = user.getUid();
-        ref = FirebaseDatabase.getInstance().getReference();
+        //Realizamos las consultas necesarias a FIREBASE
+        consultasFirebase();
 
+    }
+
+    private void consultasFirebase() {
         enfermedadList = new ArrayList<>();
-
         adapter = new Enfermedades_Adapter(enfermedadList,this);
         rv.setAdapter(adapter);
 
@@ -129,14 +136,14 @@ public class Enfermedades_Activity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.ic_add_noticia).setVisible(true);
+        menu.findItem(R.id.ic_add).setVisible(true);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.ic_add_noticia:
+            case R.id.ic_add:
                 Intent intent = new Intent(this, Add_Enfermedad_Activity.class);
                 intent.putExtra("editar", "no");
                 startActivity(intent);
@@ -144,6 +151,19 @@ public class Enfermedades_Activity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        consultasFirebase();
+    }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

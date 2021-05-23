@@ -133,5 +133,12 @@ public class Cambiar_Email_Activity extends AppCompatActivity {
 
     }
 
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
 }

@@ -4,7 +4,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 
 import com.example.final_proyect.Adapters.User_List_Adapter;
@@ -63,8 +64,11 @@ public class Consultas_Fragment extends Fragment implements SearchView.OnQueryTe
         // Podemos cogerlos como referencia
         View view = inflater.inflate(R.layout.fragment_consultas, container, false);
 
+        Toolbar toolbar = view.findViewById(R.id.toolbar_consultas_f);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.toolbar_consultas);
+
         svSearch = view.findViewById(R.id.search_users);
-        getActivity().setTitle("Consultas");
         svSearch.setOnQueryTextListener(this);
 
         LinearLayoutManager mLayoutManager;

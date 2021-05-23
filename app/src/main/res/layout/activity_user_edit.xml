@@ -17,14 +17,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Editar Usuario"
-            android:textSize="30sp"
-            android:textColor="@color/gris"
-            android:fontFamily="sans-serif-medium" />
+
 
         <RelativeLayout
             android:layout_width="wrap_content"

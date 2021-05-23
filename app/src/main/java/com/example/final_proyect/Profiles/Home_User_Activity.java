@@ -2,35 +2,16 @@ package com.example.final_proyect.Profiles;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.final_proyect.Adapters.User_List_Adapter;
 import com.example.final_proyect.Fragments.Consultas_Fragment;
 import com.example.final_proyect.Fragments.Mapa_Fragment;
 import com.example.final_proyect.Fragments.Noticias_Fragment;
 import com.example.final_proyect.Fragments.Perfil_Fragment;
-import com.example.final_proyect.Models.Estado;
 import com.example.final_proyect.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -138,35 +119,5 @@ public class Home_User_Activity extends AppCompatActivity {
             finish();
         }
     }
-
-    private void estadoUsuario(String estado) {
-
-        ref_estado.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Estado est = new Estado("", "", estado);
-                ref_estado.setValue(est);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
-
-
-
-    /*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        estadoUsuario("online");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        estadoUsuario("offline");
-    }
-     */
 
 }

@@ -49,7 +49,7 @@ public class Noticia_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_noticia);
 
         //configuración Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar_edit_user);
+        Toolbar toolbar = findViewById(R.id.toolbar_noticia);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -165,5 +165,12 @@ public class Noticia_Activity extends AppCompatActivity {
         DatabaseReference ref_likes = databse.getReference("Likes").child(id);
         ref_likes.child(uid).setValue(1);
 
+    }
+
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

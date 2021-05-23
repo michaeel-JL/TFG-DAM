@@ -11,6 +11,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.final_proyect.Activities.Chat_Activity;
 import com.example.final_proyect.Models.Chat;
+import com.example.final_proyect.Models.Medico;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,6 +70,23 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
 
         Glide.with(context).load(userss.getFoto()).into(holder.img_user);
         holder.tv_usuario.setText(userss.getNombre());
+        if(userss.getRol().equals("medico")){
+
+            String id = userss.getId();
+            DatabaseReference ref_medico = databse.getReference("Usuarios").child(id);
+            ref_medico.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    holder.tv_especialidad.setText(snapshot.getValue(Medico.class).getEspecialidad());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
 
         //Si el usuario que está recorriendo es igual al que tenemos lo oculta
         if (userss.getId().equals(user.getUid())){
@@ -137,7 +156,7 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
     }
 
     public class viewHolderAdapter extends RecyclerView.ViewHolder {
-        TextView tv_usuario;
+        TextView tv_usuario, tv_especialidad;
         ImageView img_user;
         CardView cardView;
 
@@ -147,6 +166,8 @@ public class User_List_Adapter extends RecyclerView.Adapter<User_List_Adapter.vi
             tv_usuario = itemView.findViewById(R.id.tv_user);
             img_user = itemView.findViewById(R.id.img_user);
             cardView = itemView.findViewById(R.id.cardiew);
+            tv_especialidad= itemView.findViewById(R.id.chat_especialidad);
+
         }
     }
 

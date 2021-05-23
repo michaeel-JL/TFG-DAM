@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,8 @@ public class Edit_User_Activity extends AppCompatActivity {
     private EditText edit_name, edit_apellidos, edit_edad, edit_email, edit_rol;
     private RadioButton radioButtonF, radioButtonM;
     private Spinner spinner;
+    private int edad_;
+
 
     private String spin_rol_a,  spin_rol_b;
 
@@ -77,15 +80,15 @@ public class Edit_User_Activity extends AppCompatActivity {
         //Comprobacion
         if(rol.equals("medico")){
             //Roles restantes
-            spin_rol_a="paciente";
+            spin_rol_a="usuario";
             spin_rol_b="admin";
-        }else if(rol.equals("paciente")){
+        }else if(rol.equals("usuario")){
             //Roles restantes
             spin_rol_a="medico";
             spin_rol_b="admin";
         }else if(rol.equals("admin")){
             //Roles restantes
-            spin_rol_a="paciente";
+            spin_rol_a="usuario";
             spin_rol_b="medico";
         }
 
@@ -121,6 +124,12 @@ public class Edit_User_Activity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    edad_= Integer.parseInt(edit_edad.getText().toString());
+
+                } catch(NumberFormatException nfe) {
+                    Toast.makeText(getApplication(), "EDAD INCORRECTA", Toast.LENGTH_SHORT).show();
+                }
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -131,7 +140,13 @@ public class Edit_User_Activity extends AppCompatActivity {
                 usuario.setNombre(edit_name.getText().toString());
                 usuario.setApellidos(edit_apellidos.getText().toString());
                 usuario.setEmail(edit_email.getText().toString());
-                usuario.setEdad(edit_edad.getText().toString());
+                if(edad_>0 && edad_<100){
+                    usuario.setEdad(edit_edad.getText().toString());
+                }else{
+                    Toast.makeText(getApplication(), "EDAD INCORRECTA", Toast.LENGTH_SHORT).show();
+                    usuario.setEdad(edad);
+
+                }
                 usuario.setPassword(password);
                 usuario.setFoto(foto);
                 usuario.setId(id);

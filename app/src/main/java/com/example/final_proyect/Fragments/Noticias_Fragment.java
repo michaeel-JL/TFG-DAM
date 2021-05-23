@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -20,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.final_proyect.Activities.Noticia_Activity;
 import com.example.final_proyect.Activities.Edit_Noticia_Activity;
@@ -39,7 +37,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -248,7 +245,7 @@ public class Noticias_Fragment extends Fragment  {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String rol = snapshot.getValue(Usuario.class).getRol();
                 if (rol.equals("admin")){
-                    menu.findItem(R.id.ic_add_noticia).setVisible(true);
+                    menu.findItem(R.id.ic_add).setVisible(true);
                 }
             }
             @Override
@@ -260,7 +257,7 @@ public class Noticias_Fragment extends Fragment  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.ic_add_noticia:
+            case R.id.ic_add:
                 Intent intent = new Intent(getActivity(), Add_Noticia_Activity.class);
                 startActivity(intent);
                 return true;

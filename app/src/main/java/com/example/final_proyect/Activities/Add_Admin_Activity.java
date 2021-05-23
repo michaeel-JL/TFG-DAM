@@ -156,7 +156,9 @@ public class Add_Admin_Activity extends AppCompatActivity {
                 mDataBase.child("Usuarios").child(id).setValue(user).addOnCompleteListener(task2 -> {
                     if (task2.isSuccessful()) {
                         Toast.makeText(getApplication(), "Usuario registrado", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
+                        Intent intent = new Intent(this, Login_Activity.class);
+                        startActivity(intent);
+
                     } else {
                         Toast.makeText(getApplication(), "ERROR EN EL REGISTRO 1", Toast.LENGTH_SHORT).show();
                     }
@@ -188,7 +190,6 @@ public class Add_Admin_Activity extends AppCompatActivity {
         //SI ES CORRECTO
     }
 
-
     public static String generateRandomString(int length) {
         String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
         String CHAR_UPPER = CHAR_LOWER.toUpperCase();
@@ -208,10 +209,15 @@ public class Add_Admin_Activity extends AppCompatActivity {
 
             sb.append(rndChar);
         }
-
         return sb.toString();
     }
 
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
 
 }

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Final_Proyect</string>
+    <string name="app_name">Safe Medic</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_perfil">APPMEDICAS</string>
+    <string name="title_activity_perfil">SafeMedic</string>
     <string name="map_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDwMS5JVbC7RksTaqD5TFNDSmTyMNrNK7U</string>
     <string name="hello_world">Hello Square World!</string>
 
@@ -48,6 +48,21 @@
         <item>Débil</item>
         <item>Normal</item>
         <item>Fuerte</item>
+    </string-array>
+
+    <string-array name="especialidades">
+        <item>Medicina general</item>
+        <item>Uróloga</item>
+        <item>Matrona</item>
+        <item>Pediatra</item>
+        <item>Entrenadora Personal</item>
+        <item>Técnica en dietética</item>
+        <item>Ginecóloga</item>
+        <item>Cardiología</item>
+        <item>Traumatología</item>
+        <item>Oftalmología</item>
+        <item>Psicología</item>
+        <item>Psiquiatra</item>
     </string-array>
 
 

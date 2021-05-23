@@ -199,6 +199,13 @@ public class Cambiar_Contrasena_Activity extends AppCompatActivity {
         dialog.show();
     }
 
+    //Botón atrás
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
 
 

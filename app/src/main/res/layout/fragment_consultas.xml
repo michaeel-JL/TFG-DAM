@@ -7,6 +7,11 @@
     tools:context=".Fragments.Consultas_Fragment"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar_consultas_f"
+        layout="@layout/toolbar">
+    </include>
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_users"
         android:layout_width="match_parent"
