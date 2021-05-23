@@ -11,11 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RatingBar;
 
-import com.example.final_proyect.Adapters.Alergias_Adapter;
 import com.example.final_proyect.Adapters.Enfermedades_Adapter;
-import com.example.final_proyect.Models.Alergia;
 import com.example.final_proyect.Models.Enfermedad;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
@@ -140,14 +137,14 @@ public class Enfermedades_Activity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.ic_add_noticia).setVisible(true);
+        menu.findItem(R.id.ic_add).setVisible(true);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.ic_add_noticia:
+            case R.id.ic_add:
                 Intent intent = new Intent(this, Add_Enfermedad_Activity.class);
                 intent.putExtra("editar", "no");
                 startActivity(intent);

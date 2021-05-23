@@ -55,13 +55,14 @@ public class Usuarios_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().setTitle("Usuarios");
-
         View view = inflater.inflate(R.layout.fragment_usuarios_, container, false);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar_notificas_f);
+        Toolbar toolbar = view.findViewById(R.id.toolbar_usuarios_f);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.toolbar_noticias);
+        toolbar.setTitle(R.string.toolbar_usuarios);
+
+
+        setHasOptionsMenu(true);
 
 
         //Instanciamos Firebase
@@ -162,13 +163,13 @@ public class Usuarios_Fragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.ic_add_user).setVisible(true);
+        menu.findItem(R.id.ic_add).setVisible(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.ic_add_user:
+            case R.id.ic_add:
                 Intent intent = new Intent(getActivity(), Add_Dcotor_Activity.class);
                 startActivity(intent);
                 return true;

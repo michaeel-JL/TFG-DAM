@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,17 +11,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.final_proyect.Adapters.Alergias_Adapter;
-import com.example.final_proyect.Adapters.User_List_Adapter;
 import com.example.final_proyect.Models.Alergia;
-import com.example.final_proyect.Models.Chat;
 import com.example.final_proyect.Models.Usuario;
 import com.example.final_proyect.R;
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -152,7 +146,7 @@ public class Alergias_Activity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String rol = snapshot.getValue(Usuario.class).getRol();
                 if (rol.equals("usuario")){
-                    menu.findItem(R.id.ic_add_noticia).setVisible(true);
+                    menu.findItem(R.id.ic_add).setVisible(true);
                 }
             }
             @Override
@@ -165,7 +159,7 @@ public class Alergias_Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.ic_add_noticia:
+            case R.id.ic_add:
                 Intent intent = new Intent(this, Add_Alergia_Activity.class);
                 intent.putExtra("editar", "no");
                 startActivity(intent);

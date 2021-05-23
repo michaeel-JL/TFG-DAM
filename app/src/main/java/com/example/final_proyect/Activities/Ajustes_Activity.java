@@ -48,6 +48,7 @@ public class Ajustes_Activity extends AppCompatActivity {
     private Uri uri;
     private CircleImageView imageProfile;
     private StorageReference mStorage;
+    private int edad_;
 
 
     @Override
@@ -176,6 +177,12 @@ public class Ajustes_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                try {
+                    edad_= Integer.parseInt(editEdad.getText().toString());
+
+                } catch(NumberFormatException nfe) {
+                    Toast.makeText(getApplication(), "EDAD INCORRECTA", Toast.LENGTH_SHORT).show();
+                }
 
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String uid = user.getUid();
@@ -186,7 +193,11 @@ public class Ajustes_Activity extends AppCompatActivity {
 
                 DatabaseReference usersRef = ref.child("Usuarios").child(uid);
 
-                usersRef.child("edad").setValue(editEdad.getText().toString());
+                if(edad_>0 && edad_<100){
+                    usersRef.child("edad").setValue(editEdad.getText().toString());
+                }else{
+                    Toast.makeText(getApplication(), "EDAD INCORRECTA", Toast.LENGTH_SHORT).show();
+                }
                 usersRef.child("apellidos").setValue(editTextApellidos.getText().toString());
                 usersRef.child("nombre").setValue(editTextNombre.getText().toString());
                 usersRef.child("sexo").setValue(sexo);
@@ -223,7 +234,7 @@ public class Ajustes_Activity extends AppCompatActivity {
                     });
                 }
 
-
+                Toast.makeText(getApplication(), "PERFIL ACTUALIZADO", Toast.LENGTH_SHORT).show();
                 onBackPressed();
 
             }

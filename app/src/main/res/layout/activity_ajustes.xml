@@ -134,7 +134,7 @@
                     android:layout_width="300dp"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="Cambiar contraseÃ±a" />
+                    android:text="Cambiar Password" />
 
                 <Button
                     android:id="@+id/button_change_email"

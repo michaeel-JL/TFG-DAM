@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    tools:context=".Fragments.Usuarios_Fragment"
+    android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbar_notificas_f"
+        android:id="@+id/toolbar_usuarios_f"
         layout="@layout/toolbar">
     </include>
 
@@ -19,22 +19,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
+        <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/recyclerAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".Splash.Activities.MainActivity">
 
-
-    <ListView
-        android:id="@+id/listViewBoard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-    </ListView>
-
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recyclerAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Splash.Activities.MainActivity">
-    </androidx.recyclerview.widget.RecyclerView>
-
+        </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
+
 </LinearLayout>

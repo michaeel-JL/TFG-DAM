@@ -180,7 +180,7 @@
                             android:layout_height="30dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-light"
-                            android:text="ContraseÃ±a Generada"
+                            android:text="Generated Password "
                             android:textAllCaps="true"
                             android:textColor="@color/gris"
                             android:textSize="15sp"
